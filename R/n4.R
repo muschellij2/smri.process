@@ -40,6 +40,7 @@ n4_raw = function(
         file = infile,
         correction = "N4",
         outfile = outfile,
+        verbose = verbose > 1,
         retimg = FALSE)
     }, x, fnames, SIMPLIFY = FALSE)
   }

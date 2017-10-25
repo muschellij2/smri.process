@@ -1,3 +1,25 @@
+
+#' SMRI Pipeline
+#'
+#' @param x List of images
+#' @param gold_standard Gold Standard image/filename, if applicable
+#' @param gs_space space the Gold Standard is located
+#' @param outdir Output directory
+#' @param verbose print diagnostic messages
+#' @param interpolator interpolation passed to \code{\link{reg_to_t1}}
+#' @param brain_mask Brain Mask in T1 Space
+#' @param gs_interpolator Gold Standard interpolation
+#' passed to \code{\link{reg_to_t1}}
+#' @param num_templates Number of templates to use for MALF
+#' @param malf_transform type of registration transformation for MALF
+#' @param ... Additional arguments to MALF
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' @importFrom extrantsr registration malf
+#' @importFrom neurobase readnii check_nifti
 smri_pipeline = function(
   x,
   gold_standard = NULL,
@@ -8,7 +30,8 @@ smri_pipeline = function(
   brain_mask = NULL,
   gs_interpolator = "NearestNeighbor",
   num_templates = 15,
-  malf_transform = "SynAggro"
+  malf_transform = "SynAggro",
+  ...
 ) {
 
 
@@ -22,8 +45,8 @@ smri_pipeline = function(
   reg = reg_to_t1(
     x = proc$images,
     gs_space = gs_space,
-    interpolator = "Linear",
-    gs_interpolator = "NearestNeighbor",
+    interpolator = interpolator,
+    gs_interpolator = gs_interpolator,
     outdir = outdir,
     verbose = verbose)
 

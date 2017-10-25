@@ -13,7 +13,8 @@ Imports:
     neurobase (>= 1.20.6),
     fslr (>= 2.13),
     extrantsr (>= 2.5),
-    plyr
+    plyr,
+    malf.templates
 LazyData: TRUE
 RoxygenNote: 6.0.1.9000
 Suggests: 
@@ -22,3 +23,4 @@ Remotes: muschellij2/extrantsr,
     muschellij2/neurobase,
     muschellij2/fslr
 biocViews: 
+Encoding: UTF-8

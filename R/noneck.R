@@ -43,6 +43,7 @@ noneck = function(
       double_remove_neck,
       template.file = mni.template.file,
       template.mask = mni.template.mask,
+      verbose = verbose > 1,
       .progress = ifelse(verbose, "text", "none"))
     mapply(function(img, fname){
       writenii(img, filename = fname)

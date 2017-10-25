@@ -4,13 +4,13 @@
 \alias{rpi_raw}
 \title{RPI Orientation of Images}
 \usage{
-rpi_raw(x, gold_standard = NULL, gs_space = NULL, verbose = TRUE)
+rpi_raw(x, gold_standard = NULL, verbose = TRUE)
 }
 \arguments{
 \item{x}{List of images or character vector.  Must be named with
 the imaging modalities. T1 and FLAIR must be included}
 
-\item{gold_standard}{Gold Standard image/filenameLesion}
+\item{gold_standard}{Gold Standard image/filename, if applicable}
 
 \item{verbose}{print diagnostic messages}
 }

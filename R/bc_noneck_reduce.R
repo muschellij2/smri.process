@@ -2,7 +2,7 @@
 #'
 #' @param x List of images or character vector.  Must be named with
 #' the imaging modalities. T1 and FLAIR must be included
-#' @param gold_standard Gold Standard Lesion
+#' @param gold_standard Gold Standard image/filename, if applicable
 #' @param gs_space space the Gold Standard is located
 #' @param outdir Output directory
 #' @param verbose print diagnostic messages
@@ -20,7 +20,6 @@ bc_noneck_reduce = function(
   rpi_done = rpi_raw(
     x = x,
     gold_standard = gold_standard,
-    gs_space = gs_space,
     verbose = verbose)
 
   gold_standard = rpi_done$GOLD_STANDARD

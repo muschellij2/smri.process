@@ -11,7 +11,7 @@ bc_noneck_reduce(x, gold_standard = NULL, gs_space = NULL,
 \item{x}{List of images or character vector.  Must be named with
 the imaging modalities. T1 and FLAIR must be included}
 
-\item{gold_standard}{Gold Standard Lesion}
+\item{gold_standard}{Gold Standard image/filename, if applicable}
 
 \item{gs_space}{space the Gold Standard is located}
 

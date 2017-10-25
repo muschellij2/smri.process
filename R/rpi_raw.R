@@ -2,7 +2,7 @@
 #'
 #' @param x List of images or character vector.  Must be named with
 #' the imaging modalities. T1 and FLAIR must be included
-#' @param gold_standard Gold Standard image/filenameLesion
+#' @param gold_standard Gold Standard image/filename, if applicable
 #' @param verbose print diagnostic messages
 #'
 #' @return List of reoriented output filenames
@@ -12,7 +12,6 @@
 rpi_raw = function(
   x,
   gold_standard = NULL,
-  gs_space = NULL,
   verbose = TRUE) {
 
   nii_names = names(x)
@@ -29,10 +28,6 @@ rpi_raw = function(
   names(x) = nii_names
 
   if (!is.null(gold_standard)) {
-    if (is.null(gs_space)) {
-      stop("gs_space must be specified if gold_standard specified")
-    }
-    gs_space = match.arg(gs_space, choices = names(x))
     gold_standard = checkimg(gold_standard)
   }
 
@@ -50,6 +45,9 @@ rpi_raw = function(
   x = lapply(
     x,
     rpi_orient_file,
-    verbose = verbose)
+    verbose = verbose > 1)
+  x = lapply(x, function(r) {
+    r$img
+  })
   return(x)
 }
