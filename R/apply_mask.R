@@ -1,28 +1,33 @@
-#' Winsorize Image
+#' Apply Brain mask
 #'
-#' @param x List of processed filenames
+#' @param x List of images or character vector.  Must be named with
+#' the imaging modalities.
+#' @param mask Brain Mask image/filename
 #' @param outdir Output directory
 #' @param verbose print diagnostic messages
-#' @param probs passed to \code{\link{robust_window}} for Winsorization
 #' @param suffix Name to append to the image filename
 #'
-#' @return List of filenames
+#' @return List of masked brains
 #' @export
-#' @importFrom neurobase robust_window
-winsor = function(
+#' @importFrom neurobase mask_img check_nifti
+apply_mask = function(
   x,
-  verbose = TRUE,
+  mask,
   outdir = tempdir(),
-  probs = c(0, 0.999),
-  suffix = "_winsor") {
+  verbose = TRUE,
+  suffix = "_brain") {
 
   nii_names = names(x)
+  nii_names = toupper(nii_names)
   if (length(nii_names) != length(x)) {
     stop("x must be a named vector or named list")
   }
 
+  mask = check_nifti(mask)
+
+
   if (verbose > 0) {
-    message("Winsorizing Image")
+    message("Applying Mask")
   }
   ####################################################
   # Dropping empty dimensions
@@ -35,12 +40,15 @@ winsor = function(
   names(fnames) = nii_names
 
   if (!all_exists(fnames)) {
-    x = check_nifti(x)
-    x = lapply(x, robust_window, probs = probs)
+    rm_neck = llply(
+      x,
+      mask_img,
+      mask = mask,
+      .progress = ifelse(verbose, "text", "none"))
 
     mapply(function(img, fname){
       writenii(img, filename = fname)
-    }, x, fnames)
+    }, rm_neck, fnames)
   }
   rm_neck = lapply(
     fnames,

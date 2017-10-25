@@ -7,7 +7,7 @@
 smri_pipeline(x, gold_standard = NULL, gs_space = NULL, probs = c(0,
   0.999), interpolator = "Linear", brain_mask = NULL,
   gs_interpolator = "NearestNeighbor", num_templates = 15,
-  malf_transform = "SynAggro", outdir = tempdir(), verbose = TRUE, ...)
+  malf_transform = "SyNAggro", outdir = tempdir(), verbose = TRUE, ...)
 }
 \arguments{
 \item{x}{List of images}

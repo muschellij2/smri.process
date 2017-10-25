@@ -27,20 +27,30 @@ bc_noneck_reduce = function(
   gold_standard = rpi_done$GOLD_STANDARD
   rpi_done$GOLD_STANDARD = NULL
 
+  suffix = "_N4"
   n4 = n4_raw(
     x = rpi_done,
     verbose = verbose,
-    outdir = outdir)
+    mask = NULL,
+    outdir = outdir,
+    suffix = suffix
+    )
 
+  suffix = paste0(suffix, "_noneck")
   noneck = noneck(
     x = n4,
     verbose = verbose,
-    outdir = outdir)
+    outdir = outdir,
+    suffix = suffix
+  )
 
+  suffix = paste0(suffix, "_reduced")
   rm_neck = reduce_img(
     x = noneck,
     verbose = verbose,
-    outdir = outdir)
+    outdir = outdir,
+    suffix = suffix
+  )
 
 
   #################################
@@ -49,7 +59,8 @@ bc_noneck_reduce = function(
   if (!is.null(gold_standard)) {
     les_fname = file.path(
       outdir,
-      "GOLD_STANDARD_reduced.nii.gz")
+      paste0("GOLD_STANDARD", suffix, ".nii.gz")
+    )
     if (!all_exists(les_fname)) {
       nn = noneck[[gs_space]]
       dd = mask_reduce(nn)
@@ -64,6 +75,7 @@ bc_noneck_reduce = function(
     les_fname = NULL
   }
 
+  suffix = paste0(suffix, "_winsor")
   win_imgs = winsor(
     x = rm_neck,
     verbose = verbose,
@@ -75,7 +87,8 @@ bc_noneck_reduce = function(
   L = list(
     images = win_imgs,
     gs_space = gs_space,
-    outdir = outdir
+    outdir = outdir,
+    suffix = suffix
   )
   return(L)
 }

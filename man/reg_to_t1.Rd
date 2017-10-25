@@ -5,7 +5,8 @@
 \title{Register Images to T1 image}
 \usage{
 reg_to_t1(x, gs_space = NULL, interpolator = "Linear",
-  gs_interpolator = "NearestNeighbor", outdir = tempdir(), verbose = TRUE)
+  gs_interpolator = "NearestNeighbor", outdir = tempdir(), verbose = TRUE,
+  suffix = "_reg_to_T1")
 }
 \arguments{
 \item{x}{List of images or character vector.  Must be named with
@@ -21,6 +22,8 @@ for gold standard}
 \item{outdir}{Output directory}
 
 \item{verbose}{print diagnostic messages}
+
+\item{suffix}{Name to append to the image filename}
 }
 \value{
 List of Images

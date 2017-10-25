@@ -3,7 +3,9 @@
 #'
 #' @param x List of processed filenames
 #' @param outdir Output directory
+#' @param mask Mask for Bias-field correction
 #' @param verbose print diagnostic messages
+#' @param suffix Name to append to the image filename
 #'
 #' @return List of filenames
 #' @export
@@ -12,7 +14,9 @@
 n4_raw = function(
   x,
   verbose = TRUE,
-  outdir = tempdir()) {
+  mask = NULL,
+  outdir = tempdir(),
+  suffix = "_N4") {
 
   nii_names = names(x)
   if (length(nii_names) != length(x)) {
@@ -28,7 +32,8 @@ n4_raw = function(
   fnames = file.path(
     outdir,
     paste0(nii_names,
-           "_N4.nii.gz"))
+           suffix,
+           ".nii.gz"))
   names(fnames) = nii_names
 
 
@@ -45,6 +50,7 @@ n4_raw = function(
         correction = "N4",
         outfile = outfile,
         verbose = verbose > 1,
+        mask = mask,
         retimg = FALSE)
     }, x, fnames, SIMPLIFY = FALSE)
   }

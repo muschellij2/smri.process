@@ -5,7 +5,7 @@
 \alias{mask_reduce}
 \title{Reduce Image, Dropping Image Dimensions}
 \usage{
-reduce_img(x, verbose = TRUE, outdir = tempdir())
+reduce_img(x, verbose = TRUE, outdir = tempdir(), suffix = "_reduced")
 
 mask_reduce(x)
 }
@@ -15,6 +15,8 @@ mask_reduce(x)
 \item{verbose}{print diagnostic messages}
 
 \item{outdir}{Output directory}
+
+\item{suffix}{Name to append to the image filename}
 }
 \value{
 List of filenames

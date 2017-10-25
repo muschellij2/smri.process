@@ -3,6 +3,7 @@
 #' @param x List of processed filenames
 #' @param outdir Output directory
 #' @param verbose print diagnostic messages
+#' @param suffix Name to append to the image filename
 #'
 #' @return List of filenames
 #' @export
@@ -12,7 +13,8 @@
 noneck = function(
   x,
   verbose = TRUE,
-  outdir = tempdir()) {
+  outdir = tempdir(),
+  suffix = "_noneck") {
 
   nii_names = names(x)
   if (length(nii_names) != length(x)) {
@@ -28,7 +30,8 @@ noneck = function(
   fnames = file.path(
     outdir,
     paste0(nii_names,
-           "_noneck.nii.gz"))
+           suffix,
+           ".nii.gz"))
   names(fnames) = nii_names
 
   if (!all_exists(fnames)) {

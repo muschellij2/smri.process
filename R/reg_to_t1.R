@@ -8,6 +8,7 @@
 #' @param verbose print diagnostic messages
 #' @param gs_interpolator interpolation done in \code{\link{registration}}
 #' for gold standard
+#' @param suffix Name to append to the image filename
 #'
 #' @return List of Images
 #' @export
@@ -19,7 +20,8 @@ reg_to_t1 = function(
   interpolator = "Linear",
   gs_interpolator = "NearestNeighbor",
   outdir = tempdir(),
-  verbose = TRUE
+  verbose = TRUE,
+  suffix = "_reg_to_T1"
 ) {
 
   nii_names = names(x)
@@ -51,12 +53,14 @@ reg_to_t1 = function(
   fnames = file.path(
     outdir,
     paste0(nii_names,
-           "_registered_to_T1.nii.gz"))
+           suffix,
+           ".nii.gz"))
   names(fnames) = nii_names
 
   les_fname = file.path(
     outdir,
-    "GOLD_STANDARD_registered_to_T1.nii.gz")
+    paste0("GOLD_STANDARD", suffix, ".nii.gz")
+  )
   if (!is.null(gold_standard)) {
     all_fnames = c(fnames, GOLD_STANDARD = les_fname)
   } else {

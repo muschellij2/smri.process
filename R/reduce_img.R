@@ -4,6 +4,7 @@
 #' @param x List of processed filenames
 #' @param outdir Output directory
 #' @param verbose print diagnostic messages
+#' @param suffix Name to append to the image filename
 #'
 #' @return List of filenames
 #' @export
@@ -11,7 +12,8 @@
 reduce_img = function(
   x,
   verbose = TRUE,
-  outdir = tempdir()) {
+  outdir = tempdir(),
+  suffix = "_reduced") {
 
   nii_names = names(x)
   if (length(nii_names) != length(x)) {
@@ -27,7 +29,8 @@ reduce_img = function(
   fnames = file.path(
     outdir,
     paste0(nii_names,
-           "_reduced.nii.gz"))
+           suffix,
+           ".nii.gz"))
   names(fnames) = nii_names
 
   if (!all_exists(fnames)) {

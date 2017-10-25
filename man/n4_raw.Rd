@@ -4,14 +4,19 @@
 \alias{n4_raw}
 \title{N4 Bias Field Correction}
 \usage{
-n4_raw(x, verbose = TRUE, outdir = tempdir())
+n4_raw(x, verbose = TRUE, mask = NULL, outdir = tempdir(),
+  suffix = "_N4")
 }
 \arguments{
 \item{x}{List of processed filenames}
 
 \item{verbose}{print diagnostic messages}
 
+\item{mask}{Mask for Bias-field correction}
+
 \item{outdir}{Output directory}
+
+\item{suffix}{Name to append to the image filename}
 }
 \value{
 List of filenames

@@ -30,7 +30,7 @@ smri_pipeline = function(
   brain_mask = NULL,
   gs_interpolator = "NearestNeighbor",
   num_templates = 15,
-  malf_transform = "SynAggro",
+  malf_transform = "SyNAggro",
   outdir = tempdir(),
   verbose = TRUE,
   ...
@@ -45,14 +45,16 @@ smri_pipeline = function(
     verbose = verbose,
     probs = probs)
 
-
+  suffix = proc$suffix
+  suffix = paste0(suffix, "_reg_to_T1")
   reg = reg_to_t1(
     x = proc$images,
     gs_space = gs_space,
     interpolator = interpolator,
     gs_interpolator = gs_interpolator,
     outdir = outdir,
-    verbose = verbose)
+    verbose = verbose,
+    suffix = suffix)
 
 
   if (!is.null(brain_mask)) {
@@ -63,28 +65,43 @@ smri_pipeline = function(
       "Brain_Mask.nii.gz")
     if (file.exists(brain_mask_file)) {
       warning("Using brain mask file in outdir")
-      brain_mask = readnii(brain_mask)
+      brain_mask = readnii(brain_mask_file)
     } else {
       ind = seq(num_templates)
       templates = malf.templates::malf_images()
       images = templates$images[ind]
       masks = templates$masks[ind]
 
+      if (verbose > 0) {
+        msg = paste0(
+          "Running MALF for brain mask with ", num_templates,
+          " templates - this may take some time")
+        message(msg)
+      }
       malf_result = malf(
         infile = reg$T1,
         template.images = images,
         template.structs = masks,
         interpolator = "genericLabel",
         typeofTransform = malf_transform,
-        verbose = verbose,
+        verbose = verbose > 1,
         func = "mode",
-        retimg = FALSE,
-        ...
+        retimg = TRUE,
+        outfile = brain_mask_file
+        #, ...
       )
-      brain_mask = malf_result$outimg
+      brain_mask = malf_result
     }
-
   }
+
+  suffix = paste0(suffix, "_brain")
+  brains = apply_mask(
+    x = reg,
+    mask = brain_mask,
+    outdir = outdir,
+    verbose = verbose,
+    suffix = suffix)
+
 
 
 }

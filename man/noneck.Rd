@@ -4,7 +4,7 @@
 \alias{noneck}
 \title{Remove Neck (Doubly)}
 \usage{
-noneck(x, verbose = TRUE, outdir = tempdir())
+noneck(x, verbose = TRUE, outdir = tempdir(), suffix = "_noneck")
 }
 \arguments{
 \item{x}{List of processed filenames}
@@ -12,6 +12,8 @@ noneck(x, verbose = TRUE, outdir = tempdir())
 \item{verbose}{print diagnostic messages}
 
 \item{outdir}{Output directory}
+
+\item{suffix}{Name to append to the image filename}
 }
 \value{
 List of filenames

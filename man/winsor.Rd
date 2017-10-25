@@ -4,7 +4,8 @@
 \alias{winsor}
 \title{Winsorize Image}
 \usage{
-winsor(x, verbose = TRUE, outdir = tempdir(), probs = c(0, 0.999))
+winsor(x, verbose = TRUE, outdir = tempdir(), probs = c(0, 0.999),
+  suffix = "_winsor")
 }
 \arguments{
 \item{x}{List of processed filenames}
@@ -14,6 +15,8 @@ winsor(x, verbose = TRUE, outdir = tempdir(), probs = c(0, 0.999))
 \item{outdir}{Output directory}
 
 \item{probs}{passed to \code{\link{robust_window}} for Winsorization}
+
+\item{suffix}{Name to append to the image filename}
 }
 \value{
 List of filenames

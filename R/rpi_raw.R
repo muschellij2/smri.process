@@ -1,4 +1,4 @@
-#' @title RPI Orientation of Images
+#' RPI Orientation of Images
 #'
 #' @param x List of images or character vector.  Must be named with
 #' the imaging modalities. T1 and FLAIR must be included
