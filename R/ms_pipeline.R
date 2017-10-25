@@ -1,5 +1,5 @@
 
-#' SMRI Pipeline
+#' SMRI Pipeline for Preprocessing
 #'
 #' @param x List of images
 #' @param gold_standard Gold Standard image/filename, if applicable
@@ -15,13 +15,12 @@
 #' @param malf_transform type of registration transformation for MALF
 #' @param ... Additional arguments to MALF
 #'
-#' @return
+#' @return List of the images, brain mask, suffix, and output directory
 #' @export
 #'
-#' @examples
 #' @importFrom extrantsr registration malf
 #' @importFrom neurobase readnii check_nifti
-smri_pipeline = function(
+smri_preprocess = function(
   x,
   gold_standard = NULL,
   gs_space = NULL,
@@ -56,6 +55,8 @@ smri_pipeline = function(
     verbose = verbose,
     suffix = suffix)
 
+  gold_standard = reg$GOLD_STANDARD
+  reg$GOLD_STANDARD = NULL
 
   if (!is.null(brain_mask)) {
     brain_mask = check_nifti(brain_mask)
@@ -102,6 +103,22 @@ smri_pipeline = function(
     verbose = verbose,
     suffix = suffix)
 
+  suffix = paste0(suffix, "_N4")
+  n4_brains = n4_raw(
+    x = brains,
+    verbose = verbose,
+    mask = brain_mask,
+    outdir = outdir,
+    suffix = suffix)
 
+  n4_brains$GOLD_STANDARD = gold_standard
 
+  L = list(
+    images = n4_brains,
+    brain_mask = brain_mask,
+    suffix = suffix,
+    outdir = outdir
+  )
+  return(L)
 }
+
