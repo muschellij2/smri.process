@@ -6,7 +6,7 @@
 \usage{
 reg_to_t1(x, gs_space = NULL, interpolator = "Linear",
   gs_interpolator = "NearestNeighbor", outdir = tempdir(), verbose = TRUE,
-  suffix = "_reg_to_T1")
+  suffix = "_regtoT1")
 }
 \arguments{
 \item{x}{List of images or character vector.  Must be named with

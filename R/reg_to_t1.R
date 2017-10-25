@@ -21,7 +21,7 @@ reg_to_t1 = function(
   gs_interpolator = "NearestNeighbor",
   outdir = tempdir(),
   verbose = TRUE,
-  suffix = "_reg_to_T1"
+  suffix = "_regtoT1"
 ) {
 
   nii_names = names(x)

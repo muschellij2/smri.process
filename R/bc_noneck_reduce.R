@@ -80,7 +80,8 @@ bc_noneck_reduce = function(
     x = rm_neck,
     verbose = verbose,
     outdir = outdir,
-    probs = probs)
+    probs = probs,
+    suffix = suffix)
 
   win_imgs$GOLD_STANDARD = les_fname
 
