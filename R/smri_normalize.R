@@ -42,6 +42,7 @@ smri_normalize = function(
   normalization = c("z", "trimmed_z", "quantile", "minmax"),
   outdir = tempdir(),
   verbose = TRUE,
+  remask = TRUE,
   ...
 ) {
 
@@ -56,15 +57,15 @@ smri_normalize = function(
     args$centrality = "trimmed_mean"
     args$variability = "trimmed_sd"
     norm = lapply(x, function(r) {
-      args$img = x
+      args$img = r
       do.call("zscore_img", args = args)
     })
   }
 
-  if (normalization %in% c("quantile")) {
+  if (normalization %in% "quantile") {
     args$mask = mask
     norm = lapply(x, function(r) {
-      args$img = x
+      args$img = r
       do.call("quantile_img", args = args)
     })
   }
@@ -72,9 +73,15 @@ smri_normalize = function(
   if (normalization %in% c("minmax")) {
     args$mask = mask
     norm = lapply(x, function(r) {
-      args$img = x
+      args$img = r
       do.call("minmax", args = args)
     })
+  }
+
+  if (remask) {
+    if (!is.null(mask)) {
+      norm = lapply(norm, mask_img, mask = mask)
+    }
   }
 
 

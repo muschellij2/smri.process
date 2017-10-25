@@ -5,7 +5,8 @@
 \title{SMRI Normalize}
 \usage{
 smri_normalize(x, mask = NULL, normalization = c("z", "trimmed_z",
-  "quantile", "minmax"), outdir = tempdir(), verbose = TRUE, ...)
+  "quantile", "minmax"), outdir = tempdir(), verbose = TRUE,
+  remask = TRUE, ...)
 }
 \arguments{
 \item{x}{List of images}

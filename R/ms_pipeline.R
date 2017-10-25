@@ -111,10 +111,9 @@ smri_preprocess = function(
     outdir = outdir,
     suffix = suffix)
 
-  n4_brains$GOLD_STANDARD = gold_standard
-
   L = list(
     images = n4_brains,
+    GOLD_STANDARD = gold_standard,
     brain_mask = brain_mask,
     suffix = suffix,
     outdir = outdir
