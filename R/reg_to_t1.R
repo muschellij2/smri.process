@@ -78,7 +78,10 @@ reg_to_t1 = function(
     fnames = fnames[ !(names(fnames) %in% "T1")]
 
     # run registration
-    reg = mapply(function(run_img, fname) {
+    reg = mapply(function(run_img, run_name, fname) {
+      if (verbose > 0) {
+        message(paste0("Registering ", run_name, " to T1"))
+      }
       outprefix = nii.stub(fname)
       res = registration(
         filename = run_img,
@@ -88,8 +91,9 @@ reg_to_t1 = function(
         outfile = fname,
         outprefix = outprefix,
         typeofTransform = "Rigid",
-        interpolator = interpolator)
-    }, x, fnames, SIMPLIFY = FALSE)
+        interpolator = interpolator,
+        verbose = verbose > 1)
+    }, x, names(x), fnames, SIMPLIFY = FALSE)
 
     # gold standard applying
     if (!is.null(gold_standard)) {

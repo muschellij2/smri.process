@@ -15,6 +15,10 @@ n4_raw = function(
   outdir = tempdir()) {
 
   nii_names = names(x)
+  if (length(nii_names) != length(x)) {
+    stop("x must be a named vector or named list")
+  }
+
   if (verbose > 0) {
     message("N4 Bias Field Correction")
   }

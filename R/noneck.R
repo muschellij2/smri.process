@@ -15,6 +15,9 @@ noneck = function(
   outdir = tempdir()) {
 
   nii_names = names(x)
+  if (length(nii_names) != length(x)) {
+    stop("x must be a named vector or named list")
+  }
 
   if (verbose > 0) {
     message("Removing necks")
@@ -40,10 +43,15 @@ noneck = function(
 
     noneck = llply(
       x,
-      double_remove_neck,
-      template.file = mni.template.file,
-      template.mask = mni.template.mask,
-      verbose = verbose > 1,
+      function(r) {
+        r = check_nifti(r) # new version will make sure no extensions
+        double_remove_neck(
+          r,
+          template.file = mni.template.file,
+          template.mask = mni.template.mask,
+          verbose = verbose > 1
+        )
+      },
       .progress = ifelse(verbose, "text", "none"))
     mapply(function(img, fname){
       writenii(img, filename = fname)

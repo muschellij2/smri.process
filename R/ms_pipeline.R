@@ -4,6 +4,7 @@
 #' @param x List of images
 #' @param gold_standard Gold Standard image/filename, if applicable
 #' @param gs_space space the Gold Standard is located
+#' @param probs passed to \code{\link{winsor}} for Winsorization
 #' @param outdir Output directory
 #' @param verbose print diagnostic messages
 #' @param interpolator interpolation passed to \code{\link{reg_to_t1}}
@@ -24,13 +25,14 @@ smri_pipeline = function(
   x,
   gold_standard = NULL,
   gs_space = NULL,
-  outdir = tempdir(),
-  verbose = TRUE,
+  probs = c(0, 0.999),
   interpolator = "Linear",
   brain_mask = NULL,
   gs_interpolator = "NearestNeighbor",
   num_templates = 15,
   malf_transform = "SynAggro",
+  outdir = tempdir(),
+  verbose = TRUE,
   ...
 ) {
 
@@ -40,7 +42,9 @@ smri_pipeline = function(
     gold_standard = gold_standard,
     gs_space = gs_space,
     outdir = outdir,
-    verbose = verbose)
+    verbose = verbose,
+    probs = probs)
+
 
   reg = reg_to_t1(
     x = proc$images,

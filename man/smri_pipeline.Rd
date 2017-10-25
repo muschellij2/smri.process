@@ -4,10 +4,10 @@
 \alias{smri_pipeline}
 \title{SMRI Pipeline}
 \usage{
-smri_pipeline(x, gold_standard = NULL, gs_space = NULL,
-  outdir = tempdir(), verbose = TRUE, interpolator = "Linear",
-  brain_mask = NULL, gs_interpolator = "NearestNeighbor",
-  num_templates = 15, malf_transform = "SynAggro", ...)
+smri_pipeline(x, gold_standard = NULL, gs_space = NULL, probs = c(0,
+  0.999), interpolator = "Linear", brain_mask = NULL,
+  gs_interpolator = "NearestNeighbor", num_templates = 15,
+  malf_transform = "SynAggro", outdir = tempdir(), verbose = TRUE, ...)
 }
 \arguments{
 \item{x}{List of images}
@@ -16,9 +16,7 @@ smri_pipeline(x, gold_standard = NULL, gs_space = NULL,
 
 \item{gs_space}{space the Gold Standard is located}
 
-\item{outdir}{Output directory}
-
-\item{verbose}{print diagnostic messages}
+\item{probs}{passed to \code{\link{winsor}} for Winsorization}
 
 \item{interpolator}{interpolation passed to \code{\link{reg_to_t1}}}
 
@@ -30,6 +28,10 @@ passed to \code{\link{reg_to_t1}}}
 \item{num_templates}{Number of templates to use for MALF}
 
 \item{malf_transform}{type of registration transformation for MALF}
+
+\item{outdir}{Output directory}
+
+\item{verbose}{print diagnostic messages}
 
 \item{...}{Additional arguments to MALF}
 }

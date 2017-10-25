@@ -4,16 +4,18 @@
 #' the imaging modalities. T1 and FLAIR must be included
 #' @param gold_standard Gold Standard image/filename, if applicable
 #' @param gs_space space the Gold Standard is located
+#' @param probs passed to \code{\link{winsor}} for Winsorization
 #' @param outdir Output directory
 #' @param verbose print diagnostic messages
 #' @return List of output filenames
 #' @export
 #' @importFrom neurobase applyEmptyImageDimensions
-#' @importFrom neurobase writenii
+#' @importFrom neurobase writenii robust_window
 bc_noneck_reduce = function(
   x,
   gold_standard = NULL,
   gs_space = NULL,
+  probs = c(0, 0.999),
   outdir = tempdir(),
   verbose = TRUE){
 
@@ -40,7 +42,6 @@ bc_noneck_reduce = function(
     verbose = verbose,
     outdir = outdir)
 
-  nn = noneck[[gs_space]]
 
   #################################
   # Removing dims if gold standard exists
@@ -50,6 +51,7 @@ bc_noneck_reduce = function(
       outdir,
       "GOLD_STANDARD_reduced.nii.gz")
     if (!all_exists(les_fname)) {
+      nn = noneck[[gs_space]]
       dd = mask_reduce(nn)
       les_rm_neck = applyEmptyImageDimensions(
         img = gold_standard,
@@ -62,10 +64,16 @@ bc_noneck_reduce = function(
     les_fname = NULL
   }
 
-  rm_neck$GOLD_STANDARD = les_fname
+  win_imgs = winsor(
+    x = rm_neck,
+    verbose = verbose,
+    outdir = outdir,
+    probs = probs)
+
+  win_imgs$GOLD_STANDARD = les_fname
 
   L = list(
-    images = rm_neck,
+    images = win_imgs,
     gs_space = gs_space,
     outdir = outdir
   )
