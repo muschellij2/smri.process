@@ -1,0 +1,24 @@
+Package: smri.process
+Type: Package
+Title: Processing of Structural Magnetic Resonance IMaging
+Version: 0.1.0
+Author: John Muscheli <muschellij2@gmail.com>
+Maintainer: John Muschelli <muschellij2@gmail.com>
+Description: Preprocesses structural magnetic resonance images ('MRI').
+License: GPL-2
+Depends:
+    R (>= 2.10)
+Imports:
+    methods,
+    neurobase (>= 1.20.6),
+    fslr (>= 2.13),
+    extrantsr (>= 2.5),
+    plyr
+LazyData: TRUE
+RoxygenNote: 6.0.1.9000
+Suggests: 
+    covr
+Remotes: muschellij2/extrantsr,
+    muschellij2/neurobase,
+    muschellij2/fslr
+biocViews: 
