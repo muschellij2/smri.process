@@ -4,7 +4,7 @@
 \alias{minmax}
 \title{Normalize using Min/Max}
 \usage{
-minmax(img, mask = NULL, remask = TRUE)
+minmax(img, mask = NULL, remask = FALSE)
 }
 \arguments{
 \item{img}{Image to normalize}

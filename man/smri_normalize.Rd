@@ -6,16 +6,21 @@
 \usage{
 smri_normalize(x, mask = NULL, normalization = c("z", "trimmed_z",
   "quantile", "minmax"), outdir = tempdir(), verbose = TRUE,
-  remask = TRUE, ...)
+  remask = FALSE, ...)
 }
 \arguments{
 \item{x}{List of images}
 
 \item{mask}{mask to normalize over}
 
+\item{normalization}{Normalization Method}
+
 \item{outdir}{Output directory}
 
 \item{verbose}{print diagnostic messages}
+
+\item{remask}{should mask_img be applied to the output images
+after normalization}
 
 \item{...}{Additional arguments to MALF}
 }

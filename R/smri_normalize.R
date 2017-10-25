@@ -7,7 +7,7 @@
 #' @return Object of same class as img
 #' @export
 #' @importFrom neurobase finite_img mask_vals
-minmax = function(img, mask = NULL, remask = TRUE) {
+minmax = function(img, mask = NULL, remask = FALSE) {
   img = check_nifti(img, allow.array = TRUE)
 
   dimg = dim(img)
@@ -30,6 +30,9 @@ minmax = function(img, mask = NULL, remask = TRUE) {
 #' @param outdir Output directory
 #' @param verbose print diagnostic messages
 #' @param mask mask to normalize over
+#' @param normalization Normalization Method
+#' @param remask should mask_img be applied to the output images
+#' after normalization
 #' @param ... Additional arguments to MALF
 #'
 #' @return List of images
@@ -42,7 +45,7 @@ smri_normalize = function(
   normalization = c("z", "trimmed_z", "quantile", "minmax"),
   outdir = tempdir(),
   verbose = TRUE,
-  remask = TRUE,
+  remask = FALSE,
   ...
 ) {
 
