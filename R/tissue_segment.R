@@ -40,7 +40,7 @@ t1_segment = function(
     "Tissue_Classes.nii.gz")
   tissue_list_fnames = file.path(
     outdir,
-    paste0("Tissue_Class_", 1:3, ".nii.gz")
+    paste0(c("CSF", "GM", "WM"), ".nii.gz")
   )
   label_fname = file.path(
     outdir,
