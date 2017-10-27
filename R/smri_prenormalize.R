@@ -1,5 +1,5 @@
 
-#' SMRI Pipeline for Preprocessing
+#' SMRI Pipeline for Preprocessing Prior to Normalization
 #'
 #' @param x List of images
 #' @param gold_standard Gold Standard image/filename, if applicable
@@ -20,12 +20,12 @@
 #'
 #' @importFrom extrantsr registration malf
 #' @importFrom neurobase readnii check_nifti
-smri_preprocess = function(
+smri_prenormalize = function(
   x,
   gold_standard = NULL,
   gs_space = NULL,
   probs = c(0, 0.999),
-  interpolator = "Linear",
+  interpolator = "lanczosWindowedSinc",
   brain_mask = NULL,
   gs_interpolator = "NearestNeighbor",
   num_templates = 15,
@@ -45,7 +45,7 @@ smri_preprocess = function(
     probs = probs)
 
   suffix = proc$suffix
-  suffix = paste0(suffix, "_reg_to_T1")
+  suffix = paste0(suffix, "_regtoT1")
   reg = reg_to_t1(
     x = proc$images,
     gs_space = gs_space,
@@ -55,8 +55,12 @@ smri_preprocess = function(
     verbose = verbose,
     suffix = suffix)
 
+  reg = reg$images
+  rigid_registrations = reg$registrations
+
   gold_standard = reg$GOLD_STANDARD
   reg$GOLD_STANDARD = NULL
+  gs_suffix = suffix
 
   if (!is.null(brain_mask)) {
     brain_mask = check_nifti(brain_mask)
@@ -65,7 +69,7 @@ smri_preprocess = function(
       outdir,
       "Brain_Mask.nii.gz")
     if (file.exists(brain_mask_file)) {
-      warning("Using brain mask file in outdir")
+      # warning("Using brain mask file in outdir")
       brain_mask = readnii(brain_mask_file)
     } else {
       ind = seq(num_templates)
@@ -113,11 +117,17 @@ smri_preprocess = function(
 
   L = list(
     images = n4_brains,
-    GOLD_STANDARD = gold_standard,
+    intermediate = list(reduced = proc$images,
+                           registered = reg,
+                           masked = brains),
     brain_mask = brain_mask,
     suffix = suffix,
-    outdir = outdir
+    gs_suffix = gs_suffix,
+    outdir = outdir,
+    rigid_registrations = rigid_registrations
   )
+  L$GOLD_STANDARD = gold_standard
+
   return(L)
 }
 

@@ -57,6 +57,11 @@ reg_to_t1 = function(
            ".nii.gz"))
   names(fnames) = nii_names
 
+  registrations = paste0(nii.stub(fnames),
+                         "0GenericAffine.mat")
+  registrations = registrations[
+    !(names(registrations) %in% "T1")]
+
   les_fname = file.path(
     outdir,
     paste0("GOLD_STANDARD", suffix, ".nii.gz")
@@ -98,6 +103,9 @@ reg_to_t1 = function(
         interpolator = interpolator,
         verbose = verbose > 1)
     }, x, names(x), fnames, SIMPLIFY = FALSE)
+    registrations = lapply(reg, function(x) {
+      x$fwdtransforms
+    })
 
     # gold standard applying
     if (!is.null(gold_standard)) {
@@ -120,6 +128,9 @@ reg_to_t1 = function(
   res_imgs = lapply(
     all_fnames,
     identity)
-  return(res_imgs)
+  L = list(images = res_imgs,
+           registrations = registrations
+           )
+  return(L)
 
 }
