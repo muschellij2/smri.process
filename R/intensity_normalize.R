@@ -33,6 +33,7 @@ minmax = function(img, mask = NULL, remask = FALSE) {
 #' @param normalization Normalization Method
 #' @param remask should mask_img be applied to the output images
 #' after normalization
+#' @param suffix what the append to end of the output filename
 #' @param ... Additional arguments to MALF
 #'
 #' @return List of images

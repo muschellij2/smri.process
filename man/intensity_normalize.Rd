@@ -23,6 +23,8 @@ intensity_normalize(x, mask = NULL, normalization = c("z", "trimmed_z",
 \item{remask}{should mask_img be applied to the output images
 after normalization}
 
+\item{suffix}{what the append to end of the output filename}
+
 \item{...}{Additional arguments to MALF}
 }
 \value{

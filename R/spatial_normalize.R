@@ -4,6 +4,10 @@
 #' @param template Resampling to \code{1x1x1} (template = none) or
 #' Template to register to - either MNI or Eve template
 #' @param verbose print diagnostic messages
+#' @param typeofTransform Transformation to use for registration,
+#' passed to \code{\link{registration}}
+#' @param interpolator Interpolation done, passed to
+#' \code{\link{registration}}
 #'
 #' @return List of images, suffix, brain mask, gold standard,
 #' and registration if applicable

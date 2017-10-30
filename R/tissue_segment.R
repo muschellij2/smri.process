@@ -7,7 +7,6 @@
 #' @param num_templates Number of templates to use for MALF
 #' @param interpolator interpolation done in \code{\link{registration}}
 #' @param typeofTransform Transformation to align the templates to the T1
-#' @param func Function used to vote
 #' @param verbose Print diagnostic messages
 #' @param ... additional options to pass to \code{reapply_malf}
 #'

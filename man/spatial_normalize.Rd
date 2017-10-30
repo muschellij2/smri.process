@@ -15,6 +15,12 @@ spatial_normalize(prenormalize, template = c("none", "Eve", "MNI"),
 Template to register to - either MNI or Eve template}
 
 \item{verbose}{print diagnostic messages}
+
+\item{typeofTransform}{Transformation to use for registration,
+passed to \code{\link{registration}}}
+
+\item{interpolator}{Interpolation done, passed to
+\code{\link{registration}}}
 }
 \value{
 List of images, suffix, brain mask, gold standard,

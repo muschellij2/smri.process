@@ -22,8 +22,6 @@ t1_segment(t1, outdir = tempdir(), num_templates = 35,
 \item{verbose}{Print diagnostic messages}
 
 \item{...}{additional options to pass to \code{reapply_malf}}
-
-\item{func}{Function used to vote}
 }
 \value{
 Object of class nifti
