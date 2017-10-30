@@ -35,6 +35,7 @@ spatial_normalize = function(
   suffix = prenormalize$suffix
   gold_standard = prenormalize$GOLD_STANDARD
   brain_mask = prenormalize$brain_mask
+  brain_pct = prenormalize$brain_pct
   outdir = prenormalize$outdir
 
   suffix = paste0(suffix, app)
@@ -58,6 +59,18 @@ spatial_normalize = function(
     brain_fname = NULL
   }
 
+  if (!is.null(brain_pct)) {
+    brain_pct_fname = file.path(
+      outdir,
+      paste0("Brain_Percentages",
+             app,
+             ".nii.gz")
+    )
+    brain_pct_fname = c(BRAIN_PCT = brain_pct_fname)
+  } else {
+    brain_pct_fname = NULL
+  }
+
   if (!is.null(gold_standard)) {
     gs_fname = file.path(
       outdir,
@@ -66,10 +79,12 @@ spatial_normalize = function(
              app,
              ".nii.gz")
     )
+    gs_fname = c(GOLD_STANDARD = gs_fname)
   } else {
     gs_fname = NULL
   }
-  all_fnames = c(fnames, BRAIN_MASK = brain_fname, gs_fname)
+  all_fnames = c(fnames, BRAIN_MASK = brain_fname,
+                 gs_fname, brain_pct_fname)
 
 
   # typeofTransform = "SyN"
@@ -99,6 +114,15 @@ spatial_normalize = function(
           resampled,
           mask_img,
           mask = resampled_brain_mask)
+      }
+
+      if (!is.null(brain_pct)) {
+        resampled_brain_pct = resample_image(
+          prenormalize$brain_pct,
+          parameters = c(1, 1, 1),
+          parameter_type = "mm",
+          interpolator = "nearestneighbor")
+        writenii(resampled_brain_pct, filename = brain_pct_fname)
       }
 
       # this should be after remasking
@@ -174,6 +198,15 @@ spatial_normalize = function(
 
       }
 
+      if (!is.null(brain_pct)) {
+        resampled_brain_pct = ants_apply_transforms(
+          moving = prenormalize$brain_mask,
+          fixed = template_fname,
+          transformlist = t1_reg$fwdtransforms,
+          interpolator = "interpolator")
+        writenii(resampled_brain_pct, filename = brain_pct_fname)
+      }
+
       # this should be after remasking
       mapply(function(img, fname){
         writenii(img, filename = fname)
@@ -217,6 +250,7 @@ spatial_normalize = function(
 
   resampled = lapply(fnames, identity)
   resampled_brain_mask = brain_fname
+  resampled_brain_pct = brain_pct_fname
   resampled_gs = gs_fname
 
   L = list(
@@ -228,5 +262,7 @@ spatial_normalize = function(
   L$GOLD_STANDARD = gold_standard
   L$brain_mask = resampled_brain_mask
   L$reg_to_template = t1_reg
+  L$brain_pct = resampled_brain_pct
+
   return(L)
 }

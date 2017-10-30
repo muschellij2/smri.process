@@ -64,6 +64,7 @@ smri_prenormalize = function(
 
   if (!is.null(brain_mask)) {
     brain_mask = check_nifti(brain_mask)
+    malf_result = NULL
   } else {
     brain_mask_file = file.path(
       outdir,
@@ -123,16 +124,17 @@ smri_prenormalize = function(
 
   L = list(
     images = n4_brains,
-    intermediate = list(reduced = proc$images,
-                           registered = reg,
-                           masked = brains),
+    intermediate = list(
+      reduced = proc$images,
+      registered = reg,
+      masked = brains),
     brain_mask = brain_mask,
-    brain_pct = malf_result,
     suffix = suffix,
     gs_suffix = gs_suffix,
     outdir = outdir,
     rigid_registrations = rigid_registrations
   )
+  L$brain_pct = malf_result
   L$GOLD_STANDARD = gold_standard
 
   return(L)
