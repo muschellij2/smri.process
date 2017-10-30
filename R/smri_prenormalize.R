@@ -72,7 +72,7 @@ smri_prenormalize = function(
     brain_pct_file = file.path(
       outdir,
       "Brain_Percentages.nii.gz")
-    if (file.exists(brain_mask_file)) {
+    if (all_exists(brain_mask_file, brain_pct_file)) {
       # warning("Using brain mask file in outdir")
       brain_mask = readnii(brain_mask_file)
       malf_result = readnii(brain_pct_file)

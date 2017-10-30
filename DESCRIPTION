@@ -26,6 +26,8 @@ Suggests:
 Remotes: muschellij2/extrantsr,
     muschellij2/neurobase,
     muschellij2/oro.nifti,
-    muschellij2/fslr
+    muschellij2/fslr,
+    jfortin1/MNITemplate,
+    jfortin1/EveTemplate
 biocViews: 
 Encoding: UTF-8
