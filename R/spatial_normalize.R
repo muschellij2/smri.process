@@ -200,7 +200,7 @@ spatial_normalize = function(
 
       if (!is.null(brain_pct)) {
         resampled_brain_pct = ants_apply_transforms(
-          moving = prenormalize$brain_mask,
+          moving = prenormalize$brain_pct,
           fixed = template_fname,
           transformlist = t1_reg$fwdtransforms,
           interpolator = "interpolator")
