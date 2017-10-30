@@ -68,9 +68,13 @@ smri_prenormalize = function(
     brain_mask_file = file.path(
       outdir,
       "Brain_Mask.nii.gz")
+    brain_pct_file = file.path(
+      outdir,
+      "Brain_Percentages.nii.gz")
     if (file.exists(brain_mask_file)) {
       # warning("Using brain mask file in outdir")
       brain_mask = readnii(brain_mask_file)
+      malf_result = readnii(brain_pct_file)
     } else {
       ind = seq(num_templates)
       templates = malf.templates::malf_images()
@@ -90,12 +94,14 @@ smri_prenormalize = function(
         interpolator = "genericLabel",
         typeofTransform = malf_transform,
         verbose = verbose > 1,
-        func = "mode",
+        # func = "mode",
+        func = "pct",
         retimg = TRUE,
-        outfile = brain_mask_file
+        outfile = brain_pct_file
         #, ...
       )
-      brain_mask = malf_result
+      brain_mask = malf_result >= 0.5
+      writenii(brain_mask, filename = brain_mask_file)
     }
   }
 
@@ -121,6 +127,7 @@ smri_prenormalize = function(
                            registered = reg,
                            masked = brains),
     brain_mask = brain_mask,
+    brain_pct = malf_result,
     suffix = suffix,
     gs_suffix = gs_suffix,
     outdir = outdir,
