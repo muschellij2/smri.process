@@ -121,7 +121,7 @@ spatial_normalize = function(
           prenormalize$brain_pct,
           parameters = c(1, 1, 1),
           parameter_type = "mm",
-          interpolator = "nearestneighbor")
+          interpolator = "windowedsinc")
         writenii(resampled_brain_pct, filename = brain_pct_fname)
       }
 
@@ -203,7 +203,7 @@ spatial_normalize = function(
           moving = prenormalize$brain_pct,
           fixed = template_fname,
           transformlist = t1_reg$fwdtransforms,
-          interpolator = "interpolator")
+          interpolator = interpolator)
         writenii(resampled_brain_pct, filename = brain_pct_fname)
       }
 
