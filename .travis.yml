@@ -59,7 +59,12 @@ script:
 - ls
 - travis_wait 100 R CMD check ${R_CHECK_ARGS} "${PKG_TARBALL}"; CHECK_RET=$? ;
 - rm -f travis_wait*.log
-- check_fail
+- if [[ $CHECK_RET -ne 0 ]];
+  then
+    echo "R CMD check failed"; 
+    check_fail; 
+    exit 1; 
+  fi  
 - check_warnings
 after_success:
 - cat ${PACKAGE_NAME}.Rcheck/00install.out
