@@ -230,7 +230,14 @@ spatial_normalize = function(
   } else {
     if (native) {
       t1_reg = NULL
+      template_fname = prenormalize$images[[1]]
+
     } else {
+      template_fname = switch(
+        template,
+        Eve = EveTemplate::getEvePath(what = "Brain"),
+        MNI = MNITemplate::getMNIPath(what = "Brain", res = "1mm")
+      )
       outprefix = nii.stub(prenormalize$images$T1)
       t1_reg = list(
         fwdtransforms = paste0(
@@ -261,7 +268,7 @@ spatial_normalize = function(
     outdir = outdir,
     template = template
   )
-  L$template_fname = template_fname
+  L$template_fname = checkimg(template_fname)
   L$GOLD_STANDARD = gold_standard
   L$brain_mask = resampled_brain_mask
   L$reg_to_template = t1_reg
