@@ -140,14 +140,14 @@ spatial_normalize = function(
         # genericLabel interpolator
         resampled_gs = resample_to_target(
           prenormalize$GOLD_STANDARD,
-          target = brain_fname,
+          target = prenormalize$images[[1]],
           verbose = verbose > 1,
           interpolator = "genericLabel")
         writenii(resampled_gs, filename = gs_fname)
       }
 
       t1_reg = NULL
-      template_fname = brain_fname
+      template_fname = prenormalize$images[[1]]
 
     } else {
 
