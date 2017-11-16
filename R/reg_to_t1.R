@@ -9,6 +9,7 @@
 #' @param gs_interpolator interpolation done in \code{\link{registration}}
 #' for gold standard
 #' @param suffix Name to append to the image filename
+#' @param remove_negative After registration, any values < 0 are set to 0
 #'
 #' @return List of Images
 #' @export
@@ -21,7 +22,8 @@ reg_to_t1 = function(
   gs_interpolator = "NearestNeighbor",
   outdir = tempdir(),
   verbose = TRUE,
-  suffix = "_regtoT1"
+  suffix = "_regtoT1",
+  remove_negative = TRUE
 ) {
 
   nii_names = names(x)
@@ -101,8 +103,19 @@ reg_to_t1 = function(
         outprefix = outprefix,
         typeofTransform = "Rigid",
         interpolator = interpolator,
-        verbose = verbose > 1)
+        verbose = verbose > 1,
+        retimg = TRUE)
+      if (remove_negative) {
+        img = res$outfile
+        img[ img < 0] = 0
+        writenii(img, filename = fname)
+      }
+      return(res)
     }, x, names(x), fnames, SIMPLIFY = FALSE)
+    registrations = lapply(reg, function(x) {
+      x$fwdtransforms
+    })
+
     registrations = lapply(reg, function(x) {
       x$fwdtransforms
     })

@@ -6,7 +6,7 @@
 \usage{
 reg_to_t1(x, gs_space = NULL, interpolator = "Linear",
   gs_interpolator = "NearestNeighbor", outdir = tempdir(), verbose = TRUE,
-  suffix = "_regtoT1")
+  suffix = "_regtoT1", remove_negative = TRUE)
 }
 \arguments{
 \item{x}{List of images or character vector.  Must be named with
@@ -24,6 +24,8 @@ for gold standard}
 \item{verbose}{print diagnostic messages}
 
 \item{suffix}{Name to append to the image filename}
+
+\item{remove_negative}{After registration, any values < 0 are set to 0}
 }
 \value{
 List of Images

@@ -13,6 +13,7 @@
 #' passed to \code{\link{reg_to_t1}}
 #' @param num_templates Number of templates to use for MALF
 #' @param malf_transform type of registration transformation for MALF
+#' @param remove_negative After registration, any values < 0 are set to 0
 #' @param ... Additional arguments to MALF
 #'
 #' @return List of the images, brain mask, suffix, and output directory
@@ -32,6 +33,7 @@ smri_prenormalize = function(
   malf_transform = "SyNAggro",
   outdir = tempdir(),
   verbose = TRUE,
+  remove_negative = TRUE,
   ...
 ) {
 
@@ -53,7 +55,8 @@ smri_prenormalize = function(
     gs_interpolator = gs_interpolator,
     outdir = outdir,
     verbose = verbose,
-    suffix = suffix)
+    suffix = suffix,
+    remove_negative = remove_negative)
 
   reg = reg$images
   rigid_registrations = reg$registrations
