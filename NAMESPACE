@@ -2,6 +2,7 @@
 
 export(all_exists)
 export(apply_mask)
+export(apply_spatial_normalize)
 export(bc_noneck_reduce)
 export(intensity_normalize)
 export(mask_reduce)

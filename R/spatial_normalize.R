@@ -147,6 +147,7 @@ spatial_normalize = function(
       }
 
       t1_reg = NULL
+      template_fname = brain_fname
 
     } else {
 
@@ -257,8 +258,10 @@ spatial_normalize = function(
     images = resampled,
     suffix = suffix,
     gs_suffix = paste0(prenormalize$gs_suffix, app),
-    outdir = outdir
+    outdir = outdir,
+    template = template
   )
+  L$template_fname = template_fname
   L$GOLD_STANDARD = gold_standard
   L$brain_mask = resampled_brain_mask
   L$reg_to_template = t1_reg
