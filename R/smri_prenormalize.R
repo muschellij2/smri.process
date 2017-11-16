@@ -135,7 +135,8 @@ smri_prenormalize = function(
     suffix = suffix,
     gs_suffix = gs_suffix,
     outdir = outdir,
-    rigid_registrations = rigid_registrations
+    rigid_registrations = rigid_registrations,
+    num_templates = num_templates
   )
   L$brain_pct = malf_result
   L$GOLD_STANDARD = gold_standard
