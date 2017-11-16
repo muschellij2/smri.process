@@ -6,7 +6,7 @@
 \usage{
 apply_spatial_normalize(x, template = c("none", "Eve", "MNI"), template_fname,
   fwdtransforms = NULL, suffix = "", interpolator = "lanczosWindowedSinc",
-  outdir = tempdir())
+  outdir = tempdir(), verbose = TRUE)
 }
 \arguments{
 \item{x}{List of filenames}
@@ -23,6 +23,8 @@ Template to register to - either MNI or Eve template}
 \item{interpolator}{interpolation passed to \code{\link{ants_apply_transforms}}}
 
 \item{outdir}{Output directory}
+
+\item{verbose}{Print diagnostic messages}
 }
 \value{
 List of filenames of normalized data

@@ -8,6 +8,7 @@
 #' @param suffix Name to append to the image filename
 #' @param interpolator interpolation passed to \code{\link{ants_apply_transforms}}
 #' @param outdir Output directory
+#' @param verbose Print diagnostic messages
 #'
 #' @return List of filenames of normalized data
 #' @export
@@ -18,7 +19,8 @@ apply_spatial_normalize = function(
   fwdtransforms = NULL,
   suffix = "",
   interpolator = "lanczosWindowedSinc",
-  outdir = tempdir()
+  outdir = tempdir(),
+  verbose = TRUE
 ) {
 
 
