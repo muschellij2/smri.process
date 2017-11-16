@@ -86,6 +86,7 @@ intensity_normalize = function(
       args$mask = mask
       args$centrality = "trimmed_mean"
       args$variability = "trimmed_sd"
+      args$remask = remask
       norm = lapply(x, function(r) {
         args$img = r
         do.call("zscore_img", args = args)
