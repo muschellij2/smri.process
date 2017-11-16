@@ -147,7 +147,7 @@ spatial_normalize = function(
       }
 
       t1_reg = NULL
-      template_fname = prenormalize$images[[1]]
+      template_fname = fnames[1]
 
     } else {
 
@@ -230,7 +230,7 @@ spatial_normalize = function(
   } else {
     if (native) {
       t1_reg = NULL
-      template_fname = prenormalize$images[[1]]
+      template_fname = fnames[1]
 
     } else {
       template_fname = switch(
