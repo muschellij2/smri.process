@@ -57,6 +57,10 @@ apply_spatial_normalize = function(
         verbose = verbose > 1,
         interpolator = "genericLabel")
 
+      mapply(function(img, fname){
+        writenii(img, filename = fname)
+      }, resampled, fnames)
+
     } else {
       if (verbose > 0) {
         message(paste0(
@@ -72,6 +76,10 @@ apply_spatial_normalize = function(
             transformlist = fwdtransforms,
             interpolator = interpolator)
         })
+      mapply(function(img, fname){
+        writenii(img, filename = fname)
+      }, resampled, fnames)
+
     }
   }
   resampled = lapply(fnames, identity)
