@@ -1,7 +1,7 @@
 Package: smri.process
 Type: Package
 Title: Processing of Structural Magnetic Resonance IMaging
-Version: 0.4.6
+Version: 0.5.0
 Author: John Muscheli <muschellij2@gmail.com>
 Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: Preprocesses structural magnetic resonance images ('MRI').
@@ -18,7 +18,8 @@ Imports:
     malf.templates,
     WhiteStripe,
     EveTemplate,
-    MNITemplate
+    MNITemplate,
+    utils
 LazyData: TRUE
 RoxygenNote: 6.0.1.9000
 Suggests: 

@@ -24,6 +24,3 @@ the imaging modalities. T1 and FLAIR must be included}
 \value{
 List of output filenames
 }
-\description{
-Bias Correct, Remove Neck, Reduce Image
-}

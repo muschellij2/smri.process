@@ -7,8 +7,8 @@
 smri_prenormalize(x, gold_standard = NULL, gs_space = NULL, probs = c(0,
   0.999), interpolator = "lanczosWindowedSinc", brain_mask = NULL,
   gs_interpolator = "NearestNeighbor", num_templates = 15,
-  malf_transform = "SyNAggro", outdir = tempdir(), verbose = TRUE,
-  remove_negative = TRUE, ...)
+  malf_transform = "SyNAggro", outdir = tempdir(), reg_space = "T1",
+  verbose = TRUE, remove_negative = TRUE, ...)
 }
 \arguments{
 \item{x}{List of images}
@@ -31,6 +31,8 @@ passed to \code{\link{reg_to_t1}}}
 \item{malf_transform}{type of registration transformation for MALF}
 
 \item{outdir}{Output directory}
+
+\item{reg_space}{space to register images to}
 
 \item{verbose}{print diagnostic messages}
 

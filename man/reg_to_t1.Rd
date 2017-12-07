@@ -2,15 +2,15 @@
 % Please edit documentation in R/reg_to_t1.R
 \name{reg_to_t1}
 \alias{reg_to_t1}
-\title{Register Images to T1 image}
+\title{Register Images to Another image (usually T1)}
 \usage{
 reg_to_t1(x, gs_space = NULL, interpolator = "Linear",
   gs_interpolator = "NearestNeighbor", outdir = tempdir(), verbose = TRUE,
-  suffix = "_regtoT1", remove_negative = TRUE)
+  reg_space = "T1", suffix = "_regtoT1", remove_negative = TRUE)
 }
 \arguments{
 \item{x}{List of images or character vector.  Must be named with
-the imaging modalities. T1 and FLAIR must be included}
+the imaging modalities. The \code{reg_space} file must be included}
 
 \item{gs_space}{space the Gold Standard is located (if applicable)}
 
@@ -23,6 +23,8 @@ for gold standard}
 
 \item{verbose}{print diagnostic messages}
 
+\item{reg_space}{space to register images to}
+
 \item{suffix}{Name to append to the image filename}
 
 \item{remove_negative}{After registration, any values < 0 are set to 0}
@@ -31,5 +33,5 @@ for gold standard}
 List of Images
 }
 \description{
-Register Images to T1 image
+Register Images to Another image (usually T1)
 }

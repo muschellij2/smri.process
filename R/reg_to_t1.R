@@ -1,13 +1,14 @@
-#' Register Images to T1 image
+#' Register Images to Another image (usually T1)
 #'
 #' @param x List of images or character vector.  Must be named with
-#' the imaging modalities. T1 and FLAIR must be included
+#' the imaging modalities. The \code{reg_space} file must be included
 #' @param gs_space space the Gold Standard is located (if applicable)
 #' @param interpolator interpolation done in \code{\link{registration}}
 #' @param outdir Output directory
 #' @param verbose print diagnostic messages
 #' @param gs_interpolator interpolation done in \code{\link{registration}}
 #' for gold standard
+#' @param reg_space space to register images to
 #' @param suffix Name to append to the image filename
 #' @param remove_negative After registration, any values < 0 are set to 0
 #'
@@ -22,6 +23,7 @@ reg_to_t1 = function(
   gs_interpolator = "NearestNeighbor",
   outdir = tempdir(),
   verbose = TRUE,
+  reg_space = "T1",
   suffix = "_regtoT1",
   remove_negative = TRUE
 ) {
@@ -31,8 +33,8 @@ reg_to_t1 = function(
   if (length(nii_names) != length(x)) {
     stop("x must be a named vector or named list")
   }
-  if (!("T1" %in% nii_names)) {
-    stop("T1 must be in the images vector")
+  if (!(reg_space %in% nii_names)) {
+    stop(paste0(reg_space, " must be in the images vector"))
   }
   x = checkimg(x)
   x = lapply(x, identity)
@@ -62,7 +64,7 @@ reg_to_t1 = function(
   registrations = paste0(nii.stub(fnames),
                          "0GenericAffine.mat")
   registrations = registrations[
-    !(names(registrations) %in% "T1")]
+    !(names(registrations) %in% reg_space)]
 
   les_fname = file.path(
     outdir,
@@ -75,23 +77,23 @@ reg_to_t1 = function(
   }
 
   if (verbose > 0) {
-    message("Registering Images to T1")
+    message(paste0("Registering Images to ", reg_space))
   }
 
   if (!all_exists(all_fnames)) {
     # t1 doesn't need to register to itself
-    t1 = x$T1
-    t1_fname = fnames["T1"]
+    t1 = x[[reg_space]]
+    t1_fname = fnames[reg_space]
     file.copy(t1, t1_fname, overwrite = TRUE)
 
     # removing T1 from the image list
-    x = x[ !(names(x) %in% "T1")]
-    fnames = fnames[ !(names(fnames) %in% "T1")]
+    x = x[ !(names(x) %in% reg_space)]
+    fnames = fnames[ !(names(fnames) %in% reg_space)]
 
     # run registration
     reg = mapply(function(run_img, run_name, fname) {
       if (verbose > 0) {
-        message(paste0("Registering ", run_name, " to T1"))
+        message(paste0("Registering ", run_name, " to ", reg_space))
       }
       outprefix = nii.stub(fname)
       res = registration(
@@ -124,7 +126,7 @@ reg_to_t1 = function(
     if (!is.null(gold_standard)) {
       # if T1 space - then just copy over
       # no registration needed
-      if (gs_space != "T1") {
+      if (gs_space != reg_space) {
         transformlist = reg[[gs_space]]$fwdtransforms
         gs_img = ants_apply_transforms(
           fixed = t1,

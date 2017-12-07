@@ -34,7 +34,7 @@ minmax = function(img, mask = NULL, remask = FALSE) {
 #' @param remask should mask_img be applied to the output images
 #' after normalization
 #' @param suffix what the append to end of the output filename
-#' @param ... Additional arguments to MALF
+#' @param ... Additional arguments to \code{normaliztaion} function
 #'
 #' @return List of images
 #' @export
@@ -49,7 +49,7 @@ intensity_normalize = function(
                     "whitestripe_hybrid"),
   outdir = tempdir(),
   verbose = TRUE,
-  remask = FALSE,
+  remask = TRUE,
   suffix = "_z",
   ...
 ) {
@@ -86,7 +86,7 @@ intensity_normalize = function(
       args$mask = mask
       args$centrality = "trimmed_mean"
       args$variability = "trimmed_sd"
-      args$remask = remask
+      args$remask = FALSE
       norm = lapply(x, function(r) {
         args$img = r
         do.call("zscore_img", args = args)

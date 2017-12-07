@@ -7,7 +7,7 @@
 intensity_normalize(x, mask = NULL, normalization = c("z", "trimmed_z",
   "quantile", "minmax", "whitestripe_T1", "whitestripe_T2",
   "whitestripe_hybrid"), outdir = tempdir(), verbose = TRUE,
-  remask = FALSE, suffix = "_z", ...)
+  remask = TRUE, suffix = "_z", ...)
 }
 \arguments{
 \item{x}{List of images}
@@ -25,7 +25,7 @@ after normalization}
 
 \item{suffix}{what the append to end of the output filename}
 
-\item{...}{Additional arguments to MALF}
+\item{...}{Additional arguments to \code{normaliztaion} function}
 }
 \value{
 List of images
