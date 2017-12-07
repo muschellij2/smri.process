@@ -26,3 +26,6 @@ t1_segment(t1, outdir = tempdir(), num_templates = 35,
 \value{
 Object of class nifti
 }
+\description{
+MALF Tissue and Structure Segmentation
+}

@@ -7,7 +7,9 @@
 #' @param verbose print diagnostic messages
 #' @param mask mask to normalize over
 #' @param suffix what the append to end of the output filename
-#'
+#' @param interpolator interpolation done in \code{\link{registration}}
+#' @param typeofTransform type of transformed used, passed to
+#' \code{\link{registration}}
 #' @return List of filenames
 #' @export
 #'

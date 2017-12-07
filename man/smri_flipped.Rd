@@ -17,6 +17,11 @@ smri_flipped(x, mask = NULL, outdir = tempdir(), verbose = TRUE,
 \item{verbose}{print diagnostic messages}
 
 \item{suffix}{what the append to end of the output filename}
+
+\item{typeofTransform}{type of transformed used, passed to
+\code{\link{registration}}}
+
+\item{interpolator}{interpolation done in \code{\link{registration}}}
 }
 \value{
 List of filenames

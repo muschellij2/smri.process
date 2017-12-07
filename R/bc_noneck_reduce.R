@@ -1,4 +1,4 @@
-#' @title Bias Correct, Remove Neck, Reduce Image
+#' Bias Correct, Remove Neck, Reduce Image
 #'
 #' @param x List of images or character vector.  Must be named with
 #' the imaging modalities. T1 and FLAIR must be included

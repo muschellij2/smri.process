@@ -1,6 +1,6 @@
 
 
-#' @title MALF Tissue and Structure Segmentation
+#' MALF Tissue and Structure Segmentation
 #'
 #' @param t1 T1-weighted image/filename
 #' @param outdir Output directory
