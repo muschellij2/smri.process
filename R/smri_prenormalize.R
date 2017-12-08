@@ -49,7 +49,7 @@ smri_prenormalize = function(
     probs = probs)
 
   suffix = proc$suffix
-  suffix = paste0(suffix, "_regtoT1")
+  suffix = paste0(suffix, "_regto", reg_space)
   reg = reg_to_t1(
     x = proc$images,
     gs_space = gs_space,
