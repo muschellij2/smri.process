@@ -21,7 +21,7 @@ smri_prenormalize(x, gold_standard = NULL, gs_space = NULL, probs = c(0,
 
 \item{interpolator}{interpolation passed to \code{\link{reg_to_t1}}}
 
-\item{brain_mask}{Brain Mask in T1 Space}
+\item{brain_mask}{Brain Mask in \code{reg_space}}
 
 \item{gs_interpolator}{Gold Standard interpolation
 passed to \code{\link{reg_to_t1}}}

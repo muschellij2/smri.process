@@ -8,7 +8,7 @@
 #' @param outdir Output directory
 #' @param verbose print diagnostic messages
 #' @param interpolator interpolation passed to \code{\link{reg_to_t1}}
-#' @param brain_mask Brain Mask in T1 Space
+#' @param brain_mask Brain Mask in \code{reg_space}
 #' @param gs_interpolator Gold Standard interpolation
 #' passed to \code{\link{reg_to_t1}}
 #' @param num_templates Number of templates to use for MALF
