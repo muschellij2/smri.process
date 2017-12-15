@@ -44,7 +44,7 @@ minmax = function(img, mask = NULL, remask = FALSE) {
 intensity_normalize = function(
   x,
   mask = NULL,
-  normalization = c("z", "trimmed_z", "quantile", "minmax",
+  normalization = c( "trimmed_z", "z", "quantile", "minmax",
                     "whitestripe_T1", "whitestripe_T2",
                     "whitestripe_hybrid"),
   outdir = tempdir(),

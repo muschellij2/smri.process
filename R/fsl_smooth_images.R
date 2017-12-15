@@ -1,4 +1,3 @@
-
 #' Smoothing sMRI data with FSL
 #'
 #' @param x List of images
@@ -67,7 +66,8 @@ fsl_smooth_images = function(
         ####################################################
         # Making fname stubs
         ####################################################
-        fnames = all_fnames[as.character(isigma)]
+        fnames = all_fnames[[as.character(isigma)]]
+        fnames = unlist(fnames)
         if (!all_exists(fnames)) {
 
           if (!is.null(mask)) {
@@ -76,7 +76,7 @@ fsl_smooth_images = function(
               file = mask,
               sigma = isigma,
               smooth_mask = FALSE,
-              verbose = verbose,
+              verbose = verbose > 1,
               ...)
           } else {
             smoothed_mask = NULL
@@ -92,7 +92,7 @@ fsl_smooth_images = function(
               smooth_mask = TRUE,
               smoothed_mask = smoothed_mask,
               outfile = outfile,
-              verbose = verbose,
+              verbose = verbose > 1,
               ...)
           }, x, fnames, SIMPLIFY = FALSE)
         }

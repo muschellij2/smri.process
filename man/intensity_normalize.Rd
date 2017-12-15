@@ -4,7 +4,7 @@
 \alias{intensity_normalize}
 \title{SMRI Normalize}
 \usage{
-intensity_normalize(x, mask = NULL, normalization = c("z", "trimmed_z",
+intensity_normalize(x, mask = NULL, normalization = c("trimmed_z", "z",
   "quantile", "minmax", "whitestripe_T1", "whitestripe_T2",
   "whitestripe_hybrid"), outdir = tempdir(), verbose = TRUE,
   remask = TRUE, suffix = "_z", ...)

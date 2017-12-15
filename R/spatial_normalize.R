@@ -266,7 +266,9 @@ spatial_normalize = function(
     suffix = suffix,
     gs_suffix = paste0(prenormalize$gs_suffix, app),
     outdir = outdir,
-    template = template
+    template = template,
+    typeofTransform = typeofTransform,
+    interpolator = interpolator
   )
   L$template_fname = checkimg(template_fname)
   L$GOLD_STANDARD = gold_standard

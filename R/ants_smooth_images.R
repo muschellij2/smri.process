@@ -67,7 +67,8 @@ ants_smooth_images = function(
         ####################################################
         # Making fname stubs
         ####################################################
-        fnames = all_fnames[as.character(isigma)]
+        fnames = all_fnames[[as.character(isigma)]]
+        fnames = unlist(fnames)
         if (!all_exists(fnames)) {
 
           if (!is.null(mask)) {
@@ -87,7 +88,7 @@ ants_smooth_images = function(
               file = infile,
               sigma = isigma,
               mask = mask,
-              retimg = FALSE,
+              retfile = FALSE,
               smooth_mask = TRUE,
               smoothed_mask = smoothed_mask,
               ...)

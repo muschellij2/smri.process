@@ -57,11 +57,14 @@ smri_corr_img = function(
     }
     for (irow in seq(N)) {
       ieg = eg[irow,]
-      fname = ieg$filename[irow]
+      fname = ieg$filename[1]
 
       img1 = x[[ieg$img1[1]]]
       img2 = x[[ieg$img2[1]]]
-
+      if (verbose > 1) {
+        msg = paste0("\nCorrelating the ", ieg$img1[1], " and ", ieg$img2[1])
+        message(msg)
+      }
       myres = extrantsr::corr_img(
         img1,
         img2,
@@ -69,6 +72,10 @@ smri_corr_img = function(
         radius = radius,
         method = method,
         verbose = verbose > 1)
+      if (verbose > 1) {
+        msg = paste0("Writing ", fname)
+        message(msg)
+      }
       writenii(myres, filename = fname)
       gc(); gc();
       if (verbose) {
