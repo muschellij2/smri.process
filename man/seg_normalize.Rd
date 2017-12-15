@@ -25,6 +25,9 @@ passed to \code{\link{registration}}}
 
 \item{dis_interpolator}{Interpolation done, passed to
 \code{\link{registration}} for discrete data}
+
+\item{tissue_suffix}{Suffix to add onto tissue segmentation in addition
+to the suffix for normalization}
 }
 \value{
 List of images, suffix, brain mask, gold standard,

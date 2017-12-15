@@ -10,6 +10,8 @@
 #' \code{\link{registration}} for continuous data
 #' @param dis_interpolator Interpolation done, passed to
 #' \code{\link{registration}} for discrete data
+#' @param tissue_suffix Suffix to add onto tissue segmentation in addition
+#' to the suffix for normalization
 #'
 #' @return List of images, suffix, brain mask, gold standard,
 #' and registration if applicable
