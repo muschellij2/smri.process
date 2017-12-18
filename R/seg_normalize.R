@@ -54,22 +54,30 @@ seg_normalize = function(
     interpolator = interpolator
   )
 
+  if (verbose > 0) {
+    msg = "Applying to Tissues/Structures"
+    message(msg)
+  }
   resampled_hard = apply_spatial_normalize(
     x = tissue[c("TISSUES", "STRUCTURES")],
     template = resampled$template,
     template_fname = resampled$template_fname,
-    fwdtransforms = resampled$fwdtransforms,
+    fwdtransforms = resampled$reg_to_template$fwdtransforms,
     suffix = tissue_suffix,
     interpolator = dis_interpolator,
     outdir = resampled$outdir,
     verbose = verbose
   )
 
+  if (verbose > 0) {
+    msg = "Applying to Tissue Probabilities"
+    message(msg)
+  }
   resampled_probs = apply_spatial_normalize(
     x = tissue[setdiff(names(tissue), c("TISSUES", "STRUCTURES"))],
     template = resampled$template,
     template_fname = resampled$template_fname,
-    fwdtransforms = resampled$fwdtransforms,
+    fwdtransforms = resampled$reg_to_template$fwdtransforms,
     suffix = tissue_suffix,
     interpolator = resampled$interpolator,
     outdir = resampled$outdir,
@@ -80,6 +88,10 @@ seg_normalize = function(
     resampled_hard,
     resampled_probs)
 
+  if (verbose > 0) {
+    msg = "Applying to FAST Output"
+    message(msg)
+  }
   resampled_fast = lapply(
     fast_res,
     function(x) {
@@ -90,7 +102,7 @@ seg_normalize = function(
         x = x[seg],
         template = resampled$template,
         template_fname = resampled$template_fname,
-        fwdtransforms = resampled$fwdtransforms,
+        fwdtransforms = resampled$reg_to_template$fwdtransforms,
         suffix = tissue_suffix,
         interpolator = dis_interpolator,
         outdir = resampled$outdir,
@@ -101,9 +113,9 @@ seg_normalize = function(
         x = x[!seg],
         template = resampled$template,
         template_fname = resampled$template_fname,
-        fwdtransforms = resampled$fwdtransforms,
+        fwdtransforms = resampled$reg_to_template$fwdtransforms,
         suffix = tissue_suffix,
-        interpolator = "nearestNeighbor",
+        interpolator = resampled$interpolator,
         outdir = resampled$outdir,
         verbose = verbose)
       con_data = unlist(con_data)
