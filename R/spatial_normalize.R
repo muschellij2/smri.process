@@ -163,6 +163,10 @@ spatial_normalize = function(
           "Registering T1 to ", template, " Template")
         )
       }
+      t1 = prenormalize$images$T1
+      if (is.null(t1)) {
+        stop("T1 is not in prenormalize$images!")
+      }
       t1_reg = registration(
         filename = prenormalize$images$T1,
         template.file = template_fname,
@@ -171,7 +175,13 @@ spatial_normalize = function(
         outprefix = nii.stub(prenormalize$images$T1),
         verbose = verbose > 1,
         typeofTransform = typeofTransform,
+        remove.warp = FALSE,
         interpolator = interpolator)
+      keeper = function(x) {
+        x[ grep("Generic|Warp", x)]
+      }
+      t1_reg$fwdtransforms = keeper(t1_reg$fwdtransforms)
+      t1_reg$invtransforms = keeper(t1_reg$invtransforms)
 
       resampled = lapply(
         prenormalize$images,
