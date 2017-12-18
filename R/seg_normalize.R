@@ -12,6 +12,9 @@
 #' \code{\link{registration}} for discrete data
 #' @param tissue_suffix Suffix to add onto tissue segmentation in addition
 #' to the suffix for normalization
+#' @param norm_outdir Output directory of spatially normalized data.  The
+#' output directory of the segmentation images will still be specified
+#' in \code{prenormalize$outdir}
 #'
 #' @return List of images, suffix, brain mask, gold standard,
 #' and registration if applicable
@@ -19,6 +22,7 @@
 seg_normalize = function(
   prenormalize,
   template = c("none", "Eve", "MNI"),
+  norm_outdir = prenormalize$outdir,
   verbose = TRUE,
   typeofTransform = "SyN",
   interpolator = "lanczosWindowedSinc",
@@ -36,6 +40,11 @@ seg_normalize = function(
     bias_correct = FALSE,
     outdir = prenormalize$outdir,
     verbose = verbose)
+
+  if (is.null(norm_outdir)) {
+    norm_outdir = prenormalize$outdir
+  }
+  prenormalize$outdir = norm_outdir
 
   resampled = spatial_normalize(
     prenormalize,

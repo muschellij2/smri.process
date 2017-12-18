@@ -5,15 +5,19 @@
 \title{Spatially Normalize SMRI data and Tissue Segmentation}
 \usage{
 seg_normalize(prenormalize, template = c("none", "Eve", "MNI"),
-  verbose = TRUE, typeofTransform = "SyN",
-  interpolator = "lanczosWindowedSinc", dis_interpolator = "genericLabel",
-  tissue_suffix = "")
+  norm_outdir = prenormalize$outdir, verbose = TRUE,
+  typeofTransform = "SyN", interpolator = "lanczosWindowedSinc",
+  dis_interpolator = "genericLabel", tissue_suffix = "")
 }
 \arguments{
 \item{prenormalize}{list from \code{\link{smri_prenormalize}}}
 
 \item{template}{Resampling to \code{1x1x1} (template = none) or
 Template to register to - either MNI or Eve template}
+
+\item{norm_outdir}{Output directory of spatially normalized data.  The
+output directory of the segmentation images will still be specified
+in \code{prenormalize$outdir}}
 
 \item{verbose}{print diagnostic messages}
 
