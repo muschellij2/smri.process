@@ -2,6 +2,7 @@
 #'
 #' @param x List of images or character vector.  Must be named with
 #' the imaging modalities. T1 and FLAIR must be included
+#' @param remove_negative Force values less than zero to zero
 #' @param gold_standard Gold Standard image/filename, if applicable
 #' @param gs_space space the Gold Standard is located
 #' @param probs passed to \code{\link{winsor}} for Winsorization
@@ -11,8 +12,10 @@
 #' @export
 #' @importFrom neurobase applyEmptyImageDimensions
 #' @importFrom neurobase writenii robust_window
+#'
 bc_noneck_reduce = function(
   x,
+  remove_negative = TRUE,
   gold_standard = NULL,
   gs_space = NULL,
   probs = c(0, 0.999),
@@ -27,6 +30,20 @@ bc_noneck_reduce = function(
   gold_standard = rpi_done$GOLD_STANDARD
   rpi_done$GOLD_STANDARD = NULL
 
+  rm_negative = function(x) {
+    tmp_res = lapply(x, function(r) {
+      img = RNifti::readNifti(r)
+      img[img < 0] = 0
+      RNifti::writeNifti(img, r)
+      rm(img); gc()
+      return(TRUE)
+    })
+    rm(tmp_res);
+    return(x)
+  }
+  if (remove_negative) {
+    tmp_res = rm_negative(rpi_done)
+  }
   suffix = "_N4"
   n4 = n4_raw(
     x = rpi_done,
@@ -34,7 +51,11 @@ bc_noneck_reduce = function(
     mask = NULL,
     outdir = outdir,
     suffix = suffix
-    )
+  )
+
+  if (remove_negative) {
+    tmp_res = rm_negative(n4)
+  }
 
   suffix = paste0(suffix, "_noneck")
   noneck = noneck(
@@ -67,7 +88,7 @@ bc_noneck_reduce = function(
       les_rm_neck = applyEmptyImageDimensions(
         img = gold_standard,
         inds = dd$inds
-        )
+      )
       writenii(les_rm_neck,
                filename = les_fname)
     }

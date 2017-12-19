@@ -36,7 +36,8 @@ passed to \code{\link{reg_to_t1}}}
 
 \item{verbose}{print diagnostic messages}
 
-\item{remove_negative}{After registration, any values < 0 are set to 0}
+\item{remove_negative}{After reorientation, N4, and registration,
+any values < 0 are set to 0}
 
 \item{...}{Additional arguments to MALF}
 }

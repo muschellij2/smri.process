@@ -14,7 +14,8 @@
 #' @param num_templates Number of templates to use for MALF
 #' @param malf_transform type of registration transformation for MALF
 #' @param reg_space space to register images to
-#' @param remove_negative After registration, any values < 0 are set to 0
+#' @param remove_negative After reorientation, N4, and registration,
+#' any values < 0 are set to 0
 #' @param ... Additional arguments to MALF
 #'
 #' @return List of the images, brain mask, suffix, and output directory
@@ -42,6 +43,7 @@ smri_prenormalize = function(
 
   proc = bc_noneck_reduce(
     x = x,
+    remove_negative = remove_negative,
     gold_standard = gold_standard,
     gs_space = gs_space,
     outdir = outdir,

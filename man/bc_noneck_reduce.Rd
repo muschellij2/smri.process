@@ -4,12 +4,15 @@
 \alias{bc_noneck_reduce}
 \title{Bias Correct, Remove Neck, Reduce Image}
 \usage{
-bc_noneck_reduce(x, gold_standard = NULL, gs_space = NULL, probs = c(0,
-  0.999), outdir = tempdir(), verbose = TRUE)
+bc_noneck_reduce(x, remove_negative = TRUE, gold_standard = NULL,
+  gs_space = NULL, probs = c(0, 0.999), outdir = tempdir(),
+  verbose = TRUE)
 }
 \arguments{
 \item{x}{List of images or character vector.  Must be named with
 the imaging modalities. T1 and FLAIR must be included}
+
+\item{remove_negative}{Force values less than zero to zero}
 
 \item{gold_standard}{Gold Standard image/filename, if applicable}
 
