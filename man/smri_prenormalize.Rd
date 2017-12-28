@@ -8,7 +8,8 @@ smri_prenormalize(x, gold_standard = NULL, gs_space = NULL, probs = c(0,
   0.999), interpolator = "lanczosWindowedSinc", brain_mask = NULL,
   gs_interpolator = "NearestNeighbor", num_templates = 15,
   malf_transform = "SyNAggro", outdir = tempdir(), reg_space = "T1",
-  verbose = TRUE, remove_negative = TRUE, ...)
+  brain_malf_function = "pct", brain_threshold = 0.5, verbose = TRUE,
+  remove_negative = TRUE, ...)
 }
 \arguments{
 \item{x}{List of images}
@@ -33,6 +34,12 @@ passed to \code{\link{reg_to_t1}}}
 \item{outdir}{Output directory}
 
 \item{reg_space}{space to register images to}
+
+\item{brain_malf_function}{Function to be passed to \code{\link{malf}},
+and subsequently \code{\link{stat_img}} for brain extraction}
+
+\item{brain_threshold}{Percentage threshold for the brain MALF image
+to be considered part of the mask}
 
 \item{verbose}{print diagnostic messages}
 

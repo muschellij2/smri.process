@@ -1,4 +1,3 @@
-
 #' SMRI Pipeline for Preprocessing Prior to Normalization
 #'
 #' @param x List of images
@@ -16,6 +15,10 @@
 #' @param reg_space space to register images to
 #' @param remove_negative After reorientation, N4, and registration,
 #' any values < 0 are set to 0
+#' @param brain_threshold Percentage threshold for the brain MALF image
+#' to be considered part of the mask
+#' @param brain_malf_function Function to be passed to \code{\link{malf}},
+#' and subsequently \code{\link{stat_img}} for brain extraction
 #' @param ... Additional arguments to MALF
 #'
 #' @return List of the images, brain mask, suffix, and output directory
@@ -35,6 +38,8 @@ smri_prenormalize = function(
   malf_transform = "SyNAggro",
   outdir = tempdir(),
   reg_space = "T1",
+  brain_malf_function = "pct",
+  brain_threshold = 0.5,
   verbose = TRUE,
   remove_negative = TRUE,
   ...
@@ -104,12 +109,12 @@ smri_prenormalize = function(
         typeofTransform = malf_transform,
         verbose = verbose,
         # func = "mode",
-        func = "pct",
+        func = brain_malf_function,
         retimg = TRUE,
         outfile = brain_pct_file
         #, ...
       )
-      brain_mask = malf_result >= 0.5
+      brain_mask = malf_result >= brain_threshold
       writenii(brain_mask, filename = brain_mask_file)
     }
   }
@@ -141,7 +146,9 @@ smri_prenormalize = function(
     gs_suffix = gs_suffix,
     outdir = outdir,
     rigid_registrations = rigid_registrations,
-    num_templates = num_templates
+    num_templates = num_templates,
+    brain_threshold = brain_threshold,
+    brain_malf_function = brain_malf_function
   )
   L$brain_pct = malf_result
   L$GOLD_STANDARD = gold_standard
