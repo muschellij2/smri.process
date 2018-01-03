@@ -111,8 +111,8 @@ smri_prenormalize = function(
         # func = "mode",
         func = brain_malf_function,
         retimg = TRUE,
-        outfile = brain_pct_file
-        #, ...
+        outfile = brain_pct_file,
+        ...
       )
       brain_mask = malf_result >= brain_threshold
       writenii(brain_mask, filename = brain_mask_file)

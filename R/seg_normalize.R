@@ -15,6 +15,7 @@
 #' @param norm_outdir Output directory of spatially normalized data.  The
 #' output directory of the segmentation images will still be specified
 #' in \code{prenormalize$outdir}
+#' @param ... arguments passed to \code{\link{t1_segment}}
 #'
 #' @return List of images, suffix, brain mask, gold standard,
 #' and registration if applicable
@@ -27,13 +28,15 @@ seg_normalize = function(
   typeofTransform = "SyN",
   interpolator = "lanczosWindowedSinc",
   dis_interpolator = "genericLabel",
-  tissue_suffix = ""
+  tissue_suffix = "",
+  ...
 ) {
 
   tissue = t1_segment(
     t1 = prenormalize$images$T1,
     outdir = prenormalize$outdir,
-    num_templates = prenormalize$num_templates)
+    num_templates = prenormalize$num_templates,
+    ...)
 
   fast_res = multi_fast(
     x = prenormalize$images,

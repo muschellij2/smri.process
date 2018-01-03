@@ -7,7 +7,7 @@
 seg_normalize(prenormalize, template = c("none", "Eve", "MNI"),
   norm_outdir = prenormalize$outdir, verbose = TRUE,
   typeofTransform = "SyN", interpolator = "lanczosWindowedSinc",
-  dis_interpolator = "genericLabel", tissue_suffix = "")
+  dis_interpolator = "genericLabel", tissue_suffix = "", ...)
 }
 \arguments{
 \item{prenormalize}{list from \code{\link{smri_prenormalize}}}
@@ -32,6 +32,8 @@ passed to \code{\link{registration}}}
 
 \item{tissue_suffix}{Suffix to add onto tissue segmentation in addition
 to the suffix for normalization}
+
+\item{...}{arguments passed to \code{\link{t1_segment}}}
 }
 \value{
 List of images, suffix, brain mask, gold standard,

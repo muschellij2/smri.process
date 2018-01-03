@@ -6,7 +6,7 @@
 #' @param interpolator interpolation done in \code{\link{registration}}
 #' @param typeofTransform Transformation to align the templates to the T1
 #' @param verbose Print diagnostic messages
-#' @param ... additional options to pass to \code{reapply_malf}
+#' @param ... additional options to pass to \code{\link{malf}}
 #'
 #' @return Object of class nifti
 #' @export
@@ -55,7 +55,7 @@ t1_segment = function(
       infile = t1,
       template.images = brains,
       template.structs = tissues,
-      keep_images = FALSE,
+      keep_images = TRUE,
       retimg = TRUE,
       func = "pct",
       keep_regs = TRUE,
@@ -76,17 +76,17 @@ t1_segment = function(
       writenii(img, filename = filename)
     }, tissue_list, tissue_list_fnames)
 
+
     label_img = reapply_malf(
       infile = t1,
       regs = regs$regs,
       template.structs = labels,
-      keep_images = FALSE,
+      keep_images = TRUE,
       retimg = FALSE,
       outfile = label_fname,
       func = "mode",
       interpolator = interpolator,
-      verbose = verbose,
-      ...
+      verbose = verbose
     )
     label_img = NULL
   }

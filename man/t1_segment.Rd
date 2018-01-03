@@ -21,7 +21,7 @@ t1_segment(t1, outdir = tempdir(), num_templates = 35,
 
 \item{verbose}{Print diagnostic messages}
 
-\item{...}{additional options to pass to \code{reapply_malf}}
+\item{...}{additional options to pass to \code{\link{malf}}}
 }
 \value{
 Object of class nifti
