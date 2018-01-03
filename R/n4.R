@@ -6,6 +6,8 @@
 #' @param mask Mask for Bias-field correction
 #' @param verbose print diagnostic messages
 #' @param suffix Name to append to the image filename
+#' @param convergence convergence parameters for
+#' \code{\link{n4BiasFieldCorrection}}
 #'
 #' @return List of filenames
 #' @export
@@ -16,7 +18,9 @@ n4_raw = function(
   verbose = TRUE,
   mask = NULL,
   outdir = tempdir(),
-  suffix = "_N4") {
+  suffix = "_N4",
+  convergence = list(iters = rep(200L, 4), tol = 1e-07)
+  ) {
 
   nii_names = names(x)
   if (length(nii_names) != length(x)) {
@@ -51,7 +55,8 @@ n4_raw = function(
         outfile = outfile,
         verbose = verbose > 1,
         mask = mask,
-        retimg = FALSE)
+        retimg = FALSE,
+        convergence = convergence)
     }, x, fnames, SIMPLIFY = FALSE)
   }
 

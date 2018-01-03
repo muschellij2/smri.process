@@ -5,7 +5,7 @@
 \title{N4 Bias Field Correction}
 \usage{
 n4_raw(x, verbose = TRUE, mask = NULL, outdir = tempdir(),
-  suffix = "_N4")
+  suffix = "_N4", convergence = list(iters = rep(200L, 4), tol = 1e-07))
 }
 \arguments{
 \item{x}{List of processed filenames}
@@ -17,6 +17,9 @@ n4_raw(x, verbose = TRUE, mask = NULL, outdir = tempdir(),
 \item{outdir}{Output directory}
 
 \item{suffix}{Name to append to the image filename}
+
+\item{convergence}{convergence parameters for
+\code{\link{n4BiasFieldCorrection}}}
 }
 \value{
 List of filenames

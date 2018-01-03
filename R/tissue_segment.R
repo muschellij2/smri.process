@@ -1,5 +1,3 @@
-
-
 #' MALF Tissue and Structure Segmentation
 #'
 #' @param t1 T1-weighted image/filename
@@ -36,14 +34,14 @@ t1_segment = function(
   #######################################
   tissue_fname = file.path(
     outdir,
-    "Tissue_Classes.nii.gz")
+    "TISSUES.nii.gz")
   tissue_list_fnames = file.path(
     outdir,
     paste0(c("CSF", "GM", "WM"), ".nii.gz")
   )
   label_fname = file.path(
     outdir,
-    "Structures.nii.gz")
+    "STRUCTURES.nii.gz")
 
   fnames = c(TISSUES = tissue_fname,
              STRUCTURES = label_fname,

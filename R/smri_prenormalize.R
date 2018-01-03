@@ -30,7 +30,7 @@ smri_prenormalize = function(
   x,
   gold_standard = NULL,
   gs_space = NULL,
-  probs = c(0, 0.999),
+  probs = c(0, 0.995),
   interpolator = "lanczosWindowedSinc",
   brain_mask = NULL,
   gs_interpolator = "NearestNeighbor",

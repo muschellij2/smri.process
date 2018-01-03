@@ -5,7 +5,7 @@
 \title{SMRI Pipeline for Preprocessing Prior to Normalization}
 \usage{
 smri_prenormalize(x, gold_standard = NULL, gs_space = NULL, probs = c(0,
-  0.999), interpolator = "lanczosWindowedSinc", brain_mask = NULL,
+  0.995), interpolator = "lanczosWindowedSinc", brain_mask = NULL,
   gs_interpolator = "NearestNeighbor", num_templates = 15,
   malf_transform = "SyNAggro", outdir = tempdir(), reg_space = "T1",
   brain_malf_function = "pct", brain_threshold = 0.5, verbose = TRUE,
