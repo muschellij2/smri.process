@@ -13,7 +13,7 @@ Imports:
     neurobase (>= 1.26.0),
     oro.nifti (>= 0.9.0),
     fslr (>= 2.17.1),
-    extrantsr (>= 3.7.2.9001),
+    extrantsr (>= 3.7.2.9002),
     plyr,
     RNifti,
     malf.templates,

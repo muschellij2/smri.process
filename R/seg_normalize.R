@@ -32,10 +32,19 @@ seg_normalize = function(
   ...
 ) {
 
+  inverted = prenormalize$inverted
+  if (is.null(inverted)) {
+    args = list(...)
+    inverted = args$inverted
+    if (is.null(inverted)) {
+      inverted = FALSE
+    }
+  }
   tissue = t1_segment(
     t1 = prenormalize$images$T1,
     outdir = prenormalize$outdir,
     num_templates = prenormalize$num_templates,
+    inverted = inverted,
     ...)
 
   fast_res = multi_fast(

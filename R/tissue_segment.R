@@ -51,6 +51,9 @@ t1_segment = function(
 
   if (!all_exists(fnames)) {
 
+    args = list(...)
+    inverted = args$inverted
+
     regs = malf(
       infile = t1,
       template.images = brains,
@@ -76,7 +79,9 @@ t1_segment = function(
       writenii(img, filename = filename)
     }, tissue_list, tissue_list_fnames)
 
-
+    if (is.null(inverted)) {
+      inverted = FALSE
+    }
     label_img = reapply_malf(
       infile = t1,
       regs = regs$regs,
@@ -86,7 +91,8 @@ t1_segment = function(
       outfile = label_fname,
       func = "mode",
       interpolator = interpolator,
-      verbose = verbose
+      verbose = verbose,
+      inverted = inverted
     )
     label_img = NULL
   }

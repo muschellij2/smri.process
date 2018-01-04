@@ -33,7 +33,7 @@ smri_prenormalize = function(
   probs = c(0, 0.995),
   interpolator = "lanczosWindowedSinc",
   brain_mask = NULL,
-  gs_interpolator = "NearestNeighbor",
+  gs_interpolator = "genericLabel",
   num_templates = 15,
   malf_transform = "SyNAggro",
   outdir = tempdir(),
@@ -75,6 +75,8 @@ smri_prenormalize = function(
   reg$GOLD_STANDARD = NULL
   gs_suffix = suffix
 
+  inverted = NULL
+
   if (!is.null(brain_mask)) {
     brain_mask = check_nifti(brain_mask)
     malf_result = NULL
@@ -101,6 +103,10 @@ smri_prenormalize = function(
           " templates - this may take some time")
         message(msg)
       }
+      args = list(...)
+      inverted = args$inverted
+      keep_regs = args$keep_regs
+
       malf_result = malf(
         infile = reg$T1,
         template.images = images,
@@ -114,6 +120,11 @@ smri_prenormalize = function(
         outfile = brain_pct_file,
         ...
       )
+      if (!is.null(keep_regs)) {
+        if (keep_regs) {
+          malf_result = malf_result$outimg
+        }
+      }
       brain_mask = malf_result >= brain_threshold
       writenii(brain_mask, filename = brain_mask_file)
     }
@@ -151,6 +162,7 @@ smri_prenormalize = function(
     brain_malf_function = brain_malf_function
   )
   L$brain_pct = malf_result
+  L$inverted = inverted
   L$GOLD_STANDARD = gold_standard
 
   return(L)
