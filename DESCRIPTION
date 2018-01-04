@@ -1,7 +1,7 @@
 Package: smri.process
 Type: Package
 Title: Processing of Structural Magnetic Resonance IMaging
-Version: 0.6.1.9001
+Version: 0.6.1.9002
 Author: John Muscheli <muschellij2@gmail.com>
 Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: Preprocesses structural magnetic resonance images ('MRI').
@@ -13,7 +13,7 @@ Imports:
     neurobase (>= 1.26.0),
     oro.nifti (>= 0.9.0),
     fslr (>= 2.17.1),
-    extrantsr (>= 3.7.2.9000),
+    extrantsr (>= 3.7.2.9001),
     plyr,
     RNifti,
     malf.templates,
