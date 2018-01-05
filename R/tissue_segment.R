@@ -62,7 +62,9 @@ t1_segment = function(
       retimg = TRUE,
       func = "pct",
       keep_regs = TRUE,
-      interpolator = interpolator,
+      interpolator = "Linear",
+      other_interpolator = interpolator,
+      invert_interpolator = interpolator,
       verbose = verbose,
       typeofTransform = typeofTransform,
       ...
