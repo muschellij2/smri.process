@@ -44,6 +44,8 @@ seg_normalize = function(
   args$outdir = prenormalize$outdir
   args$num_templates = prenormalize$num_templates
   args$inverted = inverted
+  args$verbose = verbose
+
   tissue = do.call(t1_segment, args = args)
 
   # tissue = t1_segment(
