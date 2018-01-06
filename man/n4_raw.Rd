@@ -19,7 +19,7 @@ n4_raw(x, verbose = TRUE, mask = NULL, outdir = tempdir(),
 \item{suffix}{Name to append to the image filename}
 
 \item{convergence}{convergence parameters for
-\code{\link{n4BiasFieldCorrection}}}
+\code{\link[ANTsRCore]{n4BiasFieldCorrection}}}
 }
 \value{
 List of filenames

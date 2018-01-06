@@ -7,7 +7,7 @@
 #' @param verbose print diagnostic messages
 #' @param suffix Name to append to the image filename
 #' @param convergence convergence parameters for
-#' \code{\link{n4BiasFieldCorrection}}
+#' \code{\link[ANTsRCore]{n4BiasFieldCorrection}}
 #'
 #' @return List of filenames
 #' @export
