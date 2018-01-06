@@ -52,7 +52,7 @@ norm_predictors = function(
 
   mom_norm = smri_moments(
     x = norm,
-    radius = ,
+    radius = radius,
     mask = normalized$brain_mask,
     outdir = normalized$outdir,
     suffix = paste0(suffix, "_"),
