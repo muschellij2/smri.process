@@ -33,6 +33,7 @@ seg_normalize = function(
 ) {
 
   inverted = prenormalize$inverted
+  args = list()
   if (is.null(inverted)) {
     args = list(...)
     inverted = args$inverted
