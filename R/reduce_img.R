@@ -3,6 +3,9 @@
 #'
 #' @param x List of processed filenames
 #' @param outdir Output directory
+#' @param cleanup Argument to \code{\link{oMask}}.  If >0, morphological
+#' operations will be applied to clean up the mask by
+#' eroding away small or weakly-connected areas, and closing holes.
 #' @param verbose print diagnostic messages
 #' @param suffix Name to append to the image filename
 #'
@@ -12,6 +15,7 @@
 reduce_img = function(
   x,
   verbose = TRUE,
+  cleanup = 1,
   outdir = tempdir(),
   suffix = "_reduced") {
 
@@ -37,7 +41,7 @@ reduce_img = function(
     rm_neck = llply(
       x,
       function(nn){
-        dd = mask_reduce(nn)
+        dd = mask_reduce(nn, cleanup = cleanup)
         return(dd$outimg)
       }, .progress = ifelse(verbose, "text", "none"))
 
@@ -55,9 +59,9 @@ reduce_img = function(
 #' @export
 #' @importFrom extrantsr oMask
 #' @importFrom neurobase dropEmptyImageDimensions
-mask_reduce = function(x) {
+mask_reduce = function(x, cleanup = 1) {
   # cleanup 0 because more liberal
-  mask = oMask(x, cleanup = 0)
+  mask = oMask(x, cleanup = cleanup)
   dd = dropEmptyImageDimensions(
     mask,
     keep_ind = TRUE,

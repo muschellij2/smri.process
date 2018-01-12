@@ -19,6 +19,7 @@
 #' to be considered part of the mask
 #' @param brain_malf_function Function to be passed to \code{\link{malf}},
 #' and subsequently \code{\link{stat_img}} for brain extraction
+#' @param cleanup Argument to \code{\link{reduce_img}} for reducing the images.
 #' @param ... Additional arguments to MALF
 #'
 #' @return List of the images, brain mask, suffix, and output directory
@@ -42,6 +43,7 @@ smri_prenormalize = function(
   brain_threshold = 0.5,
   verbose = TRUE,
   remove_negative = TRUE,
+  cleanup =1,
   ...
 ) {
 
@@ -53,7 +55,8 @@ smri_prenormalize = function(
     gs_space = gs_space,
     outdir = outdir,
     verbose = verbose,
-    probs = probs)
+    probs = probs,
+    cleanup = cleanup)
 
   suffix = proc$suffix
   suffix = paste0(suffix, "_regto", reg_space)

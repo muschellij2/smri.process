@@ -5,7 +5,7 @@
 \title{Bias Correct, Remove Neck, Reduce Image}
 \usage{
 bc_noneck_reduce(x, remove_negative = TRUE, gold_standard = NULL,
-  gs_space = NULL, probs = c(0, 0.999), outdir = tempdir(),
+  gs_space = NULL, cleanup = 1, probs = c(0, 0.999), outdir = tempdir(),
   verbose = TRUE)
 }
 \arguments{
@@ -17,6 +17,10 @@ the imaging modalities. T1 and FLAIR must be included}
 \item{gold_standard}{Gold Standard image/filename, if applicable}
 
 \item{gs_space}{space the Gold Standard is located}
+
+\item{cleanup}{Argument to \code{\link{oMask}}.  If >0, morphological
+operations will be applied to clean up the mask by
+eroding away small or weakly-connected areas, and closing holes.}
 
 \item{probs}{passed to \code{\link{winsor}} for Winsorization}
 

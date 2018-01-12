@@ -8,6 +8,9 @@
 #' @param probs passed to \code{\link{winsor}} for Winsorization
 #' @param outdir Output directory
 #' @param verbose print diagnostic messages
+#' @param cleanup Argument to \code{\link{oMask}}.  If >0, morphological
+#' operations will be applied to clean up the mask by
+#' eroding away small or weakly-connected areas, and closing holes.
 #' @return List of output filenames
 #' @export
 #' @importFrom neurobase applyEmptyImageDimensions
@@ -18,6 +21,7 @@ bc_noneck_reduce = function(
   remove_negative = TRUE,
   gold_standard = NULL,
   gs_space = NULL,
+  cleanup = 1,
   probs = c(0, 0.999),
   outdir = tempdir(),
   verbose = TRUE){
@@ -70,7 +74,8 @@ bc_noneck_reduce = function(
     x = noneck,
     verbose = verbose,
     outdir = outdir,
-    suffix = suffix
+    suffix = suffix,
+    cleanup = cleanup
   )
 
 
@@ -84,7 +89,8 @@ bc_noneck_reduce = function(
     )
     if (!all_exists(les_fname)) {
       nn = noneck[[gs_space]]
-      dd = mask_reduce(nn)
+      dd = mask_reduce(nn,
+                       cleanup = cleanup)
       les_rm_neck = applyEmptyImageDimensions(
         img = gold_standard,
         inds = dd$inds

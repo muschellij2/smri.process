@@ -5,14 +5,19 @@
 \alias{mask_reduce}
 \title{Reduce Image, Dropping Image Dimensions}
 \usage{
-reduce_img(x, verbose = TRUE, outdir = tempdir(), suffix = "_reduced")
+reduce_img(x, verbose = TRUE, cleanup = 1, outdir = tempdir(),
+  suffix = "_reduced")
 
-mask_reduce(x)
+mask_reduce(x, cleanup = 1)
 }
 \arguments{
 \item{x}{List of processed filenames}
 
 \item{verbose}{print diagnostic messages}
+
+\item{cleanup}{Argument to \code{\link{oMask}}.  If >0, morphological
+operations will be applied to clean up the mask by
+eroding away small or weakly-connected areas, and closing holes.}
 
 \item{outdir}{Output directory}
 
