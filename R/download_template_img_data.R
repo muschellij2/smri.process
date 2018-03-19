@@ -19,6 +19,7 @@
 #' dl = download_template_img_data(
 #' modality = "T1_Pre", statistic = "Mean", lib.loc = tfile)
 #' @export
+#' @importFrom utils download.file
 download_template_img_data = function(
   ...,
   lib.loc = NULL){
