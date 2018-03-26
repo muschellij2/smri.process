@@ -84,7 +84,7 @@ template_z_score = function(
     # which screws up image registration
     const = 1
     if (!is.null(mask)) {
-      tmp_mask = mask
+      tmp_mask = check_nifti(mask)
     } else {
       tmp_mask = t1 != 0
     }
