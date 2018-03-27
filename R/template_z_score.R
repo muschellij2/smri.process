@@ -18,11 +18,17 @@
 #' @param interpolator Interpolation done, passed to
 #' \code{\link{registration}}
 #' @param suffix what the append to end of the output filename
+#' @param lower_value Lower value to winsorize the z-score to.
+#' With small standard deviations, the values can get far outside of
+#' a standard range.
+#' @param upper_value upper value to winsorize the z-score to.
+#' With small standard deviations, the values can get far outside of
+#' a standard range.
 #'
 #' @return List of images
 #' @export
 #'
-#' @importFrom neurobase zscore_img quantile_img
+#' @importFrom neurobase zscore_img quantile_img window_img
 #' @importFrom WhiteStripe whitestripe_norm whitestripe whitestripe_hybrid
 template_z_score = function(
   x,
@@ -33,6 +39,8 @@ template_z_score = function(
   outdir = tempdir(),
   verbose = TRUE,
   remask = TRUE,
+  lower_value = -20,
+  upper_value = 20,
   interpolator = "lanczosWindowedSinc",
   suffix = "_ztemp") {
 
@@ -114,6 +122,10 @@ template_z_score = function(
     mean_imgs = check_nifti(mean_imgs)
     sd_imgs = check_nifti(sd_imgs)
 
+    if (verbose > 0) {
+      message("Making Z-images")
+    }
+
     norm = mapply(function(fname, mean.img, sd.img) {
       img = ants_apply_transforms(
         fixed = template_fname,
@@ -121,17 +133,24 @@ template_z_score = function(
         transformlist = t1_reg$fwdtransforms,
         interpolator = interpolator)
       z.img = (img - mean.img) / sd.img
-      z.img[ !is.finite(z.img)] = NA
+      z.img = finite_img(z.img)
+      l = max(c(min(z.img), lower_value))
+      u = min(c(max(z.img), upper_value))
+      z.img = neurobase::window_img(z.img, window = c(l, u))
       res_z = ants_apply_transforms(
         fixed = t1, # reversed!
         moving = z.img,
         transformlist = t1_reg$invtransforms,
         interpolator = interpolator)
-      z.img
-    }, x, mean_imgs, sd_imgs)
+      res_z
+    }, x, mean_imgs, sd_imgs,
+    SIMPLIFY = FALSE)
 
     if (remask) {
       if (!is.null(mask)) {
+        if (verbose > 0) {
+          message("Remasking Z-images")
+        }
         mask = check_nifti(mask)
         norm = lapply(norm, mask_img, mask = mask)
       }

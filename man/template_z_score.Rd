@@ -6,6 +6,7 @@
 \usage{
 template_z_score(x, mask = NULL, template = "Eve", mean_imgs = NULL,
   sd_imgs = NULL, outdir = tempdir(), verbose = TRUE, remask = TRUE,
+  lower_value = -20, upper_value = 20,
   interpolator = "lanczosWindowedSinc", suffix = "_ztemp")
 }
 \arguments{
@@ -31,6 +32,14 @@ See \code{\link{download_template_img_data}}#'}
 \item{remask}{should \code{\link{mask_img}}
 be applied to the output images
 after normalization}
+
+\item{lower_value}{Lower value to winsorize the z-score to.
+With small standard deviations, the values can get far outside of
+a standard range.}
+
+\item{upper_value}{upper value to winsorize the z-score to.
+With small standard deviations, the values can get far outside of
+a standard range.}
 
 \item{interpolator}{Interpolation done, passed to
 \code{\link{registration}}}

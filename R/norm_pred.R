@@ -142,7 +142,8 @@ gather_predictors = function(x) {
       x$normalized_moments,
       x$tissue_prob_moments,
       x$correlation_images,
-      x$quantile_images)
+      x$quantile_images,
+      x$normalized$z_to_template)
   fnames = unlist(fnames)
   return(fnames)
 }
