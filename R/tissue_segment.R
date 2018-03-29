@@ -53,7 +53,12 @@ t1_segment = function(
 
     args = list(...)
     inverted = args$inverted
-
+    if (verbose > 0) {
+      msg = paste0(
+        "Running MALF for tissue and structures with ", num_templates,
+        " templates - this may take some time")
+      message(msg)
+    }
     regs = malf(
       infile = t1,
       template.images = brains,
