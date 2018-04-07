@@ -37,9 +37,11 @@ bc_noneck_reduce = function(
   rm_negative = function(x) {
     tmp_res = lapply(x, function(r) {
       img = RNifti::readNifti(r)
-      img[img < 0] = 0
-      RNifti::writeNifti(img, r)
-      rm(img); gc()
+      if (min(img) < 0) {
+        img[img < 0] = 0
+        RNifti::writeNifti(img, r)
+        rm(img); gc()
+      }
       return(TRUE)
     })
     rm(tmp_res);
