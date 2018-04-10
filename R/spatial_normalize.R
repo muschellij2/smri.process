@@ -140,7 +140,7 @@
         # genericLabel interpolator
         resampled_gs = resample_to_target(
           prenormalize$GOLD_STANDARD,
-          target = prenormalize$images[[1]],
+          target = resampled$images[[1]],
           verbose = verbose > 1,
           interpolator = "genericLabel")
         writenii(resampled_gs, filename = gs_fname)
