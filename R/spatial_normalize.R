@@ -15,7 +15,7 @@
 #' @importFrom EveTemplate getEvePath
 #' @importFrom MNITemplate getMNIPath
 #' @importFrom extrantsr registration resample_to_target resample_image
-spatial_normalize = function(
+ spatial_normalize = function(
   prenormalize,
   template = c("none", "Eve", "MNI"),
   verbose = TRUE,
@@ -281,7 +281,8 @@ spatial_normalize = function(
     interpolator = interpolator
   )
   L$template_fname = checkimg(template_fname)
-  L$GOLD_STANDARD = gold_standard
+  # L$GOLD_STANDARD = gold_standard
+  L$GOLD_STANDARD = resampled_gs
   L$brain_mask = resampled_brain_mask
   L$reg_to_template = t1_reg
   L$brain_pct = resampled_brain_pct
