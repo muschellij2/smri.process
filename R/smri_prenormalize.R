@@ -15,6 +15,8 @@
 #' @param reg_space space to register images to
 #' @param remove_negative After reorientation, N4, and registration,
 #' any values < 0 are set to 0
+#' @param zero_origin Should the origin be set to 0 for the
+#' image to be registered to?
 #' @param brain_threshold Percentage threshold for the brain MALF image
 #' to be considered part of the mask
 #' @param brain_malf_function Function to be passed to \code{\link{malf}},
@@ -43,6 +45,7 @@ smri_prenormalize = function(
   brain_threshold = 0.5,
   verbose = TRUE,
   remove_negative = TRUE,
+  zero_origin = TRUE,
   cleanup =1,
   ...
 ) {
@@ -69,7 +72,8 @@ smri_prenormalize = function(
     verbose = verbose,
     reg_space = reg_space,
     suffix = suffix,
-    remove_negative = remove_negative)
+    remove_negative = remove_negative,
+    zero_origin = zero_origin)
 
   reg = reg$images
   rigid_registrations = reg$registrations

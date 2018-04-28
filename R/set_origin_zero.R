@@ -6,6 +6,7 @@
 #'
 #' @export
 #' @importFrom ANTsRCore antsImageRead antsSetOrigin antsGetOrigin
+#' @importFrom ANTsRCore antsImageWrite
 set_origin_zero = function(fnames) {
   stopifnot(is.character(fnames))
   res = sapply(fnames, function(fname) {

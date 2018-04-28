@@ -11,6 +11,8 @@
 #' @param reg_space space to register images to
 #' @param suffix Name to append to the image filename
 #' @param remove_negative After registration, any values < 0 are set to 0
+#' @param zero_origin Should the origin be set to 0 for the
+#' image to be registered to?
 #'
 #' @return List of Images
 #' @export
@@ -25,7 +27,8 @@ reg_to_t1 = function(
   verbose = TRUE,
   reg_space = "T1",
   suffix = "_regtoT1",
-  remove_negative = TRUE
+  remove_negative = TRUE,
+  zero_origin = TRUE
 ) {
 
   nii_names = names(x)
@@ -85,7 +88,9 @@ reg_to_t1 = function(
     t1 = x[[reg_space]]
     t1_fname = fnames[reg_space]
     file.copy(t1, t1_fname, overwrite = TRUE)
-
+    if (zero_origin) {
+      set_origin_zero(c(t1, t1_fname))
+    }
     # removing T1 from the image list
     x = x[ !(names(x) %in% reg_space)]
     fnames = fnames[ !(names(fnames) %in% reg_space)]

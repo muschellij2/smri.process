@@ -6,7 +6,8 @@
 \usage{
 reg_to_t1(x, gs_space = NULL, interpolator = "Linear",
   gs_interpolator = "NearestNeighbor", outdir = tempdir(), verbose = TRUE,
-  reg_space = "T1", suffix = "_regtoT1", remove_negative = TRUE)
+  reg_space = "T1", suffix = "_regtoT1", remove_negative = TRUE,
+  zero_origin = TRUE)
 }
 \arguments{
 \item{x}{List of images or character vector.  Must be named with
@@ -28,6 +29,9 @@ for gold standard}
 \item{suffix}{Name to append to the image filename}
 
 \item{remove_negative}{After registration, any values < 0 are set to 0}
+
+\item{zero_origin}{Should the origin be set to 0 for the
+image to be registered to?}
 }
 \value{
 List of Images

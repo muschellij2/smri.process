@@ -9,7 +9,7 @@ smri_prenormalize(x, gold_standard = NULL, gs_space = NULL, probs = c(0,
   gs_interpolator = "genericLabel", num_templates = 15,
   malf_transform = "SyNAggro", outdir = tempdir(), reg_space = "T1",
   brain_malf_function = "pct", brain_threshold = 0.5, verbose = TRUE,
-  remove_negative = TRUE, cleanup = 1, ...)
+  remove_negative = TRUE, zero_origin = TRUE, cleanup = 1, ...)
 }
 \arguments{
 \item{x}{List of images}
@@ -45,6 +45,9 @@ to be considered part of the mask}
 
 \item{remove_negative}{After reorientation, N4, and registration,
 any values < 0 are set to 0}
+
+\item{zero_origin}{Should the origin be set to 0 for the
+image to be registered to?}
 
 \item{cleanup}{Argument to \code{\link{reduce_img}} for reducing the images.}
 
