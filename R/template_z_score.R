@@ -24,6 +24,9 @@
 #' @param upper_value upper value to winsorize the z-score to.
 #' With small standard deviations, the values can get far outside of
 #' a standard range.
+#' @param add_const Added constant because normalized
+#' images may have negative values which cause the registration
+#' to fail
 #'
 #' @return List of images
 #' @export
@@ -41,6 +44,7 @@ template_z_score = function(
   remask = TRUE,
   lower_value = -20,
   upper_value = 20,
+  add_const = TRUE,
   interpolator = "lanczosWindowedSinc",
   suffix = "_ztemp") {
 
@@ -98,7 +102,7 @@ template_z_score = function(
     }
 
     vals = mask_vals(t1, mask = tmp_mask)
-    if (sum(vals) <= 1e-5) {
+    if ( (sum(vals) <= 1e-5) || add_const) {
       t1 = t1 - min(vals) + const
       t1 = mask_img(t1, mask = tmp_mask)
     }
