@@ -13,6 +13,7 @@ Imports:
     neurobase (>= 1.26.0),
     oro.nifti (>= 0.9.0),
     fslr (>= 2.18.1),
+    ANTsRCore,
     extrantsr (>= 3.7.5),
     plyr,
     RNifti,

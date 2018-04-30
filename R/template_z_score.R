@@ -24,7 +24,7 @@
 #' @param upper_value upper value to winsorize the z-score to.
 #' With small standard deviations, the values can get far outside of
 #' a standard range.
-#' @param add_const Should \code{iMath("Normalize")} be done
+#' @param add_const Should a constant be added
 #' to the T1 image; without this, the registration may
 #' fail
 #'
@@ -104,8 +104,8 @@ template_z_score = function(
 
     vals = mask_vals(t1, mask = tmp_mask)
     if ( (sum(vals) <= 1e-5) || add_const) {
-      # t1 = t1 - min(vals) + const
-      t1 = oMath(t1, "Normalize")
+      t1 = t1 - min(vals) + const
+      # t1 = oMath(t1, "Normalize")
       t1 = mask_img(t1, mask = tmp_mask)
     }
     # don't need to readjust because just need the transformations

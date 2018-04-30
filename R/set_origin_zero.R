@@ -18,7 +18,7 @@ set_origin_zero = function(fnames) {
     antsSetOrigin(img, origin = c(0, 0, 0))
     antsImageWrite(img, filename = fname)
     img_again = antsImageRead(fname)
-    all(antsGetOrigin(img_again) == c(0, 0, 0)   )
+    all(antsGetOrigin(img_again) == c(0, 0, 0))
   })
   return(res)
 }

@@ -41,7 +41,7 @@ a standard range.}
 With small standard deviations, the values can get far outside of
 a standard range.}
 
-\item{add_const}{Should \code{iMath("Normalize")} be done
+\item{add_const}{Should a constant be added
 to the T1 image; without this, the registration may
 fail}
 

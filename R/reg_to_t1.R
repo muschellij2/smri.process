@@ -28,7 +28,7 @@ reg_to_t1 = function(
   reg_space = "T1",
   suffix = "_regtoT1",
   remove_negative = TRUE,
-  zero_origin = TRUE
+  zero_origin = FALSE
 ) {
 
   nii_names = names(x)

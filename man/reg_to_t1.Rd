@@ -7,7 +7,7 @@
 reg_to_t1(x, gs_space = NULL, interpolator = "Linear",
   gs_interpolator = "NearestNeighbor", outdir = tempdir(), verbose = TRUE,
   reg_space = "T1", suffix = "_regtoT1", remove_negative = TRUE,
-  zero_origin = TRUE)
+  zero_origin = FALSE)
 }
 \arguments{
 \item{x}{List of images or character vector.  Must be named with
