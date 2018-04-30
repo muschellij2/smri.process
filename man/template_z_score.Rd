@@ -41,9 +41,9 @@ a standard range.}
 With small standard deviations, the values can get far outside of
 a standard range.}
 
-\item{add_const}{Added constant because normalized
-images may have negative values which cause the registration
-to fail}
+\item{add_const}{Should \code{iMath("Normalize")} be done
+to the T1 image; without this, the registration may
+fail}
 
 \item{interpolator}{Interpolation done, passed to
 \code{\link{registration}}}
