@@ -7,7 +7,7 @@
 #'
 #' @return List of reoriented output filenames
 #' @export
-#' @importFrom fslr rpi_orient_file is_rpi
+#' @importFrom fslr rpi_orient_file is_rpi enforce_form
 #' @importFrom neurobase checkimg
 rpi_raw = function(
   x,
@@ -45,6 +45,7 @@ rpi_raw = function(
   x = lapply(
     x,
     function(fname) {
+      fname = fslr::enforce_form(file = fname)
       if (!fslr::is_rpi(fname)) {
         res = rpi_orient_file(fname, verbose = verbose > 1)
       } else {
