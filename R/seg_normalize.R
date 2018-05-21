@@ -72,7 +72,8 @@ seg_normalize = function(
     verbose = verbose,
     template = template,
     typeofTransform = typeofTransform,
-    interpolator = interpolator
+    interpolator = interpolator,
+    dis_interpolator = dis_interpolator
   )
 
   if (verbose > 0) {
