@@ -14,7 +14,7 @@ Imports:
     oro.nifti (>= 0.9.0),
     fslr (>= 2.19.0),
     ANTsRCore,
-    extrantsr (>= 3.7.6.9000),
+    extrantsr (>= 3.7.6.9001),
     plyr,
     RNifti,
     malf.templates,
