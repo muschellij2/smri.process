@@ -88,7 +88,8 @@ seg_normalize = function(
     suffix = tissue_suffix,
     interpolator = dis_interpolator,
     outdir = resampled$outdir,
-    verbose = verbose
+    verbose = verbose,
+    copy_origin = TRUE
   )
 
   if (verbose > 0) {
@@ -103,7 +104,8 @@ seg_normalize = function(
     suffix = tissue_suffix,
     interpolator = resampled$interpolator,
     outdir = resampled$outdir,
-    verbose = verbose
+    verbose = verbose,
+    copy_origin = TRUE
   )
 
   resampled_tissue = c(
@@ -128,7 +130,8 @@ seg_normalize = function(
         suffix = tissue_suffix,
         interpolator = dis_interpolator,
         outdir = resampled$outdir,
-        verbose = verbose)
+        verbose = verbose,
+        copy_origin = TRUE)
       dis_data = unlist(dis_data)
 
       con_data = apply_spatial_normalize(
@@ -139,7 +142,8 @@ seg_normalize = function(
         suffix = tissue_suffix,
         interpolator = resampled$interpolator,
         outdir = resampled$outdir,
-        verbose = verbose)
+        verbose = verbose,
+        copy_origin = TRUE)
       con_data = unlist(con_data)
       x = c(dis_data, con_data)
       x = x[names(x)]

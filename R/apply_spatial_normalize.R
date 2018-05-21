@@ -9,7 +9,8 @@
 #' @param interpolator interpolation passed to \code{\link{ants_apply_transforms}}
 #' @param outdir Output directory
 #' @param verbose Print diagnostic messages
-#'
+#' @param copy_origin Copy image origin from \code{target},
+#' using \code{\link{antsCopyOrigin}}
 #' @return List of filenames of normalized data
 #' @export
 apply_spatial_normalize = function(
@@ -20,7 +21,8 @@ apply_spatial_normalize = function(
   suffix = "",
   interpolator = "lanczosWindowedSinc",
   outdir = tempdir(),
-  verbose = TRUE
+  verbose = TRUE,
+  copy_origin = TRUE
 ) {
 
 
@@ -55,7 +57,8 @@ apply_spatial_normalize = function(
         resample_to_target,
         target = template_fname,
         verbose = verbose > 1,
-        interpolator = "genericLabel")
+        interpolator = "genericLabel",
+        copy_origin = copy_origin)
 
       mapply(function(img, fname){
         writenii(img, filename = fname)

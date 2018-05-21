@@ -6,7 +6,7 @@
 \usage{
 apply_spatial_normalize(x, template = c("none", "Eve", "MNI"), template_fname,
   fwdtransforms = NULL, suffix = "", interpolator = "lanczosWindowedSinc",
-  outdir = tempdir(), verbose = TRUE)
+  outdir = tempdir(), verbose = TRUE, copy_origin = TRUE)
 }
 \arguments{
 \item{x}{List of filenames}
@@ -25,6 +25,9 @@ Template to register to - either MNI or Eve template}
 \item{outdir}{Output directory}
 
 \item{verbose}{Print diagnostic messages}
+
+\item{copy_origin}{Copy image origin from \code{target},
+using \code{\link{antsCopyOrigin}}}
 }
 \value{
 List of filenames of normalized data
