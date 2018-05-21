@@ -6,7 +6,7 @@
 \usage{
 spatial_normalize(prenormalize, template = c("none", "Eve", "MNI"),
   verbose = TRUE, typeofTransform = "SyN",
-  interpolator = "lanczosWindowedSinc")
+  interpolator = "lanczosWindowedSinc", dis_interpolator = "genericLabel")
 }
 \arguments{
 \item{prenormalize}{list from \code{\link{smri_prenormalize}}}
@@ -21,6 +21,9 @@ passed to \code{\link{registration}}}
 
 \item{interpolator}{Interpolation done, passed to
 \code{\link{registration}}}
+
+\item{dis_interpolator}{Interpolation done, passed to
+\code{\link{registration}} for discrete data}
 }
 \value{
 List of images, suffix, brain mask, gold standard,

@@ -8,7 +8,8 @@
 #' passed to \code{\link{registration}}
 #' @param interpolator Interpolation done, passed to
 #' \code{\link{registration}}
-#'
+#' @param dis_interpolator Interpolation done, passed to
+#' \code{\link{registration}} for discrete data
 #' @return List of images, suffix, brain mask, gold standard,
 #' and registration if applicable
 #' @export
@@ -20,8 +21,9 @@
   template = c("none", "Eve", "MNI"),
   verbose = TRUE,
   typeofTransform = "SyN",
-  interpolator = "lanczosWindowedSinc"
-) {
+  interpolator = "lanczosWindowedSinc",
+  dis_interpolator = "genericLabel"
+  ) {
 
   template = match.arg(template)
   native = template == "none"
@@ -107,7 +109,7 @@
           prenormalize$brain_mask,
           parameters = c(1, 1, 1),
           parameter_type = "mm",
-          interpolator = "nearestneighbor")
+          interpolator = dis_interpolator)
         writenii(resampled_brain_mask, filename = brain_fname)
 
         resampled = lapply(
@@ -142,7 +144,7 @@
           prenormalize$GOLD_STANDARD,
           target = resampled[[1]],
           verbose = verbose > 1,
-          interpolator = "genericLabel")
+          interpolator = dis_interpolator)
         writenii(resampled_gs, filename = gs_fname)
       }
 
@@ -198,7 +200,7 @@
           moving = prenormalize$brain_mask,
           fixed = template_fname,
           transformlist = t1_reg$fwdtransforms,
-          interpolator = "nearestNeighbor")
+          interpolator = dis_interpolator)
 
         writenii(resampled_brain_mask, filename = brain_fname)
 
@@ -228,7 +230,7 @@
           moving = prenormalize$GOLD_STANDARD,
           fixed = template_fname,
           transformlist = t1_reg$fwdtransforms,
-          interpolator = "genericLabel")
+          interpolator = dis_interpolator)
         writenii(resampled_gs, filename = gs_fname)
       }
 
