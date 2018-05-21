@@ -105,10 +105,10 @@
         interpolator = "windowedsinc")
 
       if (!is.null(brain_mask)) {
-        resampled_brain_mask = resample_image(
+        resampled_brain_mask = resample_to_target(
           prenormalize$brain_mask,
-          parameters = c(1, 1, 1),
-          parameter_type = "mm",
+          target = resampled[[1]],
+          verbose = verbose > 1,
           interpolator = dis_interpolator)
         writenii(resampled_brain_mask, filename = brain_fname)
 
@@ -119,11 +119,11 @@
       }
 
       if (!is.null(brain_pct)) {
-        resampled_brain_pct = resample_image(
+        resampled_brain_pct = resample_to_target(
           prenormalize$brain_pct,
-          parameters = c(1, 1, 1),
-          parameter_type = "mm",
-          interpolator = "windowedsinc")
+          target = resampled[[1]],
+          verbose = verbose > 1,
+          interpolator = interpolator)
         writenii(resampled_brain_pct, filename = brain_pct_fname)
       }
 
