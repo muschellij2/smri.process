@@ -109,7 +109,8 @@
           prenormalize$brain_mask,
           target = resampled[[1]],
           verbose = verbose > 1,
-          interpolator = dis_interpolator)
+          interpolator = dis_interpolator,
+          copy_origin = TRUE)
         writenii(resampled_brain_mask, filename = brain_fname)
 
         resampled = lapply(
@@ -123,7 +124,8 @@
           prenormalize$brain_pct,
           target = resampled[[1]],
           verbose = verbose > 1,
-          interpolator = interpolator)
+          interpolator = interpolator,
+          copy_origin = TRUE)
         writenii(resampled_brain_pct, filename = brain_pct_fname)
       }
 
@@ -144,7 +146,8 @@
           prenormalize$GOLD_STANDARD,
           target = resampled[[1]],
           verbose = verbose > 1,
-          interpolator = dis_interpolator)
+          interpolator = dis_interpolator,
+          copy_origin = TRUE)
         writenii(resampled_gs, filename = gs_fname)
       }
 
