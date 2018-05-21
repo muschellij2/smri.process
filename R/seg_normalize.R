@@ -149,7 +149,7 @@ seg_normalize = function(
   resampled$tissue = resampled_tissue
   resampled$fast = resampled_fast
   prenormalize$tissue = tissue
-  prenormalize$fast = fast
+  prenormalize$fast = fast_res
 
   L = list(
     normalized = resampled,
