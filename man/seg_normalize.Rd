@@ -40,5 +40,6 @@ List of images, suffix, brain mask, gold standard,
 and registration if applicable
 }
 \description{
-Spatially Normalize SMRI data and Tissue Segmentation
+Spatially Normalize SMRI data and Tissue Segmentation, note T1 is
+required
 }

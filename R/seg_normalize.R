@@ -1,5 +1,8 @@
 #' Spatially Normalize SMRI data and Tissue Segmentation
 #'
+#' Spatially Normalize SMRI data and Tissue Segmentation, note T1 is
+#' required
+#'
 #' @param prenormalize list from \code{\link{smri_prenormalize}}
 #' @param template Resampling to \code{1x1x1} (template = none) or
 #' Template to register to - either MNI or Eve template

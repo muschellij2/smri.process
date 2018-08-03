@@ -8,7 +8,7 @@ rpi_raw(x, gold_standard = NULL, verbose = TRUE)
 }
 \arguments{
 \item{x}{List of images or character vector.  Must be named with
-the imaging modalities. T1 and FLAIR must be included}
+the imaging modalities.}
 
 \item{gold_standard}{Gold Standard image/filename, if applicable}
 
