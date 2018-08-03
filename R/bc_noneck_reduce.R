@@ -1,7 +1,7 @@
 #' Bias Correct, Remove Neck, Reduce Image
 #'
 #' @param x List of images or character vector.  Must be named with
-#' the imaging modalities. T1 and FLAIR must be included
+#' the imaging modalities.
 #' @param remove_negative Force values less than zero to zero
 #' @param gold_standard Gold Standard image/filename, if applicable
 #' @param gs_space space the Gold Standard is located

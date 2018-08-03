@@ -10,7 +10,7 @@ bc_noneck_reduce(x, remove_negative = TRUE, gold_standard = NULL,
 }
 \arguments{
 \item{x}{List of images or character vector.  Must be named with
-the imaging modalities. T1 and FLAIR must be included}
+the imaging modalities.}
 
 \item{remove_negative}{Force values less than zero to zero}
 

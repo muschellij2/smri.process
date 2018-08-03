@@ -19,9 +19,9 @@ rpi_raw = function(
   if (length(nii_names) != length(x)) {
     stop("x must be a named vector or named list")
   }
-  if (!all(c("T1", "FLAIR") %in% nii_names)) {
-    stop("T1 and FLAIR must be in the images vector")
-  }
+  # if (!all(c("T1", "FLAIR") %in% nii_names)) {
+  #   stop("T1 and FLAIR must be in the images vector")
+  # }
 
   x = checkimg(x)
   x = lapply(x, identity)
