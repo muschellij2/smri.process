@@ -7,6 +7,8 @@
 #' @param typeofTransform Transformation to align the templates to the T1
 #' @param verbose Print diagnostic messages
 #' @param ... additional options to pass to \code{\link{malf}}
+#' @param malf_prob_function Function for MALF combination for probability.
+#' @param malf_label_function Function for MALF combination for labeling.
 #'
 #' @return Object of class nifti
 #' @export
@@ -21,6 +23,8 @@ t1_segment = function(
   interpolator = "genericLabel",
   typeofTransform = "SyNAggro",
   verbose = TRUE,
+  malf_prob_function = "staple_prob",
+  malf_label_function = "staple_label",
   ...){
 
   ind = seq(num_templates)
@@ -65,7 +69,7 @@ t1_segment = function(
       template.structs = tissues,
       keep_images = TRUE,
       retimg = TRUE,
-      func = "pct",
+      func = malf_function,
       keep_regs = TRUE,
       interpolator = "Linear",
       other_interpolator = interpolator,

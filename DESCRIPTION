@@ -1,10 +1,11 @@
 Package: smri.process
 Type: Package
-Title: Processing of Structural Magnetic Resonance IMaging
+Title: Processing of Structural Magnetic Resonance Imaging
 Version: 0.7.1.9000
 Author: John Muscheli <muschellij2@gmail.com>
 Maintainer: John Muschelli <muschellij2@gmail.com>
-Description: Preprocesses structural magnetic resonance images ('MRI').
+Description: Pre-processes structural magnetic resonance images ('MRI').  
+    Also creates a suite of imaging predictors relevant for segmentation.
 License: GPL-2
 Depends:
     R (>= 2.10)

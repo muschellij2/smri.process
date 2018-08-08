@@ -6,7 +6,8 @@
 \usage{
 t1_segment(t1, outdir = tempdir(), num_templates = 35,
   interpolator = "genericLabel", typeofTransform = "SyNAggro",
-  verbose = TRUE, ...)
+  verbose = TRUE, malf_prob_function = "staple_prob",
+  malf_label_function = "staple_label", ...)
 }
 \arguments{
 \item{t1}{T1-weighted image/filename}
@@ -20,6 +21,10 @@ t1_segment(t1, outdir = tempdir(), num_templates = 35,
 \item{typeofTransform}{Transformation to align the templates to the T1}
 
 \item{verbose}{Print diagnostic messages}
+
+\item{malf_prob_function}{Function for MALF combination for probability.}
+
+\item{malf_label_function}{Function for MALF combination for labeling.}
 
 \item{...}{additional options to pass to \code{\link{malf}}}
 }
