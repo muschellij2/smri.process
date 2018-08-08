@@ -4,7 +4,7 @@ Title: Processing of Structural Magnetic Resonance Imaging
 Version: 0.7.2
 Author: John Muscheli <muschellij2@gmail.com>
 Maintainer: John Muschelli <muschellij2@gmail.com>
-Description: Pre-processes structural magnetic resonance images ('MRI').  
+Description: Processes structural magnetic resonance images ('MRI').  
     Also creates a suite of imaging predictors relevant for segmentation.
 License: GPL-2
 Depends:
