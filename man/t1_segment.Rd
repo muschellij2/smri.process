@@ -7,7 +7,7 @@
 t1_segment(t1, outdir = tempdir(), num_templates = 35,
   interpolator = "genericLabel", typeofTransform = "SyNAggro",
   verbose = TRUE, malf_prob_function = "staple_prob",
-  malf_label_function = "staple_label", ...)
+  malf_label_function = "mode", ...)
 }
 \arguments{
 \item{t1}{T1-weighted image/filename}

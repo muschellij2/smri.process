@@ -4,8 +4,8 @@
 \alias{multi_fast}
 \title{Multiple FAST for PD/T1/T2}
 \usage{
-multi_fast(x, outdir = tempdir(), bias_correct = FALSE, verbose = TRUE,
-  ...)
+multi_fast(x, outdir = tempdir(), bias_correct = FALSE,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{x}{List of processed images with T1/T2/PD}

@@ -5,8 +5,8 @@
 \title{Bias Correct, Remove Neck, Reduce Image}
 \usage{
 bc_noneck_reduce(x, remove_negative = TRUE, gold_standard = NULL,
-  gs_space = NULL, cleanup = 1, probs = c(0, 0.999), outdir = tempdir(),
-  verbose = TRUE)
+  gs_space = NULL, cleanup = 1, probs = c(0, 0.999),
+  outdir = tempdir(), verbose = TRUE)
 }
 \arguments{
 \item{x}{List of images or character vector.  Must be named with

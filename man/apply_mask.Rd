@@ -4,7 +4,8 @@
 \alias{apply_mask}
 \title{Apply Brain mask}
 \usage{
-apply_mask(x, mask, outdir = tempdir(), verbose = TRUE, suffix = "_brain")
+apply_mask(x, mask, outdir = tempdir(), verbose = TRUE,
+  suffix = "_brain")
 }
 \arguments{
 \item{x}{List of images or character vector.  Must be named with

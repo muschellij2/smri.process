@@ -5,9 +5,10 @@
 \title{SMRI Z-score compared to a Template}
 \usage{
 template_z_score(x, mask = NULL, template = "Eve", mean_imgs = NULL,
-  sd_imgs = NULL, outdir = tempdir(), verbose = TRUE, remask = TRUE,
-  lower_value = -20, upper_value = 20, add_const = TRUE,
-  interpolator = "lanczosWindowedSinc", suffix = "_ztemp")
+  sd_imgs = NULL, outdir = tempdir(), verbose = TRUE,
+  remask = TRUE, lower_value = -20, upper_value = 20,
+  add_const = TRUE, interpolator = "lanczosWindowedSinc",
+  suffix = "_ztemp")
 }
 \arguments{
 \item{x}{List of images}

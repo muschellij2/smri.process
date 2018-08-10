@@ -5,7 +5,8 @@
 \title{SMRI Local Correlation Images}
 \usage{
 smri_corr_img(x, mask = NULL, outdir = tempdir(), verbose = TRUE,
-  suffix = "_corr", radius = rep(1, 3), method = c("pearson", "spearman"))
+  suffix = "_corr", radius = rep(1, 3), method = c("pearson",
+  "spearman"))
 }
 \arguments{
 \item{x}{List of images}

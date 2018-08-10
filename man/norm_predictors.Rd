@@ -4,10 +4,11 @@
 \alias{norm_predictors}
 \title{SMRI Intensity Normalize and Create Predictors}
 \usage{
-norm_predictors(normalized, normalization = c("trimmed_z", "z", "quantile",
-  "minmax", "whitestripe_T1", "whitestripe_T2", "whitestripe_hybrid"),
-  remask = TRUE, suffix = normalized$suffix, outdir = normalized$outdir,
-  verbose = TRUE, radius = rep(1, 3), sigma = c(3, 5, 10, 20), ...)
+norm_predictors(normalized, normalization = c("trimmed_z", "z",
+  "quantile", "minmax", "whitestripe_T1", "whitestripe_T2",
+  "whitestripe_hybrid"), remask = TRUE, suffix = normalized$suffix,
+  outdir = normalized$outdir, verbose = TRUE, radius = rep(1, 3),
+  sigma = c(3, 5, 10, 20), ...)
 }
 \arguments{
 \item{normalized}{The \code{normalized} element from

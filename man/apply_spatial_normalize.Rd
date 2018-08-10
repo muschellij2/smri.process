@@ -4,9 +4,10 @@
 \alias{apply_spatial_normalize}
 \title{Apply Spatial Normalization}
 \usage{
-apply_spatial_normalize(x, template = c("none", "Eve", "MNI"), template_fname,
-  fwdtransforms = NULL, suffix = "", interpolator = "lanczosWindowedSinc",
-  outdir = tempdir(), verbose = TRUE, copy_origin = TRUE)
+apply_spatial_normalize(x, template = c("none", "Eve", "MNI"),
+  template_fname, fwdtransforms = NULL, suffix = "",
+  interpolator = "lanczosWindowedSinc", outdir = tempdir(),
+  verbose = TRUE, copy_origin = TRUE)
 }
 \arguments{
 \item{x}{List of filenames}

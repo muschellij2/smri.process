@@ -4,10 +4,11 @@
 \alias{smri_prenormalize}
 \title{SMRI Pipeline for Preprocessing Prior to Normalization}
 \usage{
-smri_prenormalize(x, gold_standard = NULL, gs_space = NULL, probs = c(0,
-  0.995), interpolator = "lanczosWindowedSinc", brain_mask = NULL,
-  gs_interpolator = "genericLabel", num_templates = 15,
-  malf_transform = "SyNAggro", outdir = tempdir(), reg_space = "T1",
+smri_prenormalize(x, gold_standard = NULL, gs_space = NULL,
+  probs = c(0, 0.995), interpolator = "lanczosWindowedSinc",
+  brain_mask = NULL, gs_interpolator = "genericLabel",
+  num_templates = 15, malf_transform = "SyNAggro",
+  outdir = tempdir(), reg_space = "T1",
   brain_malf_function = "staple_prob", brain_threshold = 0.5,
   verbose = TRUE, remove_negative = TRUE, zero_origin = TRUE,
   cleanup = 1, ...)

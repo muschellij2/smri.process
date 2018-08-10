@@ -6,7 +6,8 @@
 \usage{
 spatial_normalize(prenormalize, template = c("none", "Eve", "MNI"),
   verbose = TRUE, typeofTransform = "SyN",
-  interpolator = "lanczosWindowedSinc", dis_interpolator = "genericLabel")
+  interpolator = "lanczosWindowedSinc",
+  dis_interpolator = "genericLabel")
 }
 \arguments{
 \item{prenormalize}{list from \code{\link{smri_prenormalize}}}

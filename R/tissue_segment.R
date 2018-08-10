@@ -24,7 +24,7 @@ t1_segment = function(
   typeofTransform = "SyNAggro",
   verbose = TRUE,
   malf_prob_function = "staple_prob",
-  malf_label_function = "staple_label",
+  malf_label_function = "mode",
   ...){
 
   ind = seq(num_templates)
