@@ -57,7 +57,7 @@ apply_spatial_normalize = function(
         resample_to_target,
         target = template_fname,
         verbose = verbose > 1,
-        interpolator = "genericLabel",
+        interpolator = interpolator,
         copy_origin = copy_origin)
 
       mapply(function(img, fname){
