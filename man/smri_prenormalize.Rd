@@ -11,7 +11,7 @@ smri_prenormalize(x, gold_standard = NULL, gs_space = NULL,
   outdir = tempdir(), reg_space = "T1",
   brain_malf_function = "staple_prob", brain_threshold = 0.5,
   verbose = TRUE, remove_negative = TRUE, zero_origin = TRUE,
-  cleanup = 1, ...)
+  reduce = TRUE, cleanup = 1, ...)
 }
 \arguments{
 \item{x}{List of images}
@@ -50,6 +50,9 @@ any values < 0 are set to 0}
 
 \item{zero_origin}{Should the origin be set to 0 for the
 image to be registered to?}
+
+\item{reduce}{If \code{TRUE}, the image size will be reduced using
+\code{\link{reduce_img}}.}
 
 \item{cleanup}{Argument to \code{\link{reduce_img}} for reducing the images.}
 

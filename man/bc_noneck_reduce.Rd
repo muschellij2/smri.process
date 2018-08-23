@@ -5,7 +5,7 @@
 \title{Bias Correct, Remove Neck, Reduce Image}
 \usage{
 bc_noneck_reduce(x, remove_negative = TRUE, gold_standard = NULL,
-  gs_space = NULL, cleanup = 1, probs = c(0, 0.999),
+  gs_space = NULL, reduce = TRUE, cleanup = 1, probs = c(0, 0.999),
   outdir = tempdir(), verbose = TRUE)
 }
 \arguments{
@@ -17,6 +17,9 @@ the imaging modalities.}
 \item{gold_standard}{Gold Standard image/filename, if applicable}
 
 \item{gs_space}{space the Gold Standard is located}
+
+\item{reduce}{If \code{TRUE}, the image size will be reduced using
+\code{\link{reduce_img}}.}
 
 \item{cleanup}{Argument to \code{\link{oMask}}.  If >0, morphological
 operations will be applied to clean up the mask by

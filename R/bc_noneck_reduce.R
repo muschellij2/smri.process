@@ -8,6 +8,8 @@
 #' @param probs passed to \code{\link{winsor}} for Winsorization
 #' @param outdir Output directory
 #' @param verbose print diagnostic messages
+#' @param reduce If \code{TRUE}, the image size will be reduced using
+#' \code{\link{reduce_img}}.
 #' @param cleanup Argument to \code{\link{oMask}}.  If >0, morphological
 #' operations will be applied to clean up the mask by
 #' eroding away small or weakly-connected areas, and closing holes.
@@ -15,12 +17,12 @@
 #' @export
 #' @importFrom neurobase applyEmptyImageDimensions
 #' @importFrom neurobase writenii robust_window
-#'
 bc_noneck_reduce = function(
   x,
   remove_negative = TRUE,
   gold_standard = NULL,
   gs_space = NULL,
+  reduce = TRUE,
   cleanup = 1,
   probs = c(0, 0.999),
   outdir = tempdir(),
@@ -71,14 +73,18 @@ bc_noneck_reduce = function(
     suffix = suffix
   )
 
-  suffix = paste0(suffix, "_reduced")
-  rm_neck = reduce_img(
-    x = noneck,
-    verbose = verbose,
-    outdir = outdir,
-    suffix = suffix,
-    cleanup = cleanup
-  )
+  if (reduce) {
+    suffix = paste0(suffix, "_reduced")
+    rm_neck = reduce_img(
+      x = noneck,
+      verbose = verbose,
+      outdir = outdir,
+      suffix = suffix,
+      cleanup = cleanup
+    )
+  } else {
+    rm_neck = noneck
+  }
 
 
   #################################
