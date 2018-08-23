@@ -37,13 +37,27 @@ reduce_img = function(
            ".nii.gz"))
   names(fnames) = nii_names
 
-  if (!all_exists(fnames)) {
-    rm_neck = llply(
+  ind_fnames = file.path(
+    outdir,
+    paste0(nii_names,
+           suffix,
+           ".rds"))
+  names(ind_fnames) = nii_names
+
+  if (!all_exists(c(fnames, ind_fnames))) {
+    nn = llply(
       x,
       function(nn){
         dd = mask_reduce(nn, cleanup = cleanup)
-        return(dd$outimg)
       }, .progress = ifelse(verbose, "text", "none"))
+
+    rm_neck = lapply(nn, function(dd){
+        return(dd$outimg)
+      })
+
+    mapply(function(nn, fname){
+      saveRDS(nn$inds, file = fname)
+    }, rm_neck, ind_fnames)
 
     mapply(function(img, fname){
       writenii(img, filename = fname)
