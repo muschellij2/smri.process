@@ -55,9 +55,9 @@ reduce_img = function(
         return(dd$outimg)
       })
 
-    mapply(function(nn, fname){
-      saveRDS(nn$inds, file = fname)
-    }, rm_neck, ind_fnames)
+    mapply(function(dd, fname){
+      saveRDS(dd$inds, file = fname)
+    }, nn, ind_fnames)
 
     mapply(function(img, fname){
       writenii(img, filename = fname)
