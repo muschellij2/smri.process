@@ -95,34 +95,31 @@ seg_normalize = function(
   } else {
     origin = NULL
   }
-  resampled_hard = apply_spatial_normalize(
+  apm = function(x, interpolator = dis_interpolator) {
+    apply_spatial_normalize(
+      x = x,
+      template = resampled$template,
+      template_fname = resampled$template_fname,
+      fwdtransforms = resampled$reg_to_template$fwdtransforms,
+      suffix = tissue_suffix,
+      interpolator = interpolator,
+      outdir = resampled$outdir,
+      verbose = verbose,
+      copy_origin = copy_origin,
+      origin = origin
+    )
+  }
+  resampled_hard = apm(
     x = tissue[c("TISSUES", "STRUCTURES")],
-    template = resampled$template,
-    template_fname = resampled$template_fname,
-    fwdtransforms = resampled$reg_to_template$fwdtransforms,
-    suffix = tissue_suffix,
-    interpolator = dis_interpolator,
-    outdir = resampled$outdir,
-    verbose = verbose,
-    copy_origin = copy_origin,
-    origin = origin
-  )
+    interpolator = dis_interpolator)
 
   if (verbose > 0) {
     msg = "Applying to Tissue Probabilities"
     message(msg)
   }
-  resampled_probs = apply_spatial_normalize(
+  resampled_probs =  apm(
     x = tissue[setdiff(names(tissue), c("TISSUES", "STRUCTURES"))],
-    template = resampled$template,
-    template_fname = resampled$template_fname,
-    fwdtransforms = resampled$reg_to_template$fwdtransforms,
-    suffix = tissue_suffix,
-    interpolator = resampled$interpolator,
-    outdir = resampled$outdir,
-    verbose = verbose,
-    copy_origin = copy_origin,
-    origin = origin
+    interpolator = resampled$interpolator
   )
 
   resampled_tissue = c(
@@ -139,30 +136,16 @@ seg_normalize = function(
       names(x) = nii.stub(x, bn = TRUE)
       seg = grepl("seg|mixeltype", names(x))
 
-      dis_data = apply_spatial_normalize(
+      dis_data = apm(
         x = x[seg],
-        template = resampled$template,
-        template_fname = resampled$template_fname,
-        fwdtransforms = resampled$reg_to_template$fwdtransforms,
-        suffix = tissue_suffix,
-        interpolator = dis_interpolator,
-        outdir = resampled$outdir,
-        verbose = verbose,
-        copy_origin = copy_origin,
-        origin = origin)
+        interpolator = dis_interpolator
+      )
       dis_data = unlist(dis_data)
 
-      con_data = apply_spatial_normalize(
+      con_data = apm(
         x = x[!seg],
-        template = resampled$template,
-        template_fname = resampled$template_fname,
-        fwdtransforms = resampled$reg_to_template$fwdtransforms,
-        suffix = tissue_suffix,
-        interpolator = resampled$interpolator,
-        outdir = resampled$outdir,
-        verbose = verbose,
-        copy_origin = copy_origin,
-        origin = origin)
+        interpolator = resampled$interpolator
+      )
       con_data = unlist(con_data)
       x = c(dis_data, con_data)
       x = x[names(x)]
