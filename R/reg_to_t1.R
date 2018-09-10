@@ -140,6 +140,11 @@ reg_to_t1 = function(
           interpolator = gs_interpolator)
         writenii(gs_img, filename = les_fname)
       } else {
+        # shoudl we zero origin here?
+        # Above will have do this
+        if (zero_origin) {
+          set_origin_zero(c(gold_standard, les_fname))
+        }
         file.copy(gold_standard, les_fname, overwrite = TRUE)
       }
     }
