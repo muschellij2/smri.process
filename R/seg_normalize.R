@@ -19,6 +19,8 @@
 #' output directory of the segmentation images will still be specified
 #' in \code{prenormalize$outdir}
 #' @param ... arguments passed to \code{\link{t1_segment}}
+#' @param copy_origin Copy image origin from image
+#' being registered, using \code{\link{antsCopyOrigin}}
 #'
 #' @return List of images, suffix, brain mask, gold standard,
 #' and registration if applicable
@@ -32,6 +34,7 @@ seg_normalize = function(
   interpolator = "lanczosWindowedSinc",
   dis_interpolator = "genericLabel",
   tissue_suffix = "",
+  copy_origin = TRUE,
   ...
 ) {
 
@@ -76,12 +79,21 @@ seg_normalize = function(
     template = template,
     typeofTransform = typeofTransform,
     interpolator = interpolator,
-    dis_interpolator = dis_interpolator
+    dis_interpolator = dis_interpolator,
+    copy_origin = copy_origin
   )
 
   if (verbose > 0) {
     msg = "Applying to Tissues/Structures"
     message(msg)
+  }
+  t1 = prenormalize$images$T1
+  if (!is.null(t1)) {
+    t1 = check_ants(t1)
+    origin = antsGetOrigin(t1)
+    rm(t1)
+  } else {
+    origin = NULL
   }
   resampled_hard = apply_spatial_normalize(
     x = tissue[c("TISSUES", "STRUCTURES")],
@@ -92,7 +104,8 @@ seg_normalize = function(
     interpolator = dis_interpolator,
     outdir = resampled$outdir,
     verbose = verbose,
-    copy_origin = TRUE
+    copy_origin = copy_origin,
+    origin = origin
   )
 
   if (verbose > 0) {
@@ -108,7 +121,8 @@ seg_normalize = function(
     interpolator = resampled$interpolator,
     outdir = resampled$outdir,
     verbose = verbose,
-    copy_origin = TRUE
+    copy_origin = copy_origin,
+    origin = origin
   )
 
   resampled_tissue = c(
@@ -134,7 +148,7 @@ seg_normalize = function(
         interpolator = dis_interpolator,
         outdir = resampled$outdir,
         verbose = verbose,
-        copy_origin = TRUE)
+        copy_origin = copy_origin)
       dis_data = unlist(dis_data)
 
       con_data = apply_spatial_normalize(
@@ -146,7 +160,7 @@ seg_normalize = function(
         interpolator = resampled$interpolator,
         outdir = resampled$outdir,
         verbose = verbose,
-        copy_origin = TRUE)
+        copy_origin = copy_origin)
       con_data = unlist(con_data)
       x = c(dis_data, con_data)
       x = x[names(x)]

@@ -11,6 +11,8 @@
 #' @param verbose Print diagnostic messages
 #' @param copy_origin Copy image origin from \code{target},
 #' using \code{\link{antsCopyOrigin}}
+#' @param origin the origin to set for the image if
+#' \code{copy_origin = TRUE}
 #' @return List of filenames of normalized data
 #' @export
 apply_spatial_normalize = function(
@@ -22,7 +24,8 @@ apply_spatial_normalize = function(
   interpolator = "lanczosWindowedSinc",
   outdir = tempdir(),
   verbose = TRUE,
-  copy_origin = TRUE
+  copy_origin = TRUE,
+  origin = NULL
 ) {
 
 
@@ -70,9 +73,27 @@ apply_spatial_normalize = function(
           "Apply Registration to ", template, " Template")
         )
       }
+      set_the_origin = function(x, origin) {
+        x = check_ants(x)
+        t2 = ANTsRCore::antsImageClone(x)
+        antsSetOrigin(t2, as.numeric(origin))
+        return(t2)
+      }
+      if (copy_origin) {
+        if (is.null(origin)) {
+          stop(paste0(
+            "Trying to apply spatial normalize to template",
+            " and copying ",
+            "the origin, but no origin given!"
+          ))
+        }
+      }
       resampled = lapply(
         x,
         function(r) {
+          if (copy_origin) {
+            r = set_the_origin(r, origin)
+          }
           ants_apply_transforms(
             moving = r,
             fixed = template_fname,

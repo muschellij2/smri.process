@@ -7,7 +7,7 @@
 spatial_normalize(prenormalize, template = c("none", "Eve", "MNI"),
   verbose = TRUE, typeofTransform = "SyN",
   interpolator = "lanczosWindowedSinc",
-  dis_interpolator = "genericLabel")
+  dis_interpolator = "genericLabel", copy_origin = TRUE)
 }
 \arguments{
 \item{prenormalize}{list from \code{\link{smri_prenormalize}}}
@@ -25,6 +25,9 @@ passed to \code{\link{registration}}}
 
 \item{dis_interpolator}{Interpolation done, passed to
 \code{\link{registration}} for discrete data}
+
+\item{copy_origin}{Copy image origin from image
+being registered, using \code{\link{antsCopyOrigin}}}
 }
 \value{
 List of images, suffix, brain mask, gold standard,

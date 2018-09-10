@@ -10,19 +10,23 @@
 #' \code{\link{registration}}
 #' @param dis_interpolator Interpolation done, passed to
 #' \code{\link{registration}} for discrete data
+#' @param copy_origin Copy image origin from image
+#' being registered, using \code{\link{antsCopyOrigin}}
 #' @return List of images, suffix, brain mask, gold standard,
 #' and registration if applicable
 #' @export
 #' @importFrom EveTemplate getEvePath
 #' @importFrom MNITemplate getMNIPath
 #' @importFrom extrantsr registration resample_to_target resample_image
+#' @importFrom extrantsr antsCopyOrigin
  spatial_normalize = function(
   prenormalize,
   template = c("none", "Eve", "MNI"),
   verbose = TRUE,
   typeofTransform = "SyN",
   interpolator = "lanczosWindowedSinc",
-  dis_interpolator = "genericLabel"
+  dis_interpolator = "genericLabel",
+  copy_origin = TRUE
   ) {
 
   template = match.arg(template)
@@ -110,7 +114,7 @@
           target = resampled[[1]],
           verbose = verbose > 1,
           interpolator = dis_interpolator,
-          copy_origin = TRUE)
+          copy_origin = copy_origin)
         writenii(resampled_brain_mask, filename = brain_fname)
 
         resampled = lapply(
@@ -125,7 +129,7 @@
           target = resampled[[1]],
           verbose = verbose > 1,
           interpolator = interpolator,
-          copy_origin = TRUE)
+          copy_origin = copy_origin)
         writenii(resampled_brain_pct, filename = brain_pct_fname)
       }
 
@@ -147,7 +151,7 @@
           target = resampled[[1]],
           verbose = verbose > 1,
           interpolator = dis_interpolator,
-          copy_origin = TRUE)
+          copy_origin = copy_origin)
         writenii(resampled_gs, filename = gs_fname)
       }
 
@@ -181,16 +185,23 @@
         verbose = verbose > 1,
         typeofTransform = typeofTransform,
         remove.warp = FALSE,
-        interpolator = interpolator)
+        interpolator = interpolator,
+        copy_origin = copy_origin)
       keeper = function(x) {
         x[ grep("Generic|Warp", x)]
       }
       t1_reg$fwdtransforms = keeper(t1_reg$fwdtransforms)
       t1_reg$invtransforms = keeper(t1_reg$invtransforms)
 
+      t1 = check_ants(prenormalize$images$T1)
+
       resampled = lapply(
         prenormalize$images,
         function(r) {
+          if (copy_origin) {
+            r = check_ants(r)
+            r = antsCopyOrigin(reference = t1, target = r)
+          }
           ants_apply_transforms(
             moving = r,
             fixed = template_fname,
@@ -199,8 +210,13 @@
         })
 
       if (!is.null(brain_mask)) {
+        bm = prenormalize$brain_mask
+        if (copy_origin) {
+          bm = check_ants(bm)
+          bm = antsCopyOrigin(reference = t1, target = bm)
+        }
         resampled_brain_mask = ants_apply_transforms(
-          moving = prenormalize$brain_mask,
+          moving = bm,
           fixed = template_fname,
           transformlist = t1_reg$fwdtransforms,
           interpolator = dis_interpolator)
@@ -215,8 +231,13 @@
       }
 
       if (!is.null(brain_pct)) {
+        bm = prenormalize$brain_pct
+        if (copy_origin) {
+          bm = check_ants(bm)
+          bm = antsCopyOrigin(reference = t1, target = bm)
+        }
         resampled_brain_pct = ants_apply_transforms(
-          moving = prenormalize$brain_pct,
+          moving = bm,
           fixed = template_fname,
           transformlist = t1_reg$fwdtransforms,
           interpolator = interpolator)
@@ -229,8 +250,13 @@
       }, resampled, fnames)
 
       if (!is.null(gold_standard)) {
+        bm = prenormalize$GOLD_STANDARD
+        if (copy_origin) {
+          bm = check_ants(bm)
+          bm = antsCopyOrigin(reference = t1, target = bm)
+        }
         resampled_gs = ants_apply_transforms(
-          moving = prenormalize$GOLD_STANDARD,
+          moving = bm,
           fixed = template_fname,
           transformlist = t1_reg$fwdtransforms,
           interpolator = dis_interpolator)

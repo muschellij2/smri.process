@@ -7,7 +7,7 @@
 apply_spatial_normalize(x, template = c("none", "Eve", "MNI"),
   template_fname, fwdtransforms = NULL, suffix = "",
   interpolator = "lanczosWindowedSinc", outdir = tempdir(),
-  verbose = TRUE, copy_origin = TRUE)
+  verbose = TRUE, copy_origin = TRUE, origin = NULL)
 }
 \arguments{
 \item{x}{List of filenames}
@@ -29,6 +29,9 @@ Template to register to - either MNI or Eve template}
 
 \item{copy_origin}{Copy image origin from \code{target},
 using \code{\link{antsCopyOrigin}}}
+
+\item{origin}{the origin to set for the image if
+\code{copy_origin = TRUE}}
 }
 \value{
 List of filenames of normalized data
