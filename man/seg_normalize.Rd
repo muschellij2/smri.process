@@ -6,7 +6,8 @@
 \usage{
 seg_normalize(prenormalize, template = c("none", "Eve", "MNI"),
   norm_outdir = prenormalize$outdir, verbose = TRUE,
-  typeofTransform = "SyN", interpolator = "lanczosWindowedSinc",
+  typeofTransform = "SyN", segment_typeofTransform = typeofTransform,
+  interpolator = "lanczosWindowedSinc",
   dis_interpolator = "genericLabel", tissue_suffix = "",
   copy_origin = TRUE, ...)
 }
@@ -24,6 +25,9 @@ in \code{prenormalize$outdir}}
 
 \item{typeofTransform}{Transformation to use for registration,
 passed to \code{\link{registration}}}
+
+\item{segment_typeofTransform}{Transformation to use for
+\code{malf} segmentation}
 
 \item{interpolator}{Interpolation done, passed to
 \code{\link{registration}} for continuous data}

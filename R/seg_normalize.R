@@ -9,6 +9,8 @@
 #' @param verbose print diagnostic messages
 #' @param typeofTransform Transformation to use for registration,
 #' passed to \code{\link{registration}}
+#' @param segment_typeofTransform Transformation to use for
+#' \code{malf} segmentation
 #' @param interpolator Interpolation done, passed to
 #' \code{\link{registration}} for continuous data
 #' @param dis_interpolator Interpolation done, passed to
@@ -31,6 +33,7 @@ seg_normalize = function(
   norm_outdir = prenormalize$outdir,
   verbose = TRUE,
   typeofTransform = "SyN",
+  segment_typeofTransform = typeofTransform,
   interpolator = "lanczosWindowedSinc",
   dis_interpolator = "genericLabel",
   tissue_suffix = "",
