@@ -15,8 +15,6 @@
 #' \code{\link{registration}} for continuous data
 #' @param dis_interpolator Interpolation done, passed to
 #' \code{\link{registration}} for discrete data
-#' @param tissue_suffix Suffix to add onto tissue segmentation in addition
-#' to the suffix for normalization
 #' @param norm_outdir Output directory of spatially normalized data.  The
 #' output directory of the segmentation images will still be specified
 #' in \code{prenormalize$outdir}
@@ -27,6 +25,8 @@
 #' @return List of images, suffix, brain mask, gold standard,
 #' and registration if applicable
 #' @export
+# #' @param tissue_suffix Suffix to add onto tissue segmentation in addition
+# #' to the suffix for normalization
 seg_normalize = function(
   prenormalize,
   template = c("none", "Eve", "MNI"),
@@ -36,7 +36,6 @@ seg_normalize = function(
   segment_typeofTransform = typeofTransform,
   interpolator = "lanczosWindowedSinc",
   dis_interpolator = "genericLabel",
-  tissue_suffix = "",
   copy_origin = TRUE,
   ...
 ) {
@@ -104,7 +103,7 @@ seg_normalize = function(
       template = resampled$template,
       template_fname = resampled$template_fname,
       fwdtransforms = resampled$reg_to_template$fwdtransforms,
-      suffix = tissue_suffix,
+      suffix = resampled$suffix,
       interpolator = interpolator,
       outdir = resampled$outdir,
       verbose = verbose,

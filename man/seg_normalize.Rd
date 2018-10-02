@@ -8,8 +8,7 @@ seg_normalize(prenormalize, template = c("none", "Eve", "MNI"),
   norm_outdir = prenormalize$outdir, verbose = TRUE,
   typeofTransform = "SyN", segment_typeofTransform = typeofTransform,
   interpolator = "lanczosWindowedSinc",
-  dis_interpolator = "genericLabel", tissue_suffix = "",
-  copy_origin = TRUE, ...)
+  dis_interpolator = "genericLabel", copy_origin = TRUE, ...)
 }
 \arguments{
 \item{prenormalize}{list from \code{\link{smri_prenormalize}}}
@@ -34,9 +33,6 @@ passed to \code{\link{registration}}}
 
 \item{dis_interpolator}{Interpolation done, passed to
 \code{\link{registration}} for discrete data}
-
-\item{tissue_suffix}{Suffix to add onto tissue segmentation in addition
-to the suffix for normalization}
 
 \item{copy_origin}{Copy image origin from image
 being registered, using \code{\link{antsCopyOrigin}}}
