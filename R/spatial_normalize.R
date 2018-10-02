@@ -19,7 +19,7 @@
 #' @importFrom MNITemplate getMNIPath
 #' @importFrom extrantsr registration resample_to_target resample_image
 #' @importFrom extrantsr antsCopyOrigin
- spatial_normalize = function(
+spatial_normalize = function(
   prenormalize,
   template = c("none", "Eve", "MNI"),
   verbose = TRUE,
@@ -311,6 +311,7 @@
     typeofTransform = typeofTransform,
     interpolator = interpolator
   )
+  L$spatial_suffix = app
   L$template_fname = checkimg(template_fname)
   # L$GOLD_STANDARD = gold_standard
   L$GOLD_STANDARD = resampled_gs

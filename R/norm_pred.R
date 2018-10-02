@@ -64,7 +64,7 @@ norm_predictors = function(
     radius = radius,
     mask = normalized$brain_mask,
     outdir = normalized$outdir,
-    suffix = paste0(suffix, "_"),
+    suffix = paste0(normalized$spatial_suffix, "_"),
     verbose = verbose
   )
 

@@ -103,7 +103,7 @@ seg_normalize = function(
       template = resampled$template,
       template_fname = resampled$template_fname,
       fwdtransforms = resampled$reg_to_template$fwdtransforms,
-      suffix = prenormalize$suffix,
+      suffix = "", # I think should work
       interpolator = interpolator,
       outdir = resampled$outdir,
       verbose = verbose,
@@ -163,5 +163,6 @@ seg_normalize = function(
     normalized = resampled,
     native = prenormalize
   )
+
   return(L)
 }
