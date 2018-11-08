@@ -5,10 +5,11 @@
 \title{SMRI Pipeline for Preprocessing Prior to Normalization}
 \usage{
 smri_prenormalize(x, gold_standard = NULL, gs_space = NULL,
-  probs = c(0, 0.995), interpolator = "lanczosWindowedSinc",
-  brain_mask = NULL, gs_interpolator = "genericLabel",
-  num_templates = 15, malf_transform = "SyNAggro",
-  outdir = tempdir(), reg_space = "T1",
+  probs = c(0, 0.995), non_zero = TRUE,
+  interpolator = "lanczosWindowedSinc", brain_mask = NULL,
+  gs_interpolator = "genericLabel", num_templates = 15,
+  malf_transform = "SyNAggro", outdir = tempdir(), reg_space = "T1",
+  brain_extraction_method = c("abp", "malf"),
   brain_malf_function = "staple_prob", brain_threshold = 0.5,
   verbose = TRUE, remove_negative = TRUE, zero_origin = TRUE,
   reduce = TRUE, cleanup = 1, ...)
@@ -21,6 +22,9 @@ smri_prenormalize(x, gold_standard = NULL, gs_space = NULL,
 \item{gs_space}{space the Gold Standard is located}
 
 \item{probs}{passed to \code{\link{winsor}} for Winsorization}
+
+\item{non_zero}{Should zeroes be excluded from the calculation
+of quantiles? Passed to \code{\link{winsor}}.}
 
 \item{interpolator}{interpolation passed to \code{\link{reg_to_t1}}}
 
@@ -36,6 +40,9 @@ passed to \code{\link{reg_to_t1}}}
 \item{outdir}{Output directory}
 
 \item{reg_space}{space to register images to}
+
+\item{brain_extraction_method}{Brain extraction method, either
+\code{\link{malf}} or \code{abp} for \code{\link{n4_skull_strip}}}
 
 \item{brain_malf_function}{Function to be passed to \code{\link{malf}},
 and subsequently \code{\link{stat_img}} for brain extraction}

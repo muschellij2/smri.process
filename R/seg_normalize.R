@@ -48,6 +48,20 @@ seg_normalize = function(
       inverted = FALSE
     }
   }
+  if (!"outdir" %in% names(prenormalize)) {
+    stop("prenormalize$outdir must not be NULL")
+  }
+  if (!"num_templates" %in% names(prenormalize)) {
+    stop("prenormalize$num_templates must not be NULL")
+  }
+  if (!"images" %in% names(prenormalize)) {
+    stop("prenormalize$images must not be NULL")
+  }
+  imgs = prenormalize$images
+  if (!"T1" %in% names(imgs)) {
+    stop("prenormalize$images must have T1 element")
+  }
+
   args$t1 = prenormalize$images$T1
   args$outdir = prenormalize$outdir
   args$num_templates = prenormalize$num_templates

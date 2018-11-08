@@ -6,6 +6,8 @@
 #' @param gold_standard Gold Standard image/filename, if applicable
 #' @param gs_space space the Gold Standard is located
 #' @param probs passed to \code{\link{winsor}} for Winsorization
+#' @param non_zero Should zeroes be excluded from the calculation
+#' of quantiles? Passed to \code{\link{winsor}}.
 #' @param outdir Output directory
 #' @param verbose print diagnostic messages
 #' @param reduce If \code{TRUE}, the image size will be reduced using
@@ -25,6 +27,7 @@ bc_noneck_reduce = function(
   reduce = TRUE,
   cleanup = 1,
   probs = c(0, 0.999),
+  non_zero = TRUE,
   outdir = tempdir(),
   verbose = TRUE){
 
@@ -116,6 +119,7 @@ bc_noneck_reduce = function(
     verbose = verbose,
     outdir = outdir,
     probs = probs,
+    non_zero = non_zero,
     suffix = suffix)
 
   win_imgs$GOLD_STANDARD = les_fname

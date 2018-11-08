@@ -4,8 +4,8 @@
 \alias{winsor}
 \title{Winsorize Image}
 \usage{
-winsor(x, verbose = TRUE, outdir = tempdir(), probs = c(0, 0.999),
-  suffix = "_winsor")
+winsor(x, verbose = TRUE, outdir = tempdir(), non_zero = TRUE,
+  probs = c(0.001, 0.999), suffix = "_winsor")
 }
 \arguments{
 \item{x}{List of processed filenames}
@@ -13,6 +13,9 @@ winsor(x, verbose = TRUE, outdir = tempdir(), probs = c(0, 0.999),
 \item{verbose}{print diagnostic messages}
 
 \item{outdir}{Output directory}
+
+\item{non_zero}{Should zeroes be excluded from the calculation
+of quantiles? Passed to \code{\link{robust_window}}}
 
 \item{probs}{passed to \code{\link{robust_window}} for Winsorization}
 

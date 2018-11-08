@@ -6,7 +6,7 @@
 \usage{
 bc_noneck_reduce(x, remove_negative = TRUE, gold_standard = NULL,
   gs_space = NULL, reduce = TRUE, cleanup = 1, probs = c(0, 0.999),
-  outdir = tempdir(), verbose = TRUE)
+  non_zero = TRUE, outdir = tempdir(), verbose = TRUE)
 }
 \arguments{
 \item{x}{List of images or character vector.  Must be named with
@@ -26,6 +26,9 @@ operations will be applied to clean up the mask by
 eroding away small or weakly-connected areas, and closing holes.}
 
 \item{probs}{passed to \code{\link{winsor}} for Winsorization}
+
+\item{non_zero}{Should zeroes be excluded from the calculation
+of quantiles? Passed to \code{\link{winsor}}.}
 
 \item{outdir}{Output directory}
 

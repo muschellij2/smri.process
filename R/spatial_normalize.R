@@ -38,6 +38,21 @@ spatial_normalize = function(
     app = paste0("_regto", template)
   }
 
+  if (!"outdir" %in% names(prenormalize)) {
+    stop("prenormalize$outdir must not be NULL")
+  }
+  if (!"images" %in% names(prenormalize)) {
+    stop("prenormalize$images must not be NULL")
+  }
+  imgs = prenormalize$images
+  if (!"T1" %in% names(imgs)) {
+    stop("prenormalize$images must have T1 element")
+  }
+
+  if (!"suffix" %in% names(prenormalize)) {
+    warning(paste0("prenormalize$suffix is NULL",
+                   ", likely to cause naming problems"))
+  }
   suffix = prenormalize$suffix
   gold_standard = prenormalize$GOLD_STANDARD
   brain_mask = prenormalize$brain_mask
@@ -78,6 +93,10 @@ spatial_normalize = function(
   }
 
   if (!is.null(gold_standard)) {
+    if (!"gs_suffix" %in% names(prenormalize)) {
+      warning(paste0("prenormalize$gs_suffix is NULL",
+                     ", likely to cause naming problems"))
+    }
     gs_fname = file.path(
       outdir,
       paste0("GOLD_STANDARD",

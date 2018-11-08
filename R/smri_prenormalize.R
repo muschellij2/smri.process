@@ -4,6 +4,8 @@
 #' @param gold_standard Gold Standard image/filename, if applicable
 #' @param gs_space space the Gold Standard is located
 #' @param probs passed to \code{\link{winsor}} for Winsorization
+#' @param non_zero Should zeroes be excluded from the calculation
+#' of quantiles? Passed to \code{\link{winsor}}.
 #' @param outdir Output directory
 #' @param verbose print diagnostic messages
 #' @param interpolator interpolation passed to \code{\link{reg_to_t1}}
@@ -24,18 +26,21 @@
 #' @param cleanup Argument to \code{\link{reduce_img}} for reducing the images.
 #' @param reduce If \code{TRUE}, the image size will be reduced using
 #' \code{\link{reduce_img}}.
+#' @param brain_extraction_method Brain extraction method, either
+#' \code{\link{malf}} or \code{abp} for \code{\link{n4_skull_strip}}
 #' @param ... Additional arguments to MALF
 #'
 #' @return List of the images, brain mask, suffix, and output directory
 #' @export
 #'
 #' @importFrom extrantsr registration malf
-#' @importFrom neurobase readnii check_nifti
+#' @importFrom neurobase readnii check_nifti write_nifti
 smri_prenormalize = function(
   x,
   gold_standard = NULL,
   gs_space = NULL,
   probs = c(0, 0.995),
+  non_zero = TRUE,
   interpolator = "lanczosWindowedSinc",
   brain_mask = NULL,
   gs_interpolator = "genericLabel",
@@ -43,6 +48,7 @@ smri_prenormalize = function(
   malf_transform = "SyNAggro",
   outdir = tempdir(),
   reg_space = "T1",
+  brain_extraction_method = c("abp", "malf"),
   brain_malf_function = "staple_prob",
   brain_threshold = 0.5,
   verbose = TRUE,
@@ -62,6 +68,7 @@ smri_prenormalize = function(
     outdir = outdir,
     verbose = verbose,
     probs = probs,
+    non_zero = non_zero,
     cleanup = cleanup,
     reduce = reduce)
 
@@ -92,54 +99,65 @@ smri_prenormalize = function(
     brain_mask = check_nifti(brain_mask)
     malf_result = NULL
   } else {
+    brain_extraction_method = match.arg(brain_extraction_method)
     brain_mask_file = file.path(
       outdir,
       "Brain_Mask.nii.gz")
-    brain_pct_file = file.path(
-      outdir,
-      "Brain_Percentages.nii.gz")
-    if (all_exists(brain_mask_file, brain_pct_file)) {
-      # warning("Using brain mask file in outdir")
-      brain_mask = readnii(brain_mask_file)
-      malf_result = readnii(brain_pct_file)
-    } else {
-      ind = seq(num_templates)
-      templates = malf.templates::malf_images()
-      images = templates$images[ind]
-      masks = templates$masks[ind]
-
-      if (verbose > 0) {
-        msg = paste0(
-          "Running MALF for brain mask with ", num_templates,
-          " templates - this may take some time")
-        message(msg)
-      }
-      args = list(...)
-      inverted = args$inverted
-      keep_regs = args$keep_regs
-
-      malf_result = malf(
-        infile = reg$T1,
-        template.images = images,
-        template.structs = masks,
-        interpolator = "Linear",
-        other_interpolator = "genericLabel",
-        invert_interpolator = "genericLabel",
-        typeofTransform = malf_transform,
+    if (brain_extraction_method == "abp") {
+      brain_mask = n4_skull_strip(
+        file = reg$T1,
+        template = penn115_image_fname(),
+        template_mask = penn115_brain_mask_fname(),
         verbose = verbose,
-        # func = "mode",
-        func = brain_malf_function,
-        retimg = TRUE,
-        outfile = brain_pct_file,
-        ...
-      )
-      if (!is.null(keep_regs)) {
-        if (keep_regs) {
-          malf_result = malf_result$outimg
+        n_iter = 3)
+      write_nifti(brain_mask, filename = brain_mask_file)
+    } else {
+      brain_pct_file = file.path(
+        outdir,
+        "Brain_Percentages.nii.gz")
+      if (all_exists(brain_mask_file, brain_pct_file)) {
+        # warning("Using brain mask file in outdir")
+        brain_mask = readnii(brain_mask_file)
+        malf_result = readnii(brain_pct_file)
+      } else {
+        ind = seq(num_templates)
+        templates = malf.templates::malf_images()
+        images = templates$images[ind]
+        masks = templates$masks[ind]
+
+        if (verbose > 0) {
+          msg = paste0(
+            "Running MALF for brain mask with ", num_templates,
+            " templates - this may take some time")
+          message(msg)
         }
+        args = list(...)
+        inverted = args$inverted
+        keep_regs = args$keep_regs
+
+        malf_result = malf(
+          infile = reg$T1,
+          template.images = images,
+          template.structs = masks,
+          interpolator = "Linear",
+          other_interpolator = "genericLabel",
+          invert_interpolator = "genericLabel",
+          typeofTransform = malf_transform,
+          verbose = verbose,
+          # func = "mode",
+          func = brain_malf_function,
+          retimg = TRUE,
+          outfile = brain_pct_file,
+          ...
+        )
+        if (!is.null(keep_regs)) {
+          if (keep_regs) {
+            malf_result = malf_result$outimg
+          }
+        }
+        brain_mask = malf_result >= brain_threshold
+        writenii(brain_mask, filename = brain_mask_file)
       }
-      brain_mask = malf_result >= brain_threshold
-      writenii(brain_mask, filename = brain_mask_file)
     }
   }
 
