@@ -104,6 +104,7 @@ smri_prenormalize = function(
       outdir,
       "Brain_Mask.nii.gz")
     if (brain_extraction_method == "abp") {
+      malf_result = NULL
       brain_mask = n4_skull_strip(
         file = reg$T1,
         template = penn115_image_fname(),
