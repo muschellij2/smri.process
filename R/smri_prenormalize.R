@@ -105,13 +105,18 @@ smri_prenormalize = function(
       "Brain_Mask.nii.gz")
     if (brain_extraction_method == "abp") {
       malf_result = NULL
-      brain_mask = n4_skull_strip(
-        file = reg$T1,
-        template = penn115_image_fname(),
-        template_mask = penn115_brain_mask_fname(),
-        verbose = verbose,
-        n_iter = 3)
-      write_nifti(brain_mask, filename = brain_mask_file)
+      if (all_exists(brain_mask_file)) {
+        # warning("Using brain mask file in outdir")
+        brain_mask = readnii(brain_mask_file)
+      } else {
+        brain_mask = n4_skull_strip(
+          file = reg$T1,
+          template = penn115_image_fname(),
+          template_mask = penn115_brain_mask_fname(),
+          verbose = verbose,
+          n_iter = 3)
+        write_nifti(brain_mask, filename = brain_mask_file)
+      }
     } else {
       brain_pct_file = file.path(
         outdir,
