@@ -33,6 +33,15 @@ t1_segment = function(
   tissues = templates$tissues[ind]
   labels = templates$labels[ind]
 
+  args = list(...)
+  if (!"outfiles" %in% names(args)) {
+    outfiles = sapply(seq(num_templates), function(x) {
+      tempfile(fileext = paste0("_", x, ".nii.gz"))
+    })
+  } else {
+    outfiles = args$outfiles
+  }
+
   #######################################
   # Try MALF for Tissues with MASS Templates
   #######################################
@@ -63,7 +72,8 @@ t1_segment = function(
         " templates - this may take some time")
       message(msg)
     }
-    regs = malf(
+
+    args = list(
       infile = t1,
       template.images = brains,
       template.structs = tissues,
@@ -78,6 +88,13 @@ t1_segment = function(
       typeofTransform = typeofTransform,
       ...
     )
+    args$outfiles = outfiles
+    if (verbose) {
+      message(paste("All outfiles are:",
+                    paste(outfiles, collapse = ", ")))
+    }
+
+    regs = do.call(malf, args = args)
 
     tissue_img = seg_list_to_hard(
       regs$outimg,
