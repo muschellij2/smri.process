@@ -1,7 +1,7 @@
 Package: smri.process
 Type: Package
 Title: Processing of Structural Magnetic Resonance Imaging
-Version: 0.7.7
+Version: 0.7.8
 Author: John Muscheli <muschellij2@gmail.com>
 Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: Processes structural magnetic resonance images ('MRI').  

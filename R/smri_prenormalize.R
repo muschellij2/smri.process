@@ -23,6 +23,9 @@
 #' to be considered part of the mask
 #' @param brain_malf_function Function to be passed to \code{\link{malf}},
 #' and subsequently \code{\link{stat_img}} for brain extraction
+#' @param n_skull_iter number of iterations to use
+#' \code{\link{n4_skull_strip}} for skull stripping if
+#' \code{brain_extraction_method = "abp"}.
 #' @param cleanup Argument to \code{\link{reduce_img}} for reducing the images.
 #' @param reduce If \code{TRUE}, the image size will be reduced using
 #' \code{\link{reduce_img}}.
@@ -50,6 +53,7 @@ smri_prenormalize = function(
   reg_space = "T1",
   brain_extraction_method = c("abp", "malf"),
   brain_malf_function = "staple_prob",
+  n_skull_iter = 3,
   brain_threshold = 0.5,
   verbose = TRUE,
   remove_negative = TRUE,
@@ -59,7 +63,9 @@ smri_prenormalize = function(
   ...
 ) {
 
-
+  if (is.null(outdir)) {
+    outdir = tempdir()
+  }
   proc = bc_noneck_reduce(
     x = x,
     remove_negative = remove_negative,
@@ -114,7 +120,7 @@ smri_prenormalize = function(
           template = penn115_image_fname(),
           template_mask = penn115_brain_mask_fname(),
           verbose = verbose,
-          n_iter = 3)
+          n_iter = n_skull_iter)
         write_nifti(brain_mask, filename = brain_mask_file)
       }
     } else {

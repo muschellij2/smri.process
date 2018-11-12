@@ -10,9 +10,9 @@ smri_prenormalize(x, gold_standard = NULL, gs_space = NULL,
   gs_interpolator = "genericLabel", num_templates = 15,
   malf_transform = "SyNAggro", outdir = tempdir(), reg_space = "T1",
   brain_extraction_method = c("abp", "malf"),
-  brain_malf_function = "staple_prob", brain_threshold = 0.5,
-  verbose = TRUE, remove_negative = TRUE, zero_origin = TRUE,
-  reduce = TRUE, cleanup = 1, ...)
+  brain_malf_function = "staple_prob", n_skull_iter = 3,
+  brain_threshold = 0.5, verbose = TRUE, remove_negative = TRUE,
+  zero_origin = TRUE, reduce = TRUE, cleanup = 1, ...)
 }
 \arguments{
 \item{x}{List of images}
@@ -46,6 +46,10 @@ passed to \code{\link{reg_to_t1}}}
 
 \item{brain_malf_function}{Function to be passed to \code{\link{malf}},
 and subsequently \code{\link{stat_img}} for brain extraction}
+
+\item{n_skull_iter}{number of iterations to use
+\code{\link{n4_skull_strip}} for skull stripping if
+\code{brain_extraction_method = "abp"}.}
 
 \item{brain_threshold}{Percentage threshold for the brain MALF image
 to be considered part of the mask}
