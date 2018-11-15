@@ -18,7 +18,7 @@
 #' @importFrom EveTemplate getEvePath
 #' @importFrom MNITemplate getMNIPath
 #' @importFrom extrantsr registration resample_to_target resample_image
-#' @importFrom extrantsr antsCopyOrigin
+#' @importFrom extrantsr antsCopyOrigin transformlist_from_outprefix
 spatial_normalize = function(
   prenormalize,
   template = c("none", "Eve", "MNI"),
@@ -300,17 +300,20 @@ spatial_normalize = function(
       )
       outprefix = nii.stub(prenormalize$images$T1)
 
-      have_warp = (typeofTransform %in%
-           c("Translation", "Rigid", "Similarity", "TRSAA")) |
-          grepl("Rigid", typeofTransform) |
-          grepl("Affine", typeofTransform)
-      have_warp = !have_warp
-      endings = c("0GenericAffine.mat")
-      if (have_warp) {
-        endings = c("1Warp.nii.gz", endings)
-      }
-      inv_endings = rev(endings)
-      inv_endings = sub("1Warp", "1InverseWarp", inv_endings)
+      t1_reg = extrantsr::transformlist_from_outprefix(
+        outprefix = outprefix,
+        typeofTransform = typeofTransform)
+      # have_warp = (typeofTransform %in%
+      #      c("Translation", "Rigid", "Similarity", "TRSAA")) |
+      #     grepl("Rigid", typeofTransform) |
+      #     grepl("Affine", typeofTransform)
+      # have_warp = !have_warp
+      # endings = c("0GenericAffine.mat")
+      # if (have_warp) {
+      #   endings = c("1Warp.nii.gz", endings)
+      # }
+      # inv_endings = rev(endings)
+      # inv_endings = sub("1Warp", "1InverseWarp", inv_endings)
 
       # t1_reg = list(
       #   fwdtransforms = paste0(
@@ -322,18 +325,8 @@ spatial_normalize = function(
       #     c("0GenericAffine.mat",
       #       "1InverseWarp.nii.gz")
       #   ))
-      t1_reg = list(
-        fwdtransforms = paste0(
-          outprefix,
-          endings),
-        invtransforms = paste0(
-          outprefix,
-          inv_endings
-          # c("0GenericAffine.mat",
-          # "1InverseWarp.nii.gz")
-        ),
-        typeofTransform = typeofTransform,
-        interpolator = interpolator)
+      t1_reg$typeofTransform = typeofTransform
+      t1_reg$interpolator = interpolator
     }
   }
 

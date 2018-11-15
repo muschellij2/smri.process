@@ -9,6 +9,8 @@
 #' @param ... additional options to pass to \code{\link{malf}}
 #' @param malf_prob_function Function for MALF combination for probability.
 #' @param malf_label_function Function for MALF combination for labeling.
+#' @param rerun_malf Should the MALF registrations be re-run if
+#' they already exist?
 #'
 #' @return Object of class nifti
 #' @export
@@ -25,6 +27,7 @@ t1_segment = function(
   verbose = TRUE,
   malf_prob_function = "staple_prob",
   malf_label_function = "mode",
+  rerun_malf = FALSE,
   ...){
 
   ind = seq(num_templates)
@@ -86,6 +89,7 @@ t1_segment = function(
       invert_interpolator = interpolator,
       verbose = verbose,
       typeofTransform = typeofTransform,
+      rerun_registration = rerun_malf,
       ...
     )
     args$outfiles = outfiles
