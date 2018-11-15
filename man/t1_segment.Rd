@@ -7,7 +7,7 @@
 t1_segment(t1, outdir = tempdir(), num_templates = 35,
   interpolator = "genericLabel", typeofTransform = "SyNAggro",
   verbose = TRUE, malf_prob_function = "staple_prob",
-  malf_label_function = "mode", rerun_malf = FALSE, ...)
+  malf_label_function = "mode", force_registration = FALSE, ...)
 }
 \arguments{
 \item{t1}{T1-weighted image/filename}
@@ -26,7 +26,7 @@ t1_segment(t1, outdir = tempdir(), num_templates = 35,
 
 \item{malf_label_function}{Function for MALF combination for labeling.}
 
-\item{rerun_malf}{Should the MALF registrations be re-run if
+\item{force_registration}{Should the MALF registrations be re-run if
 they already exist?}
 
 \item{...}{additional options to pass to \code{\link{malf}}}

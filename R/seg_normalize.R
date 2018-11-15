@@ -19,7 +19,7 @@
 #' output directory of the segmentation images will still be specified
 #' in \code{prenormalize$outdir}
 #' @param ... arguments passed to \code{\link{t1_segment}}
-#' @param rerun_malf Should the MALF registrations be re-run if
+#' @param force_registration Should the MALF registrations be re-run if
 #' they already exist?
 #' @param copy_origin Copy image origin from image
 #' being registered, using \code{\link{antsCopyOrigin}}
@@ -39,7 +39,7 @@ seg_normalize = function(
   interpolator = "lanczosWindowedSinc",
   dis_interpolator = "genericLabel",
   copy_origin = TRUE,
-  rerun_malf = FALSE,
+  force_registration = FALSE,
   ...
 ) {
 
@@ -71,7 +71,7 @@ seg_normalize = function(
   args$inverted = inverted
   args$verbose = verbose
   args$typeofTransform = typeofTransform
-  args$rerun_malf = rerun_malf
+  args$force_registration = force_registration
 
   tissue = do.call(t1_segment, args = args)
 

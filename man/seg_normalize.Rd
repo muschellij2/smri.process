@@ -9,7 +9,7 @@ seg_normalize(prenormalize, template = c("none", "Eve", "MNI"),
   typeofTransform = "SyN", segment_typeofTransform = typeofTransform,
   interpolator = "lanczosWindowedSinc",
   dis_interpolator = "genericLabel", copy_origin = TRUE,
-  rerun_malf = FALSE, ...)
+  force_registration = FALSE, ...)
 }
 \arguments{
 \item{prenormalize}{list from \code{\link{smri_prenormalize}}}
@@ -38,7 +38,7 @@ passed to \code{\link{registration}}}
 \item{copy_origin}{Copy image origin from image
 being registered, using \code{\link{antsCopyOrigin}}}
 
-\item{rerun_malf}{Should the MALF registrations be re-run if
+\item{force_registration}{Should the MALF registrations be re-run if
 they already exist?}
 
 \item{...}{arguments passed to \code{\link{t1_segment}}}
