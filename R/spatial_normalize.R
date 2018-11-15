@@ -27,7 +27,7 @@ spatial_normalize = function(
   interpolator = "lanczosWindowedSinc",
   dis_interpolator = "genericLabel",
   copy_origin = TRUE
-  ) {
+) {
 
   template = match.arg(template)
   native = template == "none"
@@ -73,7 +73,7 @@ spatial_normalize = function(
     brain_fname = file.path(
       outdir,
       paste0("Brain_Mask",
-            app,
+             app,
              ".nii.gz")
     )
   } else {
@@ -299,15 +299,38 @@ spatial_normalize = function(
         MNI = MNITemplate::getMNIPath(what = "Brain", res = "1mm")
       )
       outprefix = nii.stub(prenormalize$images$T1)
+
+      have_warp = (typeofTransform %in%
+           c("Translation", "Rigid", "Similarity", "TRSAA")) |
+          grepl("Rigid", typeofTransform) |
+          grepl("Affine", typeofTransform)
+      have_warp = !have_warp
+      endings = c("0GenericAffine.mat")
+      if (have_warp) {
+        endings = c("1Warp.nii.gz", endings)
+      }
+      inv_endings = rev(endings)
+      inv_endings = sub("1Warp", "1InverseWarp", inv_endings)
+
+      # t1_reg = list(
+      #   fwdtransforms = paste0(
+      #     outprefix,
+      #     c("1Warp.nii.gz",
+      #       "0GenericAffine.mat")),
+      #   invtransforms = paste0(
+      #     outprefix,
+      #     c("0GenericAffine.mat",
+      #       "1InverseWarp.nii.gz")
+      #   ))
       t1_reg = list(
         fwdtransforms = paste0(
           outprefix,
-          c("1Warp.nii.gz",
-          "0GenericAffine.mat")),
+          endings),
         invtransforms = paste0(
           outprefix,
-          c("0GenericAffine.mat",
-          "1InverseWarp.nii.gz")
+          inv_endings
+          # c("0GenericAffine.mat",
+          # "1InverseWarp.nii.gz")
         ),
         typeofTransform = typeofTransform,
         interpolator = interpolator)

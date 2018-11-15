@@ -63,6 +63,8 @@ multi_fast = function(
       out[[mod]] = NULL
     }
   }
+  nulls = sapply(out, is.null)
+  out = out[!nulls]
   if (length(out) == 0) {
     out = NULL
   }

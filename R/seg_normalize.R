@@ -152,17 +152,25 @@ seg_normalize = function(
       names(x) = nii.stub(x, bn = TRUE)
       seg = grepl("seg|mixeltype", names(x))
 
-      dis_data = apm(
-        x = x[seg],
-        interpolator = dis_interpolator
-      )
-      dis_data = unlist(dis_data)
+      if (any(seg)) {
+        dis_data = apm(
+          x = x[seg],
+          interpolator = dis_interpolator
+        )
+        dis_data = unlist(dis_data)
+      } else {
+        dis_data = NULL
+      }
 
-      con_data = apm(
-        x = x[!seg],
-        interpolator = resampled$interpolator
-      )
-      con_data = unlist(con_data)
+      if (any(!seg)) {
+        con_data = apm(
+          x = x[!seg],
+          interpolator = resampled$interpolator
+        )
+        con_data = unlist(con_data)
+      } else {
+        con_data = NULL
+      }
       x = c(dis_data, con_data)
       x = x[names(x)]
       x
