@@ -70,7 +70,7 @@ seg_normalize = function(
   args$num_templates = prenormalize$num_templates
   args$inverted = inverted
   args$verbose = verbose
-  args$typeofTransform = typeofTransform
+  args$typeofTransform = segment_typeofTransform
   args$force_registration = force_registration
 
   tissue = do.call(t1_segment, args = args)
