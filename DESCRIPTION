@@ -16,7 +16,7 @@ Imports:
     fslr (>= 2.19.0),
     ANTsRCore,
     ANTsR,
-    extrantsr (>= 3.9.3),
+    extrantsr (>= 3.9.5),
     plyr,
     penn115,
     RNifti,

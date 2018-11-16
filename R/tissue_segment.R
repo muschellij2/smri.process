@@ -45,6 +45,15 @@ t1_segment = function(
     outfiles = args$outfiles
   }
 
+  if (!"label_outfiles" %in% names(args)) {
+    label_outfiles = sapply(seq(num_templates), function(x) {
+      tempfile(fileext = paste0("_", x, ".nii.gz"))
+    })
+  } else {
+    label_outfiles = args$label_outfiles
+  }
+
+
   #######################################
   # Try MALF for Tissues with MASS Templates
   #######################################
@@ -84,9 +93,7 @@ t1_segment = function(
       retimg = TRUE,
       func = malf_prob_function,
       keep_regs = TRUE,
-      interpolator = "Linear",
-      other_interpolator = interpolator,
-      invert_interpolator = interpolator,
+      interpolator = interpolator,
       verbose = verbose,
       typeofTransform = typeofTransform,
       rerun_registration = force_registration,
@@ -114,12 +121,14 @@ t1_segment = function(
     if (is.null(inverted)) {
       inverted = FALSE
     }
+
     label_img = reapply_malf(
       infile = t1,
       regs = regs$regs,
       template.structs = labels,
       keep_images = TRUE,
       retimg = FALSE,
+      outfiles = label_outfiles,
       outfile = label_fname,
       func = malf_label_function,
       interpolator = interpolator,

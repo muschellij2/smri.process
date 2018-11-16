@@ -8,7 +8,8 @@ seg_normalize(prenormalize, template = c("none", "Eve", "MNI"),
   norm_outdir = prenormalize$outdir, verbose = TRUE,
   typeofTransform = "SyN", segment_typeofTransform = typeofTransform,
   interpolator = "lanczosWindowedSinc",
-  dis_interpolator = "genericLabel", copy_origin = TRUE,
+  dis_interpolator = "genericLabel",
+  malf_interpolator = "genericLabel", copy_origin = TRUE,
   force_registration = FALSE, ...)
 }
 \arguments{

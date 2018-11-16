@@ -38,6 +38,7 @@ seg_normalize = function(
   segment_typeofTransform = typeofTransform,
   interpolator = "lanczosWindowedSinc",
   dis_interpolator = "genericLabel",
+  malf_interpolator = "genericLabel",
   copy_origin = TRUE,
   force_registration = FALSE,
   ...
@@ -69,6 +70,7 @@ seg_normalize = function(
   args$outdir = prenormalize$outdir
   args$num_templates = prenormalize$num_templates
   args$inverted = inverted
+  args$interpolator = malf_interpolator
   args$verbose = verbose
   args$typeofTransform = segment_typeofTransform
   args$force_registration = force_registration
