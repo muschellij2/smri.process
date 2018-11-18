@@ -13,6 +13,8 @@
 #' \code{malf} segmentation
 #' @param interpolator Interpolation done, passed to
 #' \code{\link{registration}} for continuous data
+#' @param malf_interpolator interpolator for MALF procedure,
+#' passed to \code{\link{t1_segment}}
 #' @param dis_interpolator Interpolation done, passed to
 #' \code{\link{registration}} for discrete data
 #' @param norm_outdir Output directory of spatially normalized data.  The

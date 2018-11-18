@@ -36,6 +36,9 @@ passed to \code{\link{registration}}}
 \item{dis_interpolator}{Interpolation done, passed to
 \code{\link{registration}} for discrete data}
 
+\item{malf_interpolator}{interpolator for MALF procedure,
+passed to \code{\link{t1_segment}}}
+
 \item{copy_origin}{Copy image origin from image
 being registered, using \code{\link{antsCopyOrigin}}}
 
