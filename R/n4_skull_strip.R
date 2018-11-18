@@ -6,6 +6,7 @@
 #' @param verbose print diagnostic messages
 #' @param n_iter Number of iterations undergone with \code{\link{abpN4}}
 #' and
+#' @param pad should zero padding be done
 #' \code{\link{abpBrainExtraction}}
 #'
 #' @return A list of output images, brain and corrected
@@ -16,11 +17,14 @@
 #' @importFrom stats median
 #' @importFrom penn115 penn115_image_fname penn115_brain_fname
 #' @importFrom penn115 penn115_brain_mask_fname
+#' @importFrom extrantsr tempants oro2ants
+#' @importFrom neurobase zero_pad check_nifti
 n4_skull_strip = function(
   file,
   template = penn115_image_fname(),
   template_mask = penn115_brain_mask_fname(),
   verbose = TRUE,
+  pad = TRUE,
   n_iter = 2) {
 
   # load the file
@@ -35,6 +39,13 @@ n4_skull_strip = function(
     }
     return(y)
   }
+  if (pad) {
+    img = check_nifti(file)
+    img = zero_pad(img, kdim = c(3, 3, 3))
+    file = tempants(img)
+    rm(img)
+  }
+
   subimg = reader(file)
   submask = subimg * 0 + 1
   # load template files
@@ -81,6 +92,12 @@ n4_skull_strip = function(
       )
     }
   }
+  if (pad) {
+    img = check_nifti(submask)
+    img = zero_pad(img, kdim = c(3, 3, 3), invert = TRUE)
+    submask = oro2ants(img)
+  }
+
   # simg = n4 * submask
 
   # L = list(n4 = n4,

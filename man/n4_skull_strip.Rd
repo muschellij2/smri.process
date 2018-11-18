@@ -6,7 +6,7 @@
 \usage{
 n4_skull_strip(file, template = penn115_image_fname(),
   template_mask = penn115_brain_mask_fname(), verbose = TRUE,
-  n_iter = 2)
+  pad = TRUE, n_iter = 2)
 }
 \arguments{
 \item{file}{Filename of T1 image}
@@ -17,9 +17,11 @@ n4_skull_strip(file, template = penn115_image_fname(),
 
 \item{verbose}{print diagnostic messages}
 
-\item{n_iter}{Number of iterations undergone with \code{\link{abpN4}}
-and
+\item{pad}{should zero padding be done
 \code{\link{abpBrainExtraction}}}
+
+\item{n_iter}{Number of iterations undergone with \code{\link{abpN4}}
+and}
 }
 \value{
 A list of output images, brain and corrected
