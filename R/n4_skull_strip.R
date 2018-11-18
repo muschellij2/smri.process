@@ -5,9 +5,8 @@
 #' @param template_mask Template brain mask
 #' @param verbose print diagnostic messages
 #' @param n_iter Number of iterations undergone with \code{\link{abpN4}}
-#' and
+#' and \code{\link{abpBrainExtraction}}
 #' @param pad should zero padding be done
-#' \code{\link{abpBrainExtraction}}
 #'
 #' @return A list of output images, brain and corrected
 #' @export
@@ -42,7 +41,7 @@ n4_skull_strip = function(
   if (pad) {
     img = check_nifti(file)
     img = zero_pad(img, kdim = c(3, 3, 3))
-    file = tempants(img)
+    file = checkimg(img)
     rm(img)
   }
 

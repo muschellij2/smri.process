@@ -17,11 +17,10 @@ n4_skull_strip(file, template = penn115_image_fname(),
 
 \item{verbose}{print diagnostic messages}
 
-\item{pad}{should zero padding be done
-\code{\link{abpBrainExtraction}}}
+\item{pad}{should zero padding be done}
 
 \item{n_iter}{Number of iterations undergone with \code{\link{abpN4}}
-and}
+and \code{\link{abpBrainExtraction}}}
 }
 \value{
 A list of output images, brain and corrected
