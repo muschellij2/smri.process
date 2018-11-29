@@ -120,14 +120,24 @@ norm_predictors = function(
 #' Gather all predictors from norm_predictors function
 #'
 #' @param x Output from \code{\link{norm_predictors}}
+#' @param structures Should the labeled structures be included?
+#' @param tissues Should the hard segmentation of tissues be included?
+#' The tissue probabilities are already
 #'
 #' @return A vector of filenames.  Note hard tissue segmentations and
 #' sub-structural segmentations are removed
 #' @export
-gather_predictors = function(x) {
+gather_predictors = function(
+  x,
+  structures = FALSE,
+  tissues = FALSE) {
   # these aren't predictors for now
-  x$normalized$tissue$STRUCTURES = NULL
-  x$normalized$tissue$TISSUES = NULL
+  if (!structures) {
+    x$normalized$tissue$STRUCTURES = NULL
+  }
+  if (!tissues) {
+    x$normalized$tissue$TISSUES = NULL
+  }
   x$normalized$fast = lapply(
     x$normalized$fast,
     function(x) {

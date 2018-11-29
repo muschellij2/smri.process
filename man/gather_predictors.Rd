@@ -4,10 +4,15 @@
 \alias{gather_predictors}
 \title{Gather all predictors from norm_predictors function}
 \usage{
-gather_predictors(x)
+gather_predictors(x, structures = FALSE, tissues = FALSE)
 }
 \arguments{
 \item{x}{Output from \code{\link{norm_predictors}}}
+
+\item{structures}{Should the labeled structures be included?}
+
+\item{tissues}{Should the hard segmentation of tissues be included?
+The tissue probabilities are already}
 }
 \value{
 A vector of filenames.  Note hard tissue segmentations and
