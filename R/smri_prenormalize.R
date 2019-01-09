@@ -31,6 +31,8 @@
 #' \code{\link{reduce_img}}.
 #' @param brain_extraction_method Brain extraction method, either
 #' \code{\link{malf}} or \code{abp} for \code{\link{n4_skull_strip}}
+#' @param pad should zero padding be done before skull stripping
+#' (recommend to \code{TRUE})
 #' @param ... Additional arguments to MALF
 #'
 #' @return List of the images, brain mask, suffix, and output directory
@@ -60,6 +62,7 @@ smri_prenormalize = function(
   zero_origin = TRUE,
   reduce = TRUE,
   cleanup =1,
+  pad = TRUE,
   ...
 ) {
 
@@ -120,6 +123,7 @@ smri_prenormalize = function(
           template = penn115_image_fname(),
           template_mask = penn115_brain_mask_fname(),
           verbose = verbose,
+          pad = pad,
           n_iter = n_skull_iter)
         write_nifti(brain_mask, filename = brain_mask_file)
       }
@@ -147,6 +151,17 @@ smri_prenormalize = function(
         inverted = args$inverted
         keep_regs = args$keep_regs
 
+        infile = reg$T1
+        kdim = c(3, 3, 3)
+        if (pad) {
+          if (verbose) {
+            message("Zero-padding data")
+          }
+          infile = readnii(infile)
+          infile = zero_pad(infile, kdim = kdim)
+          infile = checkimg(infile)
+        }
+
         malf_result = malf(
           infile = reg$T1,
           template.images = images,
@@ -167,6 +182,12 @@ smri_prenormalize = function(
           }
         }
         brain_mask = malf_result >= brain_threshold
+        if (pad) {
+          if (verbose) {
+            message("Inverting Zero-padding data")
+          }
+          brain_mask = zero_pad(infile, kdim = kdim, invert = TRUE)
+        }
         writenii(brain_mask, filename = brain_mask_file)
       }
     }
@@ -201,7 +222,8 @@ smri_prenormalize = function(
     rigid_registrations = rigid_registrations,
     num_templates = num_templates,
     brain_threshold = brain_threshold,
-    brain_malf_function = brain_malf_function
+    brain_malf_function = brain_malf_function,
+    pad = pad
   )
   L$brain_pct = malf_result
   L$inverted = inverted

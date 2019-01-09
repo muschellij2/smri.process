@@ -12,7 +12,7 @@ smri_prenormalize(x, gold_standard = NULL, gs_space = NULL,
   brain_extraction_method = c("abp", "malf"),
   brain_malf_function = "staple_prob", n_skull_iter = 3,
   brain_threshold = 0.5, verbose = TRUE, remove_negative = TRUE,
-  zero_origin = TRUE, reduce = TRUE, cleanup = 1, ...)
+  zero_origin = TRUE, reduce = TRUE, cleanup = 1, pad = TRUE, ...)
 }
 \arguments{
 \item{x}{List of images}
@@ -66,6 +66,9 @@ image to be registered to?}
 \code{\link{reduce_img}}.}
 
 \item{cleanup}{Argument to \code{\link{reduce_img}} for reducing the images.}
+
+\item{pad}{should zero padding be done before skull stripping
+(recommend to \code{TRUE})}
 
 \item{...}{Additional arguments to MALF}
 }

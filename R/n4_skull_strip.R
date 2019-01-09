@@ -38,9 +38,13 @@ n4_skull_strip = function(
     }
     return(y)
   }
+  kdim = c(3, 3, 3)
   if (pad) {
+    if (verbose) {
+      message("Zero-padding data")
+    }
     img = check_nifti(file)
-    img = zero_pad(img, kdim = c(3, 3, 3))
+    img = zero_pad(img, kdim = kdim)
     file = checkimg(img)
     rm(img)
   }
@@ -92,8 +96,11 @@ n4_skull_strip = function(
     }
   }
   if (pad) {
+    if (verbose) {
+      message("Inverting Zero-padding data")
+    }
     img = check_nifti(submask)
-    img = zero_pad(img, kdim = c(3, 3, 3), invert = TRUE)
+    img = zero_pad(img, kdim = kdim, invert = TRUE)
     submask = oro2ants(img)
   }
 
