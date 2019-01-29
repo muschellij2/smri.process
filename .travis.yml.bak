@@ -57,7 +57,7 @@ before_install:
     fi    
   - if [[ "${PACKAGE_NAME}" == "ANTsR" ]]; 
     then 
-      export _R_CHECK_FORCE_SUGGESTS_=0 ;
+      export _R_CHECK_FORCE_SUGGESTS_=false ;
     fi
   - cat DESCRIPTION
   - install_remotes_no_dep

@@ -40,13 +40,15 @@ n4_skull_strip = function(
   }
   kdim = c(3, 3, 3)
   if (pad) {
-    if (verbose) {
-      message("Zero-padding data")
+    if (!"pad" %in% formalArgs(abpBrainExtraction)) {
+      if (verbose) {
+        message("Zero-padding data")
+      }
+      img = check_nifti(file)
+      img = zero_pad(img, kdim = kdim)
+      file = checkimg(img)
+      rm(img)
     }
-    img = check_nifti(file)
-    img = zero_pad(img, kdim = kdim)
-    file = checkimg(img)
-    rm(img)
   }
 
   subimg = reader(file)
@@ -86,6 +88,9 @@ n4_skull_strip = function(
     if (!"verbose" %in% formalArgs(abpBrainExtraction)) {
       args$verbose = NULL
     }
+    if ("pad" %in% formalArgs(abpBrainExtraction)) {
+      args$pad = 3
+    }
     bextract = do.call(abpBrainExtraction, args = args)
     rm(submask)
     submask = bextract$bmask
@@ -96,12 +101,14 @@ n4_skull_strip = function(
     }
   }
   if (pad) {
-    if (verbose) {
-      message("Inverting Zero-padding data")
+    if (!"pad" %in% formalArgs(abpBrainExtraction)) {
+      if (verbose) {
+        message("Inverting Zero-padding data")
+      }
+      img = check_nifti(submask)
+      img = zero_pad(img, kdim = kdim, invert = TRUE)
+      submask = oro2ants(img)
     }
-    img = check_nifti(submask)
-    img = zero_pad(img, kdim = kdim, invert = TRUE)
-    submask = oro2ants(img)
   }
 
   # simg = n4 * submask

@@ -43,7 +43,7 @@ before_install:
 - if [[ "${PACKAGE_NAME}" != "ANTsRCore" && "${PACKAGE_NAME}" != "ITKR" ]]; then echo
   "Installing Missing Deps ANTsR" ; install_missing_remote_deps ${ants_user}/ANTsR
   ; gh_binary_install ${ants_user}/ANTsR ; fi
-- if [[ "${PACKAGE_NAME}" == "ANTsR" ]]; then export _R_CHECK_FORCE_SUGGESTS_=0 ;
+- if [[ "${PACKAGE_NAME}" == "ANTsR" ]]; then export _R_CHECK_FORCE_SUGGESTS_=false ;
   fi
 - cat DESCRIPTION
 - install_remotes_no_dep
