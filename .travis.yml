@@ -33,6 +33,7 @@ before_install:
 - cmake --version
 - x=`cmake_setup`; echo "${x}"; eval ${x};
 - cmake --version
+- glu_header ;
 - export ants_user=neuroconductor
 - echo "Installing Missing Deps ITKR"
 - install_missing_remote_deps ${ants_user}/ITKR
