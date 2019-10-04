@@ -159,6 +159,9 @@ seg_normalize = function(
     function(x) {
       names(x) = nii.stub(x, bn = TRUE)
       seg = grepl("seg|mixeltype", names(x))
+      mixel = grepl("mixeltype", names(x))
+      x = x[!mixel]
+      seg = seg[!mixel]
 
       if (any(seg)) {
         dis_data = apm(
