@@ -24,7 +24,7 @@ multi_fast = function(
   }
 
   mod = "T1"
-  mods = c("T1", "T2", "PD")
+  mods = c("T1", "T2", "PD") #, "FLAIR")
   out = vector(mode = "list", length = 3)
   names(out) = mods
 
@@ -48,13 +48,17 @@ multi_fast = function(
         "_",
         out_type, ".nii.gz")
       if (!all_exists(fnames)) {
+        image_type = mod
+        if (mod == "FLAIR") {
+          image_type = "T2" # took out FLAIR because unsure of htis
+        }
         res = fast(
           img,
           bias_correct = FALSE,
           outfile = fast_outfile,
           verbose = verbose > 1,
           retimg = FALSE,
-          type = mod,
+          type = image_type,
           ...)
       } else {
         res = fnames
