@@ -54,6 +54,7 @@ multi_fast = function(
           outfile = fast_outfile,
           verbose = verbose > 1,
           retimg = FALSE,
+          type = mod,
           ...)
       } else {
         res = fnames
