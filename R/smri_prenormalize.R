@@ -69,6 +69,9 @@ smri_prenormalize = function(
   if (is.null(outdir)) {
     outdir = tempdir()
   }
+  if (!dir.exists(outdir)) {
+    dir.create(outdir, recursive = TRUE)
+  }
   proc = bc_noneck_reduce(
     x = x,
     remove_negative = remove_negative,
