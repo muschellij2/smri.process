@@ -128,6 +128,9 @@ spatial_normalize = function(
         interpolator = "windowedsinc")
 
       if (!is.null(brain_mask)) {
+        if (verbose > 1) {
+          message("Resampling Brain Mask")
+        }
         resampled_brain_mask = resample_to_target(
           prenormalize$brain_mask,
           target = resampled[[1]],
@@ -143,6 +146,9 @@ spatial_normalize = function(
       }
 
       if (!is.null(brain_pct)) {
+        if (verbose > 1) {
+          message("Resampling Brain Percent")
+        }
         resampled_brain_pct = resample_to_target(
           prenormalize$brain_pct,
           target = resampled[[1]],
@@ -158,6 +164,9 @@ spatial_normalize = function(
       }, resampled, fnames)
 
       if (!is.null(gold_standard)) {
+        if (verbose > 1) {
+          message("Resampling Gold Standard")
+        }
         # resampled_gs = resample_image(
         #   prenormalize$GOLD_STANDARD,
         #   parameters = c(1, 1, 1),
