@@ -53,7 +53,7 @@ smri_prenormalize = function(
   malf_transform = "SyNAggro",
   outdir = tempdir(),
   reg_space = "T1",
-  brain_extraction_method = c("abp", "malf"),
+  brain_extraction_method = c("abp", "malf", "robex"),
   brain_malf_function = "staple_prob",
   n_skull_iter = 3,
   brain_threshold = 0.5,
@@ -130,6 +130,22 @@ smri_prenormalize = function(
           n_iter = n_skull_iter)
         write_nifti(brain_mask, filename = brain_mask_file)
       }
+    } else if (brain_extraction_method == "robex") {
+      malf_result = NULL
+      if (all_exists(brain_mask_file)) {
+        brain_mask = readnii(brain_mask_file)
+      } else {
+        if (!requireNamespace("robex", quietly = TRUE)) {
+           stop(
+             paste0("robex package needs to be ",
+                    "installed for robex skull stripping"
+                    )
+           )
+        }
+        out = robex::robex(reg$T1, verbose = verbose)
+        brain_mask = readnii(out$outfile) > 0
+        write_nifti(brain_mask, filename = brain_mask_file)
+      }
     } else {
       brain_pct_file = file.path(
         outdir,
@@ -166,7 +182,7 @@ smri_prenormalize = function(
         }
 
         malf_result = malf(
-          infile = reg$T1,
+          infile = infile,
           template.images = images,
           template.structs = masks,
           image_interpolator = "Linear",
@@ -189,7 +205,10 @@ smri_prenormalize = function(
           if (verbose) {
             message("Inverting Zero-padding data")
           }
-          brain_mask = zero_pad(infile, kdim = kdim, invert = TRUE)
+          brain_mask = zero_pad(brain_mask, kdim = kdim, invert = TRUE)
+          brain_pct = readnii(brain_pct_file)
+          brain_pct = zero_pad(brain_pct, kdim = kdim, invert = TRUE)
+          writenii(brain_pct, brain_pct_file)
         }
         writenii(brain_mask, filename = brain_mask_file)
       }
