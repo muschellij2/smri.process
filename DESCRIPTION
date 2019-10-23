@@ -32,6 +32,7 @@ Suggests:
     robex
 Remotes: muschellij2/extrantsr,
     muschellij2/neurobase,
+    muschellij2/robex,
     muschellij2/oro.nifti,
     muschellij2/fslr,
     muschellij2/penn115,
