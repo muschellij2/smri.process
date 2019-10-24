@@ -5,6 +5,12 @@ warnings_are_errors: true
 use_bioc: true
 bioc_required: true
 cran: http://cran.rstudio.com
+dist: xenial
+
+latex: false
+compiler: clang
+osx_image: xcode9
+
 
 os:
 - linux
@@ -20,6 +26,11 @@ before_install:
 - fname=travis_helpers.sh
 - wget -O ${fname} http://bit.ly/travis_helpers
 - cat ${fname}; source ${fname}; rm ${fname}
+- codename=`linux_codename`;
+- if [ "${codename}" = "trusty" ];
+  then
+    start_xvfb ;
+  fi  
 - cat DESCRIPTION
 - export PACKAGE_NAME=`package_name`
 - export RCHECK_DIR=${PACKAGE_NAME}.Rcheck
@@ -29,7 +40,7 @@ before_install:
 - echo "CC=${CC}, CXX=${CXX}, CXX1X=${CXX1X}"
 - echo "CXX1XSTD=${CXX1XSTD}, CXX11=${CXX11}"
 - clang_cxx
-- export cmake_version="3.11"
+- export cmake_version="3.14"
 - cmake --version
 - x=`cmake_setup`; echo "${x}"; eval ${x};
 - cmake --version
@@ -70,6 +81,7 @@ after_success:
 - cat ${PACKAGE_NAME}.Rcheck/00install.out
 - cat ${PACKAGE_NAME}.Rcheck/00check.log
 after_failure:
+- dump_logs
 - cat ${PACKAGE_NAME}.Rcheck/00install.out
 - cat ${PACKAGE_NAME}.Rcheck/00check.log
 before_deploy:
