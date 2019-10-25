@@ -9,7 +9,7 @@ smri_prenormalize(x, gold_standard = NULL, gs_space = NULL,
   interpolator = "lanczosWindowedSinc", brain_mask = NULL,
   gs_interpolator = "genericLabel", num_templates = 15,
   malf_transform = "SyNAggro", outdir = tempdir(), reg_space = "T1",
-  brain_extraction_method = c("abp", "malf", "robex"),
+  brain_extraction_method = c("abp", "malf", "robex", "bet"),
   brain_malf_function = "staple_prob", n_skull_iter = 3,
   brain_threshold = 0.5, verbose = TRUE, remove_negative = TRUE,
   zero_origin = TRUE, reduce = TRUE, cleanup = 1, pad = TRUE, ...)

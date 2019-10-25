@@ -53,7 +53,7 @@ smri_prenormalize = function(
   malf_transform = "SyNAggro",
   outdir = tempdir(),
   reg_space = "T1",
-  brain_extraction_method = c("abp", "malf", "robex"),
+  brain_extraction_method = c("abp", "malf", "robex", "bet"),
   brain_malf_function = "staple_prob",
   n_skull_iter = 3,
   brain_threshold = 0.5,
@@ -144,6 +144,23 @@ smri_prenormalize = function(
         }
         out = robex::robex(reg$T1, verbose = verbose)
         brain_mask = readnii(out$outfile) > 0
+        write_nifti(brain_mask, filename = brain_mask_file)
+      }
+    } else if (brain_extraction_method == "bet") {
+      malf_result = NULL
+      if (all_exists(brain_mask_file)) {
+        brain_mask = readnii(brain_mask_file)
+      } else {
+        if (!requireNamespace("fslr", quietly = TRUE)) {
+          stop(
+            paste0("fslr package needs to be ",
+                   "installed for bet skull stripping"
+            )
+          )
+        }
+        bet_out = fslr::fslbet(reg$T1, verbose = verbose, retimg = TRUE)
+        brain_mask = bet_out > 0
+        rm(bet_out)
         write_nifti(brain_mask, filename = brain_mask_file)
       }
     } else {
